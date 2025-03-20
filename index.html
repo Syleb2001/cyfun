@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Évaluation de portée NIS2</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="text-center my-4">Évaluation de portée NIS2</h1>
+            <div class="alert alert-info">
+                <p>Cet outil créé par le Centre pour la Cybersécurité Belgique (CCB) vous permet d'évaluer si votre organisation entre dans le champ d'application de la loi belge NIS2. Il couvre les différentes conditions de portée de la loi : taille de l'organisation, service fourni et lieu d'établissement.</p>
+            </div>
+            <nav class="nav nav-pills nav-justified mb-4">
+                <a class="nav-link active" href="index.html">Évaluation NIS2</a>
+                <a class="nav-link" href="cyfun_assessment.html">Auto-évaluation CyFun</a>
+            </nav>
+        </header>
+
+        <div class="accordion" id="assessmentAccordion">
+            <!-- Section A: Taille de l'organisation -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingA">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseA" aria-expanded="true" aria-controls="collapseA">
+                        A. Taille de l'organisation ("size-cap")
+                    </button>
+                </h2>
+                <div id="collapseA" class="accordion-collapse collapse show" aria-labelledby="headingA">
+                    <div class="accordion-body">
+                        <p>Veuillez sélectionner la taille de votre organisation avant de continuer.</p>
+                        <p class="small">Ces seuils sont calculés sur la base des chiffres de l'entité juridique entière (y compris toutes ses activités, même en dehors de l'UE), consolidés proportionnellement avec les chiffres de ses entreprises partenaires ou liées.</p>
+                        
+                        <div class="mb-3">
+                            <label for="staffHeadcount" class="form-label">Sélectionnez votre effectif (en équivalents temps plein - ETP):</label>
+                            <select class="form-select" id="staffHeadcount">
+                                <option value="select">Sélectionner</option>
+                                <option value="0-49">0 - 49 ETP</option>
+                                <option value="50-249">50 - 249 ETP</option>
+                                <option value="250+">250+ ETP</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="turnover" class="form-label">Sélectionnez votre fourchette de chiffre d'affaires:</label>
+                            <select class="form-select" id="turnover">
+                                <option value="select">Sélectionner</option>
+                                <option value="<10">< 10 millions € de chiffre d'affaires annuel</option>
+                                <option value="10-50">10 – 50 millions € de chiffre d'affaires annuel</option>
+                                <option value="50+">50+ millions € de chiffre d'affaires annuel</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="balanceSheet" class="form-label">Sélectionnez votre total de bilan:</label>
+                            <select class="form-select" id="balanceSheet">
+                                <option value="select">Sélectionner</option>
+                                <option value="<10">< 10 millions € de bilan annuel</option>
+                                <option value="10-43">10 – 43 millions € de bilan annuel</option>
+                                <option value="43+">43+ millions € de bilan annuel</option>
+                            </select>
+                        </div>
+                        
+                        <div class="alert alert-primary mt-3">
+                            <strong>Taille de votre organisation: </strong><span id="organizationSize">Veuillez compléter les champs ci-dessus</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Section B: Secteurs et service fourni -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingB">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseB" aria-expanded="false" aria-controls="collapseB">
+                        B. Secteurs et service fourni
+                    </button>
+                </h2>
+                <div id="collapseB" class="accordion-collapse collapse" aria-labelledby="headingB">
+                    <div class="accordion-body">
+                        <p>Veuillez sélectionner au moins un secteur, ou le champ 'Aucun des secteurs ci-dessus' si votre organisation ne correspond à aucun des secteurs, avant de pouvoir continuer.</p>
+                        
+                        <div id="sectorsContainer">
+                            <!-- Les secteurs seront chargés dynamiquement ici -->
+                        </div>
+                        
+                        <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" id="noneOfTheAbove">
+                            <label class="form-check-label" for="noneOfTheAbove">
+                                Aucun des secteurs ci-dessus
+                            </label>
+                        </div>
+                        
+                        <div class="alert alert-warning mt-3" id="sectorWarning" style="display: none;">
+                            Vous ne pouvez pas sélectionner des services et l'option 'Aucun des secteurs ci-dessus' simultanément
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Section C: Relation avec la Belgique -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingC">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseC" aria-expanded="false" aria-controls="collapseC">
+                        C. Relation avec la Belgique
+                    </button>
+                </h2>
+                <div id="collapseC" class="accordion-collapse collapse" aria-labelledby="headingC">
+                    <div class="accordion-body">
+                        <p>Cette étape est cruciale pour déterminer si votre organisation relève de la loi belge NIS2.</p>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Votre organisation est-elle établie en Belgique?</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="establishedInBelgium" id="establishedYes" value="Yes">
+                                <label class="form-check-label" for="establishedYes">Oui</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="establishedInBelgium" id="establishedNo" value="No">
+                                <label class="form-check-label" for="establishedNo">Non</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="establishedInBelgium" id="establishedSelect" value="Select" checked>
+                                <label class="form-check-label" for="establishedSelect">Sélectionner</label>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3 conditional-question" id="mainEstablishmentQuestion" style="display: none;">
+                            <label class="form-label">Votre organisation a-t-elle son établissement principal en Belgique?</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="mainEstablishment" id="mainEstablishmentYes" value="Yes">
+                                <label class="form-check-label" for="mainEstablishmentYes">Oui</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="mainEstablishment" id="mainEstablishmentNo" value="No">
+                                <label class="form-check-label" for="mainEstablishmentNo">Non</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="mainEstablishment" id="mainEstablishmentSelect" value="Select" checked>
+                                <label class="form-check-label" for="mainEstablishmentSelect">Sélectionner</label>
+                            </div>
+                        </div>
+                        
+                        <!-- Autres questions conditionnelles seront ajoutées dynamiquement par JavaScript -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Section D: Services dans l'UE -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingD">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseD" aria-expanded="false" aria-controls="collapseD">
+                        D. Services dans l'UE
+                    </button>
+                </h2>
+                <div id="collapseD" class="accordion-collapse collapse" aria-labelledby="headingD">
+                    <div class="accordion-body">
+                        <div class="mb-3">
+                            <label class="form-label">Votre organisation fournit-elle des services dans l'UE?</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="servicesInEU" id="servicesInEUYes" value="Yes">
+                                <label class="form-check-label" for="servicesInEUYes">Oui</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="servicesInEU" id="servicesInEUNo" value="No">
+                                <label class="form-check-label" for="servicesInEUNo">Non</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="servicesInEU" id="servicesInEUSelect" value="Select" checked>
+                                <label class="form-check-label" for="servicesInEUSelect">Sélectionner</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Section E: Résultats -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingE">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseE" aria-expanded="false" aria-controls="collapseE">
+                        E. Résultats
+                    </button>
+                </h2>
+                <div id="collapseE" class="accordion-collapse collapse" aria-labelledby="headingE">
+                    <div class="accordion-body">
+                        <div class="alert alert-info mb-3">
+                            <p>Veuillez compléter toutes les sections précédentes pour voir vos résultats.</p>
+                        </div>
+                        
+                        <div id="resultsContainer" style="display: none;">
+                            <div class="alert alert-success mb-3">
+                                <h4>Résultat de l'évaluation:</h4>
+                                <p id="assessmentResult"></p>
+                            </div>
+                            
+                            <div class="card mb-3">
+                                <div class="card-header">Détails</div>
+                                <div class="card-body">
+                                    <p id="resultDetails"></p>
+                                </div>
+                            </div>
+                            
+                            <div class="alert alert-warning">
+                                <p><strong>Avertissement:</strong> Les résultats sont purement indicatifs et sans préjudice d'une analyse approfondie par les autorités compétentes. Aucune conséquence, ni aucun droit légal ne peut être dérivé des résultats de cet outil.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Section F: Évaluation du niveau d'assurance -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingF">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseF" aria-expanded="false" aria-controls="collapseF">
+                        F. Évaluation du niveau d'assurance CyFun
+                    </button>
+                </h2>
+                <div id="collapseF" class="accordion-collapse collapse" aria-labelledby="headingF">
+                    <div class="accordion-body">
+                        <div class="alert alert-info mb-3">
+                            <p>Cette section vous aide à déterminer le niveau d'assurance CyFun approprié pour votre organisation en fonction d'une évaluation des risques.</p>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <h5>Taille de l'organisation</h5>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="orgSize" id="orgSizeSmall" value="1">
+                                <label class="form-check-label" for="orgSizeSmall">Petite (S)</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="orgSize" id="orgSizeMedium" value="2">
+                                <label class="form-check-label" for="orgSizeMedium">Moyenne (M)</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="orgSize" id="orgSizeLarge" value="3">
+                                <label class="form-check-label" for="orgSizeLarge">Grande (L)</label>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <h5>Évaluation des risques par catégorie d'attaque</h5>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Catégorie d'attaque</th>
+                                        <th>Impact</th>
+                                        <th>Probabilité</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Sabotage/Perturbation (DDOS, etc.)</td>
+                                        <td>
+                                            <select class="form-select" id="sabotageThreatImpact">
+                                                <option value="1">Faible</option>
+                                                <option value="2">Moyen</option>
+                                                <option value="3" selected>Élevé</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select class="form-select" id="sabotageThreatProb">
+                                                <option value="1" selected>Faible</option>
+                                                <option value="2">Moyen</option>
+                                                <option value="3">Élevé</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Vol d'information (espionnage, etc.)</td>
+                                        <td>
+                                            <select class="form-select" id="theftThreatImpact">
+                                                <option value="1">Faible</option>
+                                                <option value="2">Moyen</option>
+                                                <option value="3" selected>Élevé</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select class="form-select" id="theftThreatProb">
+                                                <option value="1" selected>Faible</option>
+                                                <option value="2">Moyen</option>
+                                                <option value="3">Élevé</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Crime (attaques par rançon)</td>
+                                        <td>
+                                            <select class="form-select" id="crimeThreatImpact">
+                                                <option value="1">Faible</option>
+                                                <option value="2">Moyen</option>
+                                                <option value="3" selected>Élevé</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select class="form-select" id="crimeThreatProb">
+                                                <option value="1" selected>Faible</option>
+                                                <option value="2">Moyen</option>
+                                                <option value="3">Élevé</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Hacktivisme (subversion, défiguration, etc.)</td>
+                                        <td>
+                                            <select class="form-select" id="hacktivismThreatImpact">
+                                                <option value="1">Faible</option>
+                                                <option value="2" selected>Moyen</option>
+                                                <option value="3">Élevé</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select class="form-select" id="hacktivismThreatProb">
+                                                <option value="1" selected>Faible</option>
+                                                <option value="2">Moyen</option>
+                                                <option value="3">Élevé</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Désinformation (influence politique)</td>
+                                        <td>
+                                            <select class="form-select" id="disinfoThreatImpact">
+                                                <option value="1" selected>Faible</option>
+                                                <option value="2">Moyen</option>
+                                                <option value="3">Élevé</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select class="form-select" id="disinfoThreatProb">
+                                                <option value="1" selected>Faible</option>
+                                                <option value="2">Moyen</option>
+                                                <option value="3">Élevé</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <h5>Types d'acteurs menaçants</h5>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="threatActorCompetitors" checked>
+                                <label class="form-check-label" for="threatActorCompetitors">Concurrents</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="threatActorHacktivists" checked>
+                                <label class="form-check-label" for="threatActorHacktivists">Idéologues/Hacktivistes</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="threatActorTerrorists" checked>
+                                <label class="form-check-label" for="threatActorTerrorists">Terroristes</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="threatActorCriminals" checked>
+                                <label class="form-check-label" for="threatActorCriminals">Cybercriminels</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="threatActorNationState" checked>
+                                <label class="form-check-label" for="threatActorNationState">Acteurs étatiques</label>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <button class="btn btn-primary" id="calculateAssuranceBtn">Calculer le niveau d'assurance</button>
+                        </div>
+                        
+                        <div id="assuranceResultContainer" class="mt-4" style="display: none;">
+                            <div class="alert alert-primary">
+                                <h4>Niveau d'assurance CyFun recommandé:</h4>
+                                <p id="assuranceLevel" class="display-6 text-center"></p>
+                            </div>
+                            
+                            <div class="card mb-3">
+                                <div class="card-header">Explication</div>
+                                <div class="card-body">
+                                    <p id="assuranceExplanation"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-4 text-center">
+            <button class="btn btn-primary" id="resetBtn">Réinitialiser l'évaluation</button>
+        </div>
+        
+        <footer class="mt-5 text-center">
+            <p class="small"> Anderson Audit</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="nis2_data.js"></script>
+    <script src="assurance_data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

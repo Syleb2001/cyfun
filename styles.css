@@ -1,0 +1,128 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.container {
+    max-width: 900px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    color: #0056b3;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: #e7f1ff;
+    color: #0056b3;
+}
+
+.accordion-button:focus {
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.form-label {
+    font-weight: 500;
+}
+
+.sector-category {
+    margin-bottom: 15px;
+    border-left: 3px solid #0056b3;
+    padding-left: 10px;
+}
+
+.sector-subcategory {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 15px;
+    border-left: 2px solid #6c757d;
+}
+
+.sector-item {
+    margin-left: 20px;
+    margin-bottom: 5px;
+}
+
+.tooltip-icon {
+    cursor: help;
+    color: #0056b3;
+    margin-left: 5px;
+}
+
+.conditional-question {
+    padding-left: 20px;
+    border-left: 2px dashed #dee2e6;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#resultsContainer {
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.btn-primary:hover {
+    background-color: #004494;
+    border-color: #004494;
+}
+
+footer {
+    color: #6c757d;
+    border-top: 1px solid #dee2e6;
+    padding-top: 20px;
+}
+
+/* Styles pour les info-bulles */
+[data-bs-toggle="tooltip"] {
+    text-decoration: underline dotted;
+    cursor: help;
+}
+
+/* Animation pour les transitions */
+.accordion-body {
+    transition: all 0.3s ease;
+}
+
+/* Style pour les alertes */
+.alert {
+    border-radius: 5px;
+}
+
+/* Style pour les cases à cocher et boutons radio */
+.form-check-input:checked {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+/* Style pour les éléments désactivés */
+.disabled-item {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Style pour les résultats */
+#assessmentResult {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+    
+    .sector-item {
+        margin-left: 10px;
+    }
+}

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyFun Self-Assessment Technique</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Ajout des bibliothèques pour la génération de PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body>
+    <div class="container mt-4">
+        <header class="mb-5">
+            <h1 class="text-center">CyFun Self-Assessment Technique</h1>
+            <p class="text-center lead">Évaluez votre conformité au CyberFundamentals Framework</p>
+        </header>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="accordion" id="accordionCyFun">
+                    <!-- Section A: Introduction -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingA">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseA" aria-expanded="true" aria-controls="collapseA">
+                                A. Introduction
+                            </button>
+                        </h2>
+                        <div id="collapseA" class="accordion-collapse collapse show" aria-labelledby="headingA" data-bs-parent="#accordionCyFun">
+                            <div class="accordion-body">
+                                <div id="introductionSection">
+                                    <!-- Le contenu sera chargé dynamiquement depuis cyfun_data.js -->
+                                </div>
+                                
+                                <div class="row mt-4">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="organizationName" class="form-label">Nom de l'organisation</label>
+                                            <input type="text" class="form-control" id="organizationName">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="assessmentDate" class="form-label">Date d'évaluation</label>
+                                            <input type="date" class="form-control" id="assessmentDate">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row mt-2">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="assessmentLevel" class="form-label">Niveau d'évaluation</label>
+                                            <select class="form-select" id="assessmentLevel">
+                                                <option value="BASIC">BASIC</option>
+                                                <option value="IMPORTANT">IMPORTANT</option>
+                                                <option value="ESSENTIAL">ESSENTIAL</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section B: Maturity Levels -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingB">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseB" aria-expanded="false" aria-controls="collapseB">
+                                B. Niveaux de Maturité
+                            </button>
+                        </h2>
+                        <div id="collapseB" class="accordion-collapse collapse" aria-labelledby="headingB" data-bs-parent="#accordionCyFun">
+                            <div class="accordion-body">
+                                <p>L'évaluation de la maturité est basée sur deux aspects :</p>
+                                <ul>
+                                    <li><strong>Maturité de la documentation</strong> : Comment le contrôle est documenté</li>
+                                    <li><strong>Maturité de l'implémentation</strong> : Comment cette documentation est mise en œuvre</li>
+                                </ul>
+                                
+                                <div id="maturityLevelsSection">
+                                    <!-- Le contenu sera chargé dynamiquement depuis cyfun_data.js -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section C: Assessment Controls -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingC">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseC" aria-expanded="false" aria-controls="collapseC">
+                                C. Contrôles d'Évaluation
+                            </button>
+                        </h2>
+                        <div id="collapseC" class="accordion-collapse collapse" aria-labelledby="headingC" data-bs-parent="#accordionCyFun">
+                            <div class="accordion-body">
+                                <div id="controlsSection">
+                                    <!-- Les contrôles seront générés dynamiquement ici en fonction du niveau sélectionné -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section D: Results -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingD">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseD" aria-expanded="false" aria-controls="collapseD">
+                                D. Résultats
+                            </button>
+                        </h2>
+                        <div id="collapseD" class="accordion-collapse collapse" aria-labelledby="headingD" data-bs-parent="#accordionCyFun">
+                            <div class="accordion-body">
+                                <div class="d-grid gap-2 mb-4">
+                                    <button class="btn btn-primary" id="calculateResults">Calculer les résultats</button>
+                                </div>
+                                
+                                <div id="resultsSection">
+                                    <!-- Les résultats seront affichés ici après le calcul -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="mt-5 mb-3 text-center text-muted">
+            <p>CyFun Self-Assessment Tool &copy; 2023</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="cyfun_data.js"></script>
+    <script src="cyfun_app.js"></script>
+</body>
+</html>

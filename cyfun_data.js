@@ -186,205 +186,205 @@ const cyfunData = {
             },
             // PROTECT (PR)
             {
-                function: "PROTECT",
-                category: "Access Control (PR.AC)",
-                keyMeasure: true,
-                controlId: "PR.AC-1",
-                controlName: "Identities and credentials are issued, managed, verified, revoked, and audited for authorized devices, users and processes",
-                requirement: "PR.AC-1.1: Unique user accounts shall be created for each individual.",
-                guidance: "• Consider to create unique accounts for each employee. This allows you to track the actions of each individual and to remove access when an employee leaves.\n• Consider to create unique administrator accounts for each administrator. This allows you to track the actions of each administrator and to remove access when an administrator leaves.\n• Consider to create unique service accounts for each service. This allows you to track the actions of each service and to remove access when a service is no longer needed."
-            },
-            {
-                function: "PROTECT",
-                category: "Access Control (PR.AC)",
-                keyMeasure: true,
-                controlId: "PR.AC-1",
-                controlName: "Identities and credentials are issued, managed, verified, revoked, and audited for authorized devices, users and processes",
-                requirement: "PR.AC-1.2: All accounts shall have strong passwords.",
-                guidance: "• Consider to use strong passwords for all accounts. A strong password is at least 12 characters long and contains a mix of uppercase and lowercase letters, numbers, and special characters.\n• Consider to use a password manager to generate and store strong passwords.\n• Consider to use multi-factor authentication for all accounts, especially for administrator accounts."
-            },
-            {
-                function: "PROTECT",
-                category: "Access Control (PR.AC)",
-                keyMeasure: false,
-                controlId: "PR.AC-2",
-                controlName: "Physical access to assets is managed and protected",
-                requirement: "PR.AC-2.1: Physical access to assets shall be managed and protected.",
-                guidance: "• Consider implementing physical access controls to protect assets from unauthorized access.\n• Consider maintaining logs of physical access to sensitive areas.\n• Consider regularly reviewing and updating physical access controls."
-            },
-            {
-                function: "PROTECT",
-                category: "Access Control (PR.AC)",
-                keyMeasure: false,
-                controlId: "PR.AC-3",
-                controlName: "Remote access is managed",
-                requirement: "PR.AC-3.1: The organisation's wireless access points shall be secured.",
-                guidance: "Consider the following when wireless networking is used:\n• Change the administrative password upon installation of a wireless access points.\n• Set the wireless access point so that it does not broadcast its Service Set Identifier (SSID).\n• Set your router to use at least WiFi Protected Access (WPA-2 or WPA-3 where possible), with the Advanced Encryption Standard (AES) for encryption.\n• Ensure that wireless internet access to customers is separated from your business network.\n• Connecting to unknown or unsecured / guest wireless access points, should be avoided, and if unavoidable done through an encrypted virtual private network (VPN) capability.\n• Manage all endpoint devices (fixed and mobile) according to the organization's security policies."
-            },
-            {
-                function: "PROTECT",
-                category: "Access Control (PR.AC)",
-                keyMeasure: true,
-                controlId: "PR.AC-4",
-                controlName: "Access permissions and authorizations are managed, incorporating the principles of least privilege and separation of duties",
-                requirement: "PR.AC-4.1: Access to information shall be restricted in accordance with the access control policy.",
-                guidance: "• Consider to restrict access to information to only those who need it to perform their job functions.\n• Consider to review access rights regularly to ensure that they are still appropriate.\n• Consider to remove access rights when an employee leaves or changes roles."
-            },
-            {
-                function: "PROTECT",
-                category: "Access Control (PR.AC)",
-                keyMeasure: true,
-                controlId: "PR.AC-4",
-                controlName: "Access permissions and authorizations are managed, incorporating the principles of least privilege and separation of duties",
-                requirement: "PR.AC-4.4: Nobody shall have administrator privileges for daily tasks.",
-                guidance: "Consider the following:\n• Separate administrator accounts from user accounts.\n• Do not privilege user accounts to effectuate administration tasks.\n• Create unique local administrator passwords and disable unused accounts.\n• Consider prohibiting Internet browsing from administrative accounts."
-            },
-            {
-                function: "PROTECT",
-                category: "Data Security (PR.DS)",
-                keyMeasure: true,
-                controlId: "PR.DS-1",
-                controlName: "Data-at-rest is protected",
-                requirement: "PR.DS-1.1: Sensitive data shall be protected at rest.",
-                guidance: "• Consider to encrypt sensitive data at rest. This includes data stored on servers, workstations, mobile devices, and removable media.\n• Consider to use full-disk encryption for all devices that store sensitive data.\n• Consider to use file-level encryption for sensitive files."
-            },
-            {
-                function: "PROTECT",
-                category: "Data Security (PR.DS)",
-                keyMeasure: true,
-                controlId: "PR.DS-2",
-                controlName: "Data-in-transit is protected",
-                requirement: "PR.DS-2.1: Sensitive data shall be protected in transit.",
-                guidance: "• Consider to encrypt sensitive data in transit. This includes data transmitted over networks, including the Internet.\n• Consider to use encrypted protocols such as HTTPS, SFTP, and SSH.\n• Consider to use a virtual private network (VPN) when connecting to the organization's network from outside."
-            },
-            {
-                function: "PROTECT",
-                category: "Maintenance (PR.MA)",
-                keyMeasure: false,
-                controlId: "PR.MA-1",
-                controlName: "Maintenance and repair of organizational assets are performed and logged with approved tools",
-                requirement: "PR.MA-1.1: Maintenance and repair of organizational assets shall be performed and logged with approved tools.",
-                guidance: "• Consider maintaining a log of all maintenance and repair activities.\n• Consider using only approved tools and techniques for maintenance and repair.\n• Consider verifying that maintenance personnel have appropriate access and authorization."
-            },
-            {
-                function: "PROTECT",
-                category: "Information Protection Processes and Procedures (PR.IP)",
-                keyMeasure: true,
-                controlId: "PR.IP-4",
-                controlName: "Backups of information are conducted, maintained, and tested",
-                requirement: "PR.IP-4.1: Backups for organization's business critical data shall be conducted and stored on a system different from the device on which the original data resides.",
-                guidance: "• Organization's business critical system's data includes for example software, configurations and settings, documentation, system configuration data including computer configuration backups, application configuration backups, etc.\n• Consider a regular backup and put it offline periodically.\n• Recovery time and recovery point objectives should be considered.\n• Consider not storing the organization's data backup on the same network as the system on which the original data resides and provide an offline copy. Among other things, this prevents file encryption by hackers (risk of ransomware)."
-            },
-            {
-                function: "PROTECT",
-                category: "Information Protection Processes and Procedures (PR.IP)",
-                keyMeasure: false,
-                controlId: "PR.IP-10",
-                controlName: "Response and recovery plans are tested",
-                requirement: "PR.IP-10.1: The organization shall test response and recovery plans to determine the effectiveness of the plans and the organizational readiness to execute the plans.",
-                guidance: "• Consider to test response and recovery plans at least annually.\n• Consider to update response and recovery plans based on the results of the tests.\n• Consider to involve all relevant stakeholders in the tests."
-            },
-            {
-                function: "PROTECT",
-                category: "Information Protection Processes and Procedures (PR.IP)",
-                keyMeasure: false,
-                controlId: "PR.IP-11",
-                controlName: "Cybersecurity is included in human resources practices (e.g., deprovisioning, personnel screening)",
-                requirement: "PR.IP-11.1: Personnel having access to the organization's most critical information or technology shall be verified.",
-                guidance: "The access to critical information or technology should be considered when recruiting, during employment and at termination.\nBackground verification checks should take into consideration applicable laws, regulations, and ethics in proportion to the business requirements, the classification of the information to be accessed and the perceived risks."
-            },
-            {
-                function: "PROTECT",
-                category: "Protective Technology (PR.PT)",
-                keyMeasure: true,
-                controlId: "PR.PT-1",
-                controlName: "Audit/log records are determined, documented, implemented, and reviewed",
-                requirement: "PR.PT-1.1: Audit/log records shall be determined, documented, implemented, and reviewed.",
-                guidance: "• Consider implementing logging for all critical systems and applications.\n• Consider reviewing logs regularly to detect suspicious activity.\n• Consider protecting logs from unauthorized access, modification, or deletion."
-            },
-            {
-                function: "PROTECT",
-                category: "Protective Technology (PR.PT)",
-                keyMeasure: true,
-                controlId: "PR.PT-4",
-                controlName: "Communications and control networks are protected",
-                requirement: "PR.PT-4.1: Communications and control networks shall be protected.",
-                guidance: "• Consider implementing network segmentation to separate different parts of your network.\n• Consider using firewalls to control traffic between network segments.\n• Consider encrypting sensitive network traffic."
-            },
+                "function": "PROTECT",
+                "category": "Identity Management, Authorization and Access Control (PR.AC)",
+                "keyMeasure": true,
+                "controlId": "PR.AC-1",
+                "controlName": "Identities and credentials are issued, managed, verified, revoked, and audited for authorized devices, users, and processes.",
+                "requirement": "PR.AC-1.1: Identities and credentials for authorized devices and users shall be managed. (Key measure)",
+                "guidance": "Use a password policy (change defaults, avoid admin for daily tasks, maintain admin account list, require strong passwords, disable unused accounts) and group-based privilege management."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Identity Management, Authorization and Access Control (PR.AC)",
+                "keyMeasure": false,
+                "controlId": "PR.AC-2",
+                "controlName": "Physical access to assets is managed and protected.",
+                "requirement": "PR.AC-2.1: Physical access to the facility, servers and network components shall be managed.",
+                "guidance": "Secure keys, badges, and alarm codes; remove them promptly when employees leave; avoid leaving network ports accessible in public areas; log and restrict visitor access."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Identity Management, Authorization and Access Control (PR.AC)",
+                "keyMeasure": true,
+                "controlId": "PR.AC-3",
+                "controlName": "Remote access is managed.",
+                "requirement": "PR.AC-3.1: The organisation's wireless access points shall be secured.\nPR.AC-3.2: The organization's networks when accessed remotely shall be secured, including through MFA. (Key measure)",
+                "guidance": "Secure Wi-Fi (change default admin password, use WPA2/WPA3, separate guest network), avoid unsecured Wi-Fi, enforce MFA for remote systems (e.g. VPN, email, RDP)."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Identity Management, Authorization and Access Control (PR.AC)",
+                "keyMeasure": true,
+                "controlId": "PR.AC-4",
+                "controlName": "Access permissions and authorizations are managed, incorporating the principles of least privilege and separation of duties.",
+                "requirement": "PR.AC-4.1: Access permissions for users shall be defined and managed. (Key measure)\nPR.AC-4.2: Identify who should have access to critical information and their means of access. (Key measure)\nPR.AC-4.3: Employees only get the access needed to do their jobs (Least Privilege). (Key measure)\nPR.AC-4.4: Nobody shall have administrator privileges for daily tasks. (Key measure)",
+                "guidance": "Regularly review who has which access, enforce unique user accounts with strong passwords, separate admin vs. user accounts, revoke access immediately for departing staff."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Identity Management, Authorization and Access Control (PR.AC)",
+                "keyMeasure": true,
+                "controlId": "PR.AC-5",
+                "controlName": "Network integrity (network segregation, network segmentation…) is protected.",
+                "requirement": "PR.AC-5.1: Firewalls shall be installed and activated on all the organization's networks. (Key measure)\nPR.AC-5.2: Where appropriate, network integrity of critical systems shall be protected by network segmentation and segregation. (Key measure)",
+                "guidance": "Deploy firewalls at network boundaries and endpoints; change admin credentials; keep them updated; consider intrusion detection/prevention and separate critical systems into segments to limit lateral movement."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Awareness and Training (PR.AT)",
+                "keyMeasure": false,
+                "controlId": "PR.AT-1",
+                "controlName": "All users are informed and trained.",
+                "requirement": "PR.AT-1.1: Employees shall be trained as appropriate.",
+                "guidance": "Train everyone (including managers) on security policies and best practices upon hire and regularly; reinforce via ongoing awareness (e.g., phishing exercises)."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Data Security (PR.DS)",
+                "keyMeasure": false,
+                "controlId": "PR.DS-1",
+                "controlName": "Data-at-rest is protected.",
+                "requirement": "No additional requirements for Basic; guidelines are provided to secure data at rest.",
+                "guidance": "Consider encrypting sensitive data on storage media (laptops, USB, cloud), using tools like BitLocker or FileVault, and keep keys safe."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Data Security (PR.DS)",
+                "keyMeasure": false,
+                "controlId": "PR.DS-2",
+                "controlName": "Data-in-transit is protected.",
+                "requirement": "No additional requirements for Basic; guidelines are provided to secure data in transit.",
+                "guidance": "Encrypt sensitive documents or emails with supported tools; ensure secure channels (e.g. TLS) when transferring data over networks."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Data Security (PR.DS)",
+                "keyMeasure": false,
+                "controlId": "PR.DS-3",
+                "controlName": "Assets are formally managed throughout removal, transfers, and disposition.",
+                "requirement": "PR.DS-3.1: Assets and media shall be disposed of safely.",
+                "guidance": "Securely wipe or destroy data on retired devices (PCs, servers, disks, USB) before disposal; consider remote-wipe for laptops/mobile devices."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Data Security (PR.DS)",
+                "keyMeasure": false,
+                "controlId": "PR.DS-7",
+                "controlName": "The development and testing environment(s) are separate from the production environment.",
+                "requirement": "No additional requirements for Basic; guidelines are provided to separate dev/test from production.",
+                "guidance": "Test changes in a non-production environment first; adopt secure development lifecycle principles; avoid impacting live operations."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Information Protection Processes and Procedures (PR.IP)",
+                "keyMeasure": true,
+                "controlId": "PR.IP-4",
+                "controlName": "Backups of information are conducted, maintained, and tested.",
+                "requirement": "PR.IP-4.1: Backups of business-critical data shall be conducted and stored separately. (Key measure)",
+                "guidance": "Regularly back up critical data to a separate system or offline storage; consider frequency, retention, and testing to ensure recovery readiness."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Information Protection Processes and Procedures (PR.IP)",
+                "keyMeasure": false,
+                "controlId": "PR.IP-11",
+                "controlName": "Cybersecurity is included in human resources practices (deprovisioning, personnel screening…).",
+                "requirement": "PR.IP-11.1: Personnel having access to the organization’s most critical information or technology shall be verified.",
+                "guidance": "Screen individuals for sensitive roles, ensure background checks align with laws, and revoke access promptly upon role change or termination."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Maintenance (PR.MA)",
+                "keyMeasure": true,
+                "controlId": "PR.MA-1",
+                "controlName": "Maintenance and repair of organizational assets are performed and logged, with approved and controlled tools.",
+                "requirement": "PR.MA-1.1: Patches and security updates for Operating Systems and critical system components shall be installed. (Key measure)",
+                "guidance": "Install vendor-supported software only; apply patches promptly; dedicate time each month to check updates; use a patch-management tool if possible."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Protective Technology (PR.PT)",
+                "keyMeasure": true,
+                "controlId": "PR.PT-1",
+                "controlName": "Audit/log records are determined, documented, implemented, and reviewed in accordance with policy.",
+                "requirement": "PR.PT-1.1: Logs shall be maintained, documented, and reviewed. (Key measure)",
+                "guidance": "Enable logging on security solutions (firewalls, AV), store logs securely, review them for anomalies (e.g. unusual activity) and keep them for a set period."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Protective Technology (PR.PT)",
+                "keyMeasure": false,
+                "controlId": "PR.PT-4",
+                "controlName": "Communications and control networks are protected.",
+                "requirement": "PR.PT-4.1: Web and e-mail filters shall be installed and used.",
+                "guidance": "Deploy email filters to detect malicious attachments or links, configure web filters to block known-malicious sites, and keep these filters up to date."
+              },
             // DETECT (DE)
             {
-                function: "DETECT",
-                category: "Anomalies and Events (DE.AE)",
-                keyMeasure: false,
-                controlId: "DE.AE-3",
-                controlName: "Event data are collected and correlated from multiple sources and sensors",
-                requirement: "DE.AE-3.1: Event data shall be collected and correlated from multiple sources and sensors.",
-                guidance: "• Consider collecting and analyzing event data from various sources, such as network devices, servers, and security appliances.\n• Consider correlating events to identify patterns that might indicate security incidents.\n• Consider implementing a security information and event management (SIEM) system."
-            },
-            {
-                function: "DETECT",
-                category: "Security Continuous Monitoring (DE.CM)",
-                keyMeasure: false,
-                controlId: "DE.CM-1",
-                controlName: "The network is monitored to detect potential cybersecurity events",
-                requirement: "DE.CM-1.1: The network shall be monitored to detect potential cybersecurity events.",
-                guidance: "• Consider implementing network monitoring tools to detect unusual or suspicious network activity.\n• Consider establishing baselines of normal network behavior to help identify anomalies.\n• Consider monitoring both inbound and outbound network traffic."
-            },
-            {
-                function: "DETECT",
-                category: "Security Continuous Monitoring (DE.CM)",
-                keyMeasure: false,
-                controlId: "DE.CM-3",
-                controlName: "Personnel activity is monitored to detect potential cybersecurity events",
-                requirement: "DE.CM-3.1: Personnel activity shall be monitored to detect potential cybersecurity events.",
-                guidance: "• Consider monitoring user activity to detect unusual or suspicious behavior.\n• Consider implementing user behavior analytics to identify anomalies in user activity.\n• Consider monitoring privileged user activities more closely."
-            },
-            {
-                function: "DETECT",
-                category: "Security Continuous Monitoring (DE.CM)",
-                keyMeasure: true,
-                controlId: "DE.CM-4",
-                controlName: "Malicious code is detected",
-                requirement: "DE.CM-4.1: Anti-malware software shall be deployed on all systems commonly affected by malicious software.",
-                guidance: "• Consider to deploy anti-malware software on all systems commonly affected by malicious software, including servers, workstations, and mobile devices.\n• Consider to configure anti-malware software to update automatically and to scan regularly.\n• Consider to configure anti-malware software to scan all files when they are accessed and to quarantine or remove malicious files."
-            },
-            {
-                function: "DETECT",
-                category: "Security Continuous Monitoring (DE.CM)",
-                keyMeasure: true,
-                controlId: "DE.CM-8",
-                controlName: "Vulnerability scans are performed",
-                requirement: "DE.CM-8.1: Vulnerability scans shall be performed on all internet facing systems.",
-                guidance: "• Consider to perform vulnerability scans on all internet-facing systems at least monthly.\n• Consider to remediate vulnerabilities in a timely manner based on the risk they pose.\n• Consider to use automated tools to perform vulnerability scans."
-            },
+                "function": "DETECT",
+                "category": "Anomalies and Events (DE.AE)",
+                "keyMeasure": true,
+                "controlId": "DE.AE-3",
+                "controlName": "Event data are collected and correlated from multiple sources and sensors.",
+                "requirement": "DE.AE-3.1: Activity logging (firewalls, anti-virus) shall be enabled, backed up, and reviewed. (Key measure)",
+                "guidance": "Store logs for a defined period and review them for anomalies (e.g., high social media use or frequent malware detections) to spot potential problems or needed protections."
+              },
+              {
+                "function": "DETECT",
+                "category": "Security Continuous Monitoring (DE.CM)",
+                "keyMeasure": false,
+                "controlId": "DE.CM-1",
+                "controlName": "The network is monitored to detect potential cybersecurity events.",
+                "requirement": "DE.CM-1.1: Firewalls shall be installed and operated at network boundaries, complemented by firewall protection on endpoints.",
+                "guidance": "Deploy firewalls at internet gateways and on devices (servers, desktops); consider minimizing the number of external access points to reduce exposure."
+              },
+              {
+                "function": "DETECT",
+                "category": "Security Continuous Monitoring (DE.CM)",
+                "keyMeasure": false,
+                "controlId": "DE.CM-3",
+                "controlName": "Personnel activity is monitored to detect potential cybersecurity events.",
+                "requirement": "DE.CM-3.1: Implement endpoint/network protection tools to track dangerous user behaviors.",
+                "guidance": "Consider using Intrusion Detection/Prevention Systems (IDS/IPS) to identify and block suspicious activity from end-user devices."
+              },
+              {
+                "function": "DETECT",
+                "category": "Security Continuous Monitoring (DE.CM)",
+                "keyMeasure": true,
+                "controlId": "DE.CM-4",
+                "controlName": "Malicious code is detected.",
+                "requirement": "DE.CM-4.1: Anti-virus, anti-spyware, and other anti-malware software shall be installed and updated. (Key measure)",
+                "guidance": "Install and regularly update malware protection on all devices; schedule real-time or frequent scans, and consider coverage for telework or BYOD systems."
+              },
             // RESPOND (RS)
             {
-                function: "RESPOND",
-                category: "Response Planning (RS.RP)",
-                keyMeasure: false,
-                controlId: "RS.RP-1",
-                controlName: "Response plan is executed during or after an incident",
-                requirement: "RS.RP-1.1: The organization shall execute its response plan during or after an incident.",
-                guidance: "• The incident response process should include a predetermined set of instructions or procedures to detect, respond to, and limit consequences of a malicious cyber-attack.\n• The roles, responsibilities, and authorities in the incident response plan should be specific on involved people, contact info, different roles and responsibilities, and who makes the decision to initiate recovery procedures as well as who will be the contact with appropriate external stakeholders."
-            },
-            {
-                function: "RESPOND",
-                category: "Communications (RS.CO)",
-                keyMeasure: false,
-                controlId: "RS.CO-3",
-                controlName: "Information is shared consistent with response plans",
-                requirement: "RS.CO-3.1: Information/cybersecurity incident information shall be communicated and shared with the organization's employees in a format that they can understand.",
-                guidance: "There are no additional guidelines."
-            },
-            {
-                function: "RESPOND",
-                category: "Improvements (RS.IM)",
-                keyMeasure: false,
-                controlId: "RS.IM-1",
-                controlName: "Response plans incorporate lessons learned",
-                requirement: "RS.IM-1.1: Response plans shall incorporate lessons learned.",
-                guidance: "• Consider conducting post-incident reviews to identify lessons learned.\n• Consider updating response plans based on the results of the tests.\n• Consider sharing lessons learned with relevant stakeholders."
-            },
+                "function": "RESPOND",
+                "category": "Response Planning (RS.RP)",
+                "keyMeasure": false,
+                "controlId": "RS.RP-1",
+                "controlName": "Response plan is executed during or after an incident.",
+                "requirement": "RS.RP-1.1: An incident response process, including roles, responsibilities, and authorities, shall be executed during or after an information/cybersecurity event on the organization's critical systems.",
+                "guidance": "Develop a documented process with roles, responsibilities, and instructions to detect, respond to, and limit consequences of a malicious cyberattack; identify who decides on recovery and who contacts external stakeholders."
+              },
+              {
+                "function": "RESPOND",
+                "category": "Communications (RS.CO)",
+                "keyMeasure": false,
+                "controlId": "RS.CO-3",
+                "controlName": "Information is shared consistent with response plans.",
+                "requirement": "RS.CO-3.1: Information/cybersecurity incident information shall be communicated and shared with employees in an understandable format.",
+                "guidance": "Notify staff about incidents with clear details (what happened, potential impact, steps to take) to ensure they can respond appropriately and maintain awareness."
+              },
+              {
+                "function": "RESPOND",
+                "category": "Improvements (RS.IM)",
+                "keyMeasure": false,
+                "controlId": "RS.IM-1",
+                "controlName": "Response plans incorporate lessons learned.",
+                "requirement": "RS.IM-1.1: The organization shall conduct post-incident evaluations to analyze lessons learned and improve processes, procedures, and technologies.",
+                "guidance": "Bring involved personnel together after an incident to review actions taken, identify root causes, and adapt security measures to prevent recurrence and strengthen resilience."
+              },
             // RECOVER (RC)
             {
                 function: "RECOVER",
@@ -401,430 +401,555 @@ const cyfunData = {
         IMPORTANT: [
             // IDENTIFY (ID)
             {
-                function: "IDENTIFY",
-                category: "Asset Management (ID.AM)",
-                keyMeasure: false,
-                controlId: "ID.AM-1",
-                controlName: "Physical devices and systems within the organization are inventoried",
-                requirement: "ID.AM-1.1: An inventory of assets associated with information and information processing facilities within the organization shall be documented, reviewed, and updated when changes occur.",
-                guidance: "• This inventory includes fixed and portable computers, tablets, mobile phones, Programmable Logic Controllers (PLCs), sensors, actuators, robots, machine tools, firmware, network switches, routers, power supplies, and other networked components or devices.\n• This inventory must include all assets, whether or not they are connected to the organization's network.\n• The use of an IT asset management tool could be considered."
-            },
-            {
-                function: "IDENTIFY",
-                category: "Asset Management (ID.AM)",
-                keyMeasure: false,
-                controlId: "ID.AM-1",
-                controlName: "Physical devices and systems within the organization are inventoried",
-                requirement: "ID.AM-1.2: The inventory of assets associated with information and information processing shall reflect changes in the organization's context and include all information necessary for effective accountability.",
-                guidance: "• Inventory specifications include for example, manufacturer, device type, model, serial number, machine names and network addresses, physical location…\n• Accountability is the obligation to explain, justify, and take responsibility for one's actions, it implies answerability for the outcome of the task or process.\n• Changes include the decommissioning of material."
-            },
-            {
-                function: "IDENTIFY",
-                category: "Asset Management (ID.AM)",
-                keyMeasure: false,
-                controlId: "ID.AM-1",
-                controlName: "Physical devices and systems within the organization are inventoried",
-                requirement: "ID.AM-1.3: When unauthorized hardware is detected, it shall be quarantined for possible exception handling, removed, or replaced, and the inventory shall be updated accordingly.",
-                guidance: "• Any unsupported hardware without an exception documentation, is designated as unauthorized.\n• Unauthorized hardware can be detected during inventory, requests for support by the user or other means."
-            },
-            {
-                function: "IDENTIFY",
-                category: "Asset Management (ID.AM)",
-                keyMeasure: false,
-                controlId: "ID.AM-2",
-                controlName: "Software platforms and applications within the organization are inventoried",
-                requirement: "ID.AM-2.1: An inventory that reflects what software platforms and applications are being used in the organization shall be documented, reviewed, and updated when changes occur.",
-                guidance: "• This inventory includes software programs, software platforms and databases, even if outsourced (SaaS).\n• Outsourcing arrangements should be part of the contractual agreements with the provider.\n• Information in the inventory should include for example: name, description, version, number of users, data processed, etc.\n• A distinction should be made between unsupported software and unauthorized software.\n• The use of an IT asset management tool could be considered."
-            },
-            {
-                function: "IDENTIFY",
-                category: "Asset Management (ID.AM)",
-                keyMeasure: false,
-                controlId: "ID.AM-2",
-                controlName: "Software platforms and applications within the organization are inventoried",
-                requirement: "ID.AM-2.2: The inventory of software platforms and applications associated with information and information processing shall reflect changes in the organization's context and include all information necessary for effective accountability.",
-                guidance: "The inventory of software platforms and applications should include the title, publisher, initial install/use date, and business purpose for each entry; where appropriate, include the Uniform Resource Locator (URL), app store(s), version(s), deployment mechanism, and decommission date."
-            },
-            {
-                function: "IDENTIFY",
-                category: "Asset Management (ID.AM)",
-                keyMeasure: false,
-                controlId: "ID.AM-2",
-                controlName: "Software platforms and applications within the organization are inventoried",
-                requirement: "ID.AM-2.3: Individuals who are responsible and who are accountable for administering software platforms and applications within the organization shall be identified.",
-                guidance: "There are no additional guidelines."
-            },
-            {
-                function: "IDENTIFY",
-                category: "Asset Management (ID.AM)",
-                keyMeasure: false,
-                controlId: "ID.AM-2",
-                controlName: "Software platforms and applications within the organization are inventoried",
-                requirement: "ID.AM-2.4: When unauthorized software is detected, it shall be quarantined for possible exception handling, removed, or replaced, and the inventory shall be updated accordingly.",
-                guidance: "• Any unsupported software without an exception documentation, is designated as unauthorized.\n• Unauthorized software can be detected during inventory, requests for support by the user or other means."
-            },
-            {
-                function: "IDENTIFY",
-                category: "Asset Management (ID.AM)",
-                keyMeasure: false,
-                controlId: "ID.AM-3",
-                controlName: "Organizational communication and data flows are mapped",
-                requirement: "ID.AM-3.1: Information that the organization stores and uses shall be identified.",
-                guidance: "• Start by listing all the types of information your business stores or uses. Define \"information type\" in any useful way that makes sense to your business. You may want to have your employees make a list of all the information they use in their regular activities. List everything you can think of, but you do not need to be too specific. For example, you may keep customer names and email addresses, receipts for raw material, your banking information, or other proprietary information.\n• Consider mapping this information with the associated assets identified in the inventories of physical devices, systems, software platforms and applications used within the organization (see ID.AM-1 & ID.AM-2)."
-            },
-            {
-                function: "IDENTIFY",
-                category: "Asset Management (ID.AM)",
-                keyMeasure: false,
-                controlId: "ID.AM-3",
-                controlName: "Organizational communication and data flows are mapped",
-                requirement: "ID.AM-3.2: All connections within the organization's ICT/OT environment, and to other organization-internal platforms shall be mapped, documented, approved, and updated as appropriate.",
-                guidance: "• Connection information includes, for example, the interface characteristics, data characteristics, ports, protocols, addresses, description of the data, security requirements, and the nature of the connection.\n• Configuration management can be used as supporting asset.\n• This documentation should not be stored only on the network it represents.\n• Consider keeping a copy of this documentation in a safe offline environment (e.g. offline hard disk, paper hardcopy, …)"
-            },
-            {
-                function: "IDENTIFY",
-                category: "Asset Management (ID.AM)",
-                keyMeasure: false,
-                controlId: "ID.AM-4",
-                controlName: "External information systems are catalogued",
-                requirement: "ID.AM-4.1: The organization shall map, document, authorize and when changes occur, update, all external services and the connections made with them.",
-                guidance: "• Outsourcing of systems, software platforms and applications used within the organization is covered in ID.AM-1 & ID.AM-2\n• External information systems are systems or components of systems for which organizations typically have no direct supervision and authority over the application of security requirements and controls, or the determination of the effectiveness of implemented controls on those systems i.e., services that are run in cloud, SaaS, hosting or other external environments, API (Application Programming Interface)…\n• Mapping external services and the connections made to them and authorizing them in advance avoids wasting unnecessary resources investigating a supposedly non-authenticated connection to external systems."
-            },
-            {
-                function: "IDENTIFY",
-                category: "Asset Management (ID.AM)",
-                keyMeasure: false,
-                controlId: "ID.AM-5",
-                controlName: "Resources are prioritized based on their classification, criticality, and business value",
-                requirement: "ID.AM-5.1: The organization's resources (hardware, devices, data, time, personnel, information, and software) shall be prioritized based on their classification, criticality, and business value.",
-                guidance: "• Determine organization's resources (e.g., hardware, devices, data, time, personnel, information, and software):\n  o What would happen to my business if these resources were made public, damaged, lost…?\n  o What would happen to my business when the integrity of resources is no longer guaranteed?\n  o What would happen to my business if I/my customers couldn't access these resources? And rank these resources based on their classification, criticality, and business value.\n• Resources should include enterprise assets.\n• Create a classification for sensitive information by first determining categories, e.g.\n  o Public - freely accessible to all, even externally\n  o Internal - accessible only to members of your organization\n  o Confidential - accessible only to those whose duties require access.\n• Communicate these categories and identify what types of data fall into these categories (HR data, financial data, legal data, personal data, etc.).\n• Consider the use of the Traffic Light Protocol (TLP).\n• Data classification should apply to the three aspects: C-I-A."
-            },
-            {
-                function: "IDENTIFY",
-                category: "Asset Management (ID.AM)",
-                keyMeasure: true,
-                controlId: "ID.AM-6",
-                controlName: "Cybersecurity roles, responsibilities, and authorities for the entire workforce and third-party stakeholders are established",
-                requirement: "ID.AM-6.1: Information security and cybersecurity roles, responsibilities and authorities within the organization shall be documented, reviewed, authorized, and updated and alignment with organization-internal roles and external partners.",
-                guidance: "It should be considered to:\n• Describe security roles, responsibilities, and authorities: who in your organization should be consulted, informed, and held accountable for all or part of your assets.\n• Provide security roles, responsibilities, and authority for all key functions in information/cyber security (legal, detection activities…).\n• Include information/cybersecurity roles and responsibilities for third-party providers (e.g., suppliers, customers, partners) with physical or logical access to the organization's ICT/OT environment."
-            },
-            {
-                function: "IDENTIFY",
-                category: "Business Environment (ID.BE)",
-                keyMeasure: false,
-                controlId: "ID.BE-1",
-                controlName: "The organization's role in the supply chain is identified and communicated",
-                requirement: "ID.BE-1.1: The organization's role in the supply chain shall be identified, documented, and communicated.",
-                guidance: "• The organisation should be able to clearly identify who is upstream and downstream of the organisation and which suppliers provide services, capabilities, products and items to the organisation.\n• The organisation should communicate its position to its upstream and downstream so that it is understood where they sit in terms of critical importance to the organisation's operations."
-            },
-            {
-                function: "IDENTIFY",
-                category: "Business Environment (ID.BE)",
-                keyMeasure: false,
-                controlId: "ID.BE-2",
-                controlName: "The organization's place in critical infrastructure and its industry sector is identified and communicated",
-                requirement: "ID.BE-2.1: The organization's place in critical infrastructure and its industry sector shall be identified and communicated.",
-                guidance: "The organisation covered by NIS legislation has a responsibility to know the other organisations in the same sector in order to work with them to achieve the objectives set by NIS for that particular sector."
-            },
-            {
-                function: "IDENTIFY",
-                category: "Business Environment (ID.BE)",
-                keyMeasure: false,
-                controlId: "ID.BE-3",
-                controlName: "Priorities regarding organizational mission, objectives, and activities are established and communicated",
-                requirement: "ID.BE-3.1: Priorities for organizational mission, objectives, and activities are established and communicated.",
-                guidance: "Information protection needs should be determined, and the related processes revised as necessary."
-            },
-            {
-                function: "IDENTIFY",
-                category: "Business Environment (ID.BE)",
-                keyMeasure: false,
-                controlId: "ID.BE-4",
-                controlName: "Dependencies and critical functions for delivery of critical services are established",
-                requirement: "ID.BE-4.1: Dependencies and mission-critical functions for the delivery of critical services shall be identified, documented, and prioritized according to their criticality as part of the risk assessment process.",
-                guidance: "Dependencies and business critical functions should include support services."
-            },
-            {
-                function: "IDENTIFY",
-                category: "Business Environment (ID.BE)",
-                keyMeasure: false,
-                controlId: "ID.BE-5",
-                controlName: "Resilience requirements to support delivery of critical services are established for all operating states",
-                requirement: "ID.BE-5.1: To support cyber resilience and secure the delivery of critical services, the necessary requirements are identified, documented and their implementation tested and approved.",
-                guidance: "• Consider implementing resiliency mechanisms to support normal and adverse operational situations (e.g., failsafe, load balancing, hot swap).\n• Consider aspects of business continuity management in e.g. Business Impact Analyse (BIA), Disaster Recovery Plan (DRP) and Business Continuity Plan (BCP)."
-            },
-            {
-                function: "IDENTIFY",
-                category: "Governance (ID.GV)",
-                keyMeasure: false,
-                controlId: "ID.GV-1",
-                controlName: "Organizational cybersecurity policy is established and communicated",
-                requirement: "ID.GV-1.1: Policies and procedures for information security and cyber security shall be created, documented, reviewed, approved, and updated when changes occur.",
-                guidance: "• Policies and procedures used to identify acceptable practices and expectations for business operations, can be used to train new employees on your information security expectations, and can aid an investigation in case of an incident. These policies and procedures should be readily accessible to employees.\n• Policies and procedures for information- and cybersecurity should clearly describe your expectations for protecting the organization's information and systems, and how management expects the company's resources to be used and protected by all employees.\n• Policies and procedures should be reviewed and updated at least annually and every time there are changes in the organization or technology. Whenever the policies are changed, employees should be made aware of the changes."
-            },
-            {
-                function: "IDENTIFY",
-                category: "Governance (ID.GV)",
-                keyMeasure: false,
-                controlId: "ID.GV-1",
-                controlName: "Organizational cybersecurity policy is established and communicated",
-                requirement: "ID.GV-1.2: An organization-wide information security and cybersecurity policy shall be established, documented, updated when changes occur, disseminated, and approved by senior management.",
-                guidance: "The policy should include, for example:\n• The identification and assignment of roles, responsibilities, management commitment, coordination among organizational entities, and compliance. Guidance on role profiles along with their identified titles, missions, tasks, skills, knowledge, competences is available in the \"European Cybersecurity Skills Framework Role Profiles\" by ENISA. (https://www.enisa.europa.eu/publications/europeancybersecurity-skills-framework-role-profiles)\n• The coordination among organizational entities responsible for the different aspects of security (i.e., technical, physical, personnel, cyber-physical, information, access control, media protection, vulnerability management, maintenance, monitoring)\n• The coverage of the full life cycle of the ICT/OT systems."
-            },
-            {
-                function: "IDENTIFY",
-                category: "Governance (ID.GV)",
-                keyMeasure: false,
-                controlId: "ID.GV-3",
-                controlName: "Legal and regulatory requirements regarding cybersecurity, including privacy and civil liberties obligations, are understood, and managed",
-                requirement: "ID.GV-3.1: Legal and regulatory requirements regarding information/cybersecurity, including privacy obligations, shall be understood, and implemented.",
-                guidance: "No additional guidance on this topic."
-            },
-            {
-                function: "IDENTIFY",
-                category: "Governance (ID.GV)",
-                keyMeasure: false,
-                controlId: "ID.GV-3",
-                controlName: "Legal and regulatory requirements regarding cybersecurity, including privacy and civil liberties obligations, are understood, and managed",
-                requirement: "ID.GV-3.2: Legal and regulatory requirements regarding information/cybersecurity, including privacy obligations, shall be managed.",
-                guidance: "• There should be regular reviews to ensure the continuous compliance with legal and regulatory requirements regarding information/cybersecurity, including privacy obligations.\n• This requirement also applies to contractors and service providers."
-            },
-            {
-                function: "IDENTIFY",
-                category: "Governance (ID.GV)",
-                keyMeasure: false,
-                controlId: "ID.GV-4",
-                controlName: "Governance and risk management processes address cybersecurity risks",
-                requirement: "ID.GV-4.1: As part of the company's overall risk management, a comprehensive strategy to manage information security and cybersecurity risks shall be developed and updated when changes occur.",
-                guidance: "This strategy should include determining and allocating the required resources to protect the organization's business-critical assets."
-            },
-            {
-                function: "IDENTIFY",
-                category: "Governance (ID.GV)",
-                keyMeasure: false,
-                controlId: "ID.GV-4",
-                controlName: "Governance and risk management processes address cybersecurity risks",
-                requirement: "ID.GV-4.2: Information security and cybersecurity risks shall be documented, formally approved, and updated when changes occur.",
-                guidance: "Consider using Risk Management tools."
-            },
-            {
-                function: "IDENTIFY",
-                category: "Risk Assessment (ID.RA)",
-                keyMeasure: false,
-                controlId: "ID.RA-1",
-                controlName: "Asset vulnerabilities are identified and documented",
-                requirement: "ID.RA-1.1: Threats and vulnerabilities shall be identified.",
-                guidance: "• A vulnerability refers to a weakness in the organization's hardware, software, or procedures. It is a gap through which a bad actor can gain access to the organization's assets. A vulnerability exposes an organization to threats.\n• A threat is a malicious or negative event that takes advantage of a vulnerability.\n• The risk is the potential for loss and damage when the threat does occur."
-            },
-            {
-                function: "IDENTIFY",
-                category: "Risk Assessment (ID.RA)",
-                keyMeasure: false,
-                controlId: "ID.RA-1",
-                controlName: "Asset vulnerabilities are identified and documented",
-                requirement: "ID.RA-1.2: A process shall be established to monitor, identify, and document vulnerabilities of the organisation's business critical systems in a continuous manner.",
-                guidance: "• Where safe and feasible, the use of vulnerability scanning should be considered.\n• The organization should establish and maintain a testing program appropriate to its size, complexity, and maturity."
-            },
-            {
-                function: "IDENTIFY",
-                category: "Risk Assessment (ID.RA)",
-                keyMeasure: false,
-                controlId: "ID.RA-2",
-                controlName: "Cyber threat intelligence is received from information sharing forums and sources",
-                requirement: "ID.RA-2.1: A threat and vulnerability awareness program that includes a cross-organization information-sharing capability shall be implemented.",
-                guidance: "A threat and vulnerability awareness program should include ongoing contact with security groups and associations to receive security alerts and advisories. (Security groups and associations include, for example, special interest groups, forums, professional associations, news groups, and/or peer groups of security professionals in similar organizations).This contact can include the sharing of information about potential vulnerabilities and incidents. This sharing capability should have an unclassified and classified information sharing capability."
-            },
-            {
-                function: "IDENTIFY",
-                category: "Risk Assessment (ID.RA)",
-                keyMeasure: false,
-                controlId: "ID.RA-5",
-                controlName: "Threats, vulnerabilities, likelihoods, and impacts are used to determine risk",
-                requirement: "ID.RA-5.1: The organization shall conduct risk assessments in which risk is determined by threats, vulnerabilities and impact on business processes and assets.",
-                guidance: "• Keep in mind that threats exploit vulnerabilities.\n• Identify the consequences that losses of confidentiality, integrity and availability may have on the assets and related business processes."
-            },
-            {
-                function: "IDENTIFY",
-                category: "Risk Assessment (ID.RA)",
-                keyMeasure: false,
-                controlId: "ID.RA-5",
-                controlName: "Threats, vulnerabilities, likelihoods, and impacts are used to determine risk",
-                requirement: "ID.RA-5.2: The organization shall conduct and document risk assessments in which risk is determined by threats, vulnerabilities, impact on business processes and assets, and the likelihood of their occurrence.",
-                guidance: "• Risk assessment should include threats from insiders and external parties.\n• Qualitative and/or quantitative risk analysis methods (MAPGOOD, ISO27005, CIS RAM, …) can be used together with software tooling."
-            },
-            {
-                function: "IDENTIFY",
-                category: "Risk Assessment (ID.RA)",
-                keyMeasure: false,
-                controlId: "ID.RA-6",
-                controlName: "Risk responses are identified and prioritized",
-                requirement: "ID.RA-6.1: A comprehensive strategy shall be developed and implemented to manage risks to the organization's critical systems, that includes the identification and prioritization of risk responses.",
-                guidance: "• Management and employees should be involved in information- and cybersecurity.\n• It should be identified what the most important assets are, and how they are protected.\n• It should be clear what impact will be if these assets are compromised.\n• It should be established how the implementation of adequate mitigation measures will be organized."
-            },
-            {
-                function: "IDENTIFY",
-                category: "Risk Management (ID.RM)",
-                keyMeasure: false,
-                controlId: "ID.RM-1",
-                controlName: "Risk management processes are established, managed, and agreed to by organizational stakeholders",
-                requirement: "ID.RM-1.1: A cyber risk management process that identifies key internal and external stakeholders and facilitates addressing risk-related issues and information shall be created, documented, reviewed, approved, and updated when changes occur.",
-                guidance: "External stakeholders include customers, investors, shareholders, suppliers, government agencies and the wider community."
-            },
-            {
-                function: "IDENTIFY",
-                category: "Risk Management (ID.RM)",
-                keyMeasure: false,
-                controlId: "ID.RM-2",
-                controlName: "Organizational risk tolerance is determined and clearly expressed",
-                requirement: "ID.RM-2.1: The organization shall clearly determine its risk appetite.",
-                guidance: "Determination and expression of risk tolerance (risk appetite) should be in line with the policies on information security and cybersecurity, to facilitate demonstration of coherence between policies, risk tolerance and measures."
-            },
-            {
-                function: "IDENTIFY",
-                category: "Risk Management (ID.RM)",
-                keyMeasure: false,
-                controlId: "ID.RM-3",
-                controlName: "The organization's determination of risk tolerance is informed by its role in critical infrastructure and sector specific risk analysis",
-                requirement: "ID.RM-3.1: The organization's role in critical infrastructure and its sector shall determine the organization's risk appetite.",
-                guidance: "No additional guidance on this topic."
-            },
-            {
-                function: "IDENTIFY",
-                category: "Supply Chain Risk Management (ID.SC)",
-                keyMeasure: false,
-                controlId: "ID.SC-2",
-                controlName: "Suppliers and third-party partners of information systems, components, and services are identified, prioritized, and assessed using a cyber supply chain risk assessment process",
-                requirement: "ID.SC-2.1: The organization shall conduct cyber supply chain risk assessments at least annually or when a change to the organization's critical systems, operational environment, or supply chain occurs; These assessments shall be documented, and the results disseminated to relevant stakeholders including those responsible for ICT/OT systems.",
-                guidance: "This assessment should identify and prioritize potential negative impacts to the organization from the risks associated with the distributed and interconnected nature of ICT/OT product and service supply chains."
-            },
-            {
-                function: "IDENTIFY",
-                category: "Supply Chain Risk Management (ID.SC)",
-                keyMeasure: false,
-                controlId: "ID.SC-3",
-                controlName: "Contracts with suppliers and third-party partners are used to implement appropriate measures designed to meet the objectives of an organization's cybersecurity program and Cyber Supply Chain Risk Management Plan",
-                requirement: "ID.SC-3.1: Based on the results of the cyber supply chain risk assessment, a contractual framework for suppliers and external partners shall be established to address sharing of sensitive information and distributed and interconnected ICT/OT products and services.",
-                guidance: "• Entities not subject to the NIS legislation should consider business critical suppliers and third-party partners only.\n• Keep in mind that GDPR requirements need to be fulfilled when business information contains personal data (applicable on all levels), i.e. security measures need to be addressed in the contractual framework."
-            },
-            {
-                function: "IDENTIFY",
-                category: "Supply Chain Risk Management (ID.SC)",
-                keyMeasure: false,
-                controlId: "ID.SC-4",
-                controlName: "Suppliers and third-party partners are routinely assessed using audits, test results, or other forms of evaluations to confirm they are meeting their contractual obligations",
-                requirement: "ID.SC-4.1: The organization shall review assessments of suppliers' and third-party partner's compliance with contractual obligations by routinely reviewing audits, test results, and other evaluations.",
-                guidance: "Entities not subject to the NIS legislation could limit themselves to business-critical suppliers and third-party partners only."
-            },
-            {
-                function: "IDENTIFY",
-                category: "Supply Chain Risk Management (ID.SC)",
-                keyMeasure: false,
-                controlId: "ID.SC-5",
-                controlName: "Response and recovery planning and testing are conducted with suppliers and third-party providers",
-                requirement: "ID.SC-5.1: The organization shall identify and document key personnel from suppliers and third-party partners to include them as stakeholders in response and recovery planning activities.",
-                guidance: "Entities not subject to the NIS legislation could limit themselves to business-critical suppliers and third-party partners only."
-            },
+                "function": "IDENTIFY",
+                "category": "Asset Management (ID.AM)",
+                "keyMeasure": false,
+                "controlId": "ID.AM-1",
+                "controlName": "Physical devices and systems used within the organization are inventoried.",
+                "requirement": "ID.AM-1.1: Document, review, and update an inventory of assets; quarantine or remove unauthorized hardware.",
+                "guidance": "Maintain an up-to-date hardware inventory with device details (type, model, location); remove unsupported or unauthorized devices promptly."
+              },
+              {
+                "function": "IDENTIFY",
+                "category": "Asset Management (ID.AM)",
+                "keyMeasure": false,
+                "controlId": "ID.AM-2",
+                "controlName": "Software platforms and applications used within the organization are inventoried.",
+                "requirement": "ID.AM-2.1: Maintain and update a software inventory including responsible owners; quarantine or replace unauthorized software.",
+                "guidance": "List all software (name, version, purpose), distinguish unsupported vs. unauthorized, and remove or replace any unauthorized software."
+              },
+              {
+                "function": "IDENTIFY",
+                "category": "Asset Management (ID.AM)",
+                "keyMeasure": false,
+                "controlId": "ID.AM-3",
+                "controlName": "Organizational communication and data flows are mapped.",
+                "requirement": "ID.AM-3.1: Identify and map stored data; ID.AM-3.2: Document all connections in ICT/OT environment, update changes.",
+                "guidance": "List all data types, link them to assets, and document every network connection with details (ports, protocols, addresses) for clarity and control."
+              },
+              {
+                "function": "IDENTIFY",
+                "category": "Asset Management (ID.AM)",
+                "keyMeasure": false,
+                "controlId": "ID.AM-4",
+                "controlName": "External information systems are catalogued.",
+                "requirement": "ID.AM-4.1: Map, document, authorize, and update external services and their connections as they change.",
+                "guidance": "Catalog all external systems (e.g., cloud, SaaS, hosting) and explicitly approve each connection; keep records updated to avoid unknown endpoints."
+              },
+              {
+                "function": "IDENTIFY",
+                "category": "Asset Management (ID.AM)",
+                "keyMeasure": false,
+                "controlId": "ID.AM-5",
+                "controlName": "Resources are prioritized based on their classification, criticality, and business value.",
+                "requirement": "ID.AM-5.1: Classify and rank resources (devices, data, personnel, etc.) by criticality and potential impact if compromised.",
+                "guidance": "Define categories (public, internal, confidential), assess impact on confidentiality, integrity, and availability, and prioritize protection accordingly."
+              },
+              {
+                "function": "IDENTIFY",
+                "category": "Asset Management (ID.AM)",
+                "keyMeasure": true,
+                "controlId": "ID.AM-6",
+                "controlName": "Cybersecurity roles, responsibilities, and authorities for the entire workforce and third-party stakeholders are established.",
+                "requirement": "ID.AM-6.1: Document, approve, and update roles/responsibilities for security, including third parties. (Key measure)",
+                "guidance": "Define who is accountable for each cybersecurity function; align roles with internal structures and external partners having system access."
+              },
+              {
+                "function": "IDENTIFY",
+                "category": "Business Environment (ID.BE)",
+                "keyMeasure": false,
+                "controlId": "ID.BE-1",
+                "controlName": "The organization’s role in the supply chain is identified and communicated.",
+                "requirement": "ID.BE-1.1: Document and communicate the organization’s upstream and downstream position in the supply chain.",
+                "guidance": "Identify suppliers and customers critical to operations; clarify your role to each, ensuring they understand your significance and dependencies."
+              },
+              {
+                "function": "IDENTIFY",
+                "category": "Business Environment (ID.BE)",
+                "keyMeasure": false,
+                "controlId": "ID.BE-2",
+                "controlName": "The organization’s place in critical infrastructure and its industry sector is identified and communicated.",
+                "requirement": "ID.BE-2.1: Determine and share your status as part of critical infrastructure or a regulated sector.",
+                "guidance": "If subject to NIS or similar legislation, identify relevant sector obligations; coordinate with others in the same sector for compliance."
+              },
+              {
+                "function": "IDENTIFY",
+                "category": "Business Environment (ID.BE)",
+                "keyMeasure": false,
+                "controlId": "ID.BE-3",
+                "controlName": "Priorities regarding organizational mission, objectives, and activities are established and communicated.",
+                "requirement": "ID.BE-3.1: Define and disseminate mission-critical objectives, ensuring cybersecurity measures align with them.",
+                "guidance": "Identify key business goals and clarify how information protection needs support those goals; adjust processes as necessary."
+              },
+              {
+                "function": "IDENTIFY",
+                "category": "Business Environment (ID.BE)",
+                "keyMeasure": false,
+                "controlId": "ID.BE-4",
+                "controlName": "Dependencies and critical functions for delivery of critical services are established.",
+                "requirement": "ID.BE-4.1: Identify and prioritize dependencies and critical functions within risk assessments to ensure service continuity.",
+                "guidance": "Include supportive services (logistics, IT, utilities) in your dependency list; evaluate potential business impact if they fail."
+              },
+              {
+                "function": "IDENTIFY",
+                "category": "Business Environment (ID.BE)",
+                "keyMeasure": false,
+                "controlId": "ID.BE-5",
+                "controlName": "Resilience requirements to support delivery of critical services are established for all operating states.",
+                "requirement": "ID.BE-5.1: Identify, document, and test resilience needs (normal, under attack, recovery) for critical services.",
+                "guidance": "Use BIA, DRP, and BCP to define resilience mechanisms like failsafe or load balancing; test them to ensure readiness."
+              },
+              {
+                "function": "IDENTIFY",
+                "category": "Governance (ID.GV)",
+                "keyMeasure": false,
+                "controlId": "ID.GV-1",
+                "controlName": "Organizational cybersecurity policy is established and communicated.",
+                "requirement": "ID.GV-1.1: Create, approve, and update cybersecurity policies; ensure employees and stakeholders are informed.",
+                "guidance": "Develop clear policies for expected security practices; review annually or after major changes, and train staff on updates."
+              },
+              {
+                "function": "IDENTIFY",
+                "category": "Governance (ID.GV)",
+                "keyMeasure": false,
+                "controlId": "ID.GV-3",
+                "controlName": "Legal and regulatory requirements regarding cybersecurity, including privacy and civil liberties obligations, are understood and managed.",
+                "requirement": "ID.GV-3.1: Understand and implement relevant cybersecurity/privacy regulations; review compliance regularly.",
+                "guidance": "Identify applicable laws (GDPR, sector mandates) and integrate them into policies; ensure third-party compliance as well."
+              },
+              {
+                "function": "IDENTIFY",
+                "category": "Governance (ID.GV)",
+                "keyMeasure": false,
+                "controlId": "ID.GV-4",
+                "controlName": "Governance and risk management processes address cybersecurity risks.",
+                "requirement": "ID.GV-4.1: Develop a risk-focused cybersecurity strategy; ID.GV-4.2: Document and approve identified risks.",
+                "guidance": "Allocate resources to protect key assets; record cybersecurity risks, their owners, and track mitigation efforts."
+              },
+              {
+                "function": "IDENTIFY",
+                "category": "Risk Assessment (ID.RA)",
+                "keyMeasure": false,
+                "controlId": "ID.RA-1",
+                "controlName": "Asset vulnerabilities are identified and documented.",
+                "requirement": "ID.RA-1.1: Identify threats and vulnerabilities; ID.RA-1.2: Continuously monitor and document critical systems' weaknesses.",
+                "guidance": "Set up a program (scans/tests) to detect vulnerabilities in hardware/software, track them, and link them to potential threats."
+              },
+              {
+                "function": "IDENTIFY",
+                "category": "Risk Assessment (ID.RA)",
+                "keyMeasure": false,
+                "controlId": "ID.RA-2",
+                "controlName": "Cyber threat intelligence is received from information sharing forums and sources.",
+                "requirement": "ID.RA-2.1: Implement a threat/vulnerability awareness program that includes exchanging intelligence with security communities.",
+                "guidance": "Join relevant security forums, subscribe to threat feeds, and share incident details with peers to bolster collective defenses."
+              },
+              {
+                "function": "IDENTIFY",
+                "category": "Risk Assessment (ID.RA)",
+                "keyMeasure": false,
+                "controlId": "ID.RA-5",
+                "controlName": "Threats, vulnerabilities, likelihoods, and impacts are used to determine risk.",
+                "requirement": "ID.RA-5.1: Perform risk assessments considering threats, vulnerabilities, impacts, and likelihood; document results.",
+                "guidance": "Use a structured approach (qualitative/quantitative) to estimate risk levels; incorporate insider/external threats; guide prioritization."
+              },
+              {
+                "function": "IDENTIFY",
+                "category": "Risk Assessment (ID.RA)",
+                "keyMeasure": false,
+                "controlId": "ID.RA-6",
+                "controlName": "Risk responses are identified and prioritized.",
+                "requirement": "ID.RA-6.1: Develop a comprehensive strategy, prioritizing risk responses for critical threats and vulnerabilities.",
+                "guidance": "Involve management and staff, identify top risks, define how to mitigate them, and outline clear responsibilities for implementation."
+              },
+              {
+                "function": "IDENTIFY",
+                "category": "Risk Management (ID.RM)",
+                "keyMeasure": false,
+                "controlId": "ID.RM-1",
+                "controlName": "Risk management processes are established, managed, and agreed to by organizational stakeholders.",
+                "requirement": "ID.RM-1.1: Create a cyber risk management process engaging internal/external stakeholders; review and update it as needed.",
+                "guidance": "Define how risk info flows, who must be consulted, and how decisions are made; revise after major changes or annually."
+              },
+              {
+                "function": "IDENTIFY",
+                "category": "Risk Management (ID.RM)",
+                "keyMeasure": false,
+                "controlId": "ID.RM-2",
+                "controlName": "Organizational risk tolerance is determined and clearly expressed.",
+                "requirement": "ID.RM-2.1: Establish and document risk appetite aligned with cybersecurity policies and business needs.",
+                "guidance": "Define acceptable risk levels (e.g., minimal downtime, no major data loss), share them with stakeholders, and review periodically."
+              },
+              {
+                "function": "IDENTIFY",
+                "category": "Risk Management (ID.RM)",
+                "keyMeasure": false,
+                "controlId": "ID.RM-3",
+                "controlName": "The organization’s determination of risk tolerance is informed by its role in critical infrastructure and sector specific risk analysis.",
+                "requirement": "ID.RM-3.1: Adjust risk appetite considering sector-specific guidance if part of critical infrastructure.",
+                "guidance": "If designated as essential or part of critical infrastructure, adopt stricter measures reflecting broader societal impact."
+              },
+              {
+                "function": "IDENTIFY",
+                "category": "Supply Chain Risk Management (ID.SC)",
+                "keyMeasure": false,
+                "controlId": "ID.SC-2",
+                "controlName": "Suppliers and third-party partners of information systems, components, and services are identified, prioritized, and assessed using a cyber supply chain risk assessment process.",
+                "requirement": "ID.SC-2.1: Conduct supply chain risk assessments at least annually or when major changes occur; document and share results.",
+                "guidance": "Focus on critical suppliers/partners, evaluate security posture, and address potential impacts on your operations; keep records updated."
+              },
+              {
+                "function": "IDENTIFY",
+                "category": "Supply Chain Risk Management (ID.SC)",
+                "keyMeasure": false,
+                "controlId": "ID.SC-3",
+                "controlName": "Contracts with suppliers and third-party partners are used to implement appropriate measures designed to meet the objectives of an organization’s cybersecurity program and Cyber Supply Chain Risk Management Plan.",
+                "requirement": "ID.SC-3.1: Incorporate security clauses in contracts (e.g. data protection, incident reporting) based on supply chain risk results.",
+                "guidance": "Ensure business-critical suppliers address confidentiality, integrity, and availability; align with GDPR if personal data is involved."
+              },
+              {
+                "function": "IDENTIFY",
+                "category": "Supply Chain Risk Management (ID.SC)",
+                "keyMeasure": false,
+                "controlId": "ID.SC-4",
+                "controlName": "Suppliers and third-party partners are routinely assessed using audits, test results, or other forms of evaluations to confirm they are meeting their contractual obligations.",
+                "requirement": "ID.SC-4.1: Periodically assess supplier compliance (e.g. audits, certifications) with security obligations; focus on critical partners.",
+                "guidance": "Request evidence of compliance (reports, certifications); follow up on findings; ensure high-risk suppliers implement corrective actions."
+              },
+              {
+                "function": "IDENTIFY",
+                "category": "Supply Chain Risk Management (ID.SC)",
+                "keyMeasure": false,
+                "controlId": "ID.SC-5",
+                "controlName": "Response and recovery planning and testing are conducted with suppliers and third-party providers.",
+                "requirement": "ID.SC-5.1: Include key supplier personnel in response/recovery planning and exercises, especially for business-critical partners.",
+                "guidance": "Share incident and recovery procedures, contact lists, and escalation paths; test them together to ensure coordinated response in emergencies."
+              },
             // PROTECT (PR)
             {
-                function: "PROTECT",
-                category: "Access Control (PR.AC)",
-                keyMeasure: true,
-                controlId: "PR.AC-1",
-                controlName: "Identities and credentials are issued, managed, verified, revoked, and audited for authorized devices, users and processes",
-                requirement: "PR.AC-1.3: Accounts shall be managed, including removal of accounts when no longer required.",
-                guidance: "• Consider to implement a process for managing accounts, including creating, modifying, disabling, and removing accounts.\n• Consider to review accounts regularly to ensure that they are still needed and that the access rights are appropriate.\n• Consider to remove accounts when an employee leaves or changes roles."
-            },
-            {
-                function: "PROTECT",
-                category: "Access Control (PR.AC)",
-                keyMeasure: true,
-                controlId: "PR.AC-1",
-                controlName: "Identities and credentials are issued, managed, verified, revoked, and audited for authorized devices, users and processes",
-                requirement: "PR.AC-1.4: Multi-factor authentication shall be used for remote access to the organization's network.",
-                guidance: "• Consider to use multi-factor authentication for all remote access to the organization's network.\n• Consider to use multi-factor authentication for all access to sensitive systems and data.\n• Consider to use multi-factor authentication for all administrator access."
-            },
-            {
-                function: "PROTECT",
-                category: "Access Control (PR.AC)",
-                keyMeasure: false,
-                controlId: "PR.AC-3",
-                controlName: "Remote access is managed",
-                requirement: "PR.AC-3.2: Remote access to the organization's network shall be monitored and controlled.",
-                guidance: "• Consider to monitor and control all remote access to the organization's network.\n• Consider to use a virtual private network (VPN) for all remote access.\n• Consider to limit remote access to only those who need it to perform their job functions."
-            },
-            {
-                function: "PROTECT",
-                category: "Access Control (PR.AC)",
-                keyMeasure: false,
-                controlId: "PR.AC-5",
-                controlName: "Network integrity is protected (e.g., network segregation, network segmentation)",
-                requirement: "PR.AC-5.1: The organization's network shall be segregated.",
-                guidance: "• Consider to segregate the network into different zones based on the sensitivity of the data and systems in each zone.\n• Consider to use firewalls and access control lists to control traffic between zones.\n• Consider to monitor traffic between zones for suspicious activity."
-            },
-            {
-                function: "PROTECT",
-                category: "Data Security (PR.DS)",
-                keyMeasure: false,
-                controlId: "PR.DS-3",
-                controlName: "Assets are formally managed throughout removal, transfers, and disposition",
-                requirement: "PR.DS-3.1: The organization shall protect and securely handle assets throughout their lifecycle.",
-                guidance: "• Consider to implement procedures for the secure handling of assets throughout their lifecycle, including acquisition, use, maintenance, and disposal.\n• Consider to implement procedures for the secure disposal of assets, including the secure wiping of data storage devices.\n• Consider to implement procedures for the secure transfer of assets, including the secure transfer of data."
-            },
-            {
-                function: "PROTECT",
-                category: "Information Protection Processes and Procedures (PR.IP)",
-                keyMeasure: true,
-                controlId: "PR.IP-3",
-                controlName: "Configuration change control processes are in place",
-                requirement: "PR.IP-3.1: The organization shall test, validate, and document changes to the information systems before implementing the changes on the operational system.",
-                guidance: "• Consider to implement a change management process that includes testing, validation, and documentation of changes before implementation.\n• Consider to implement a rollback plan for each change in case the change causes problems.\n• Consider to implement a change approval process that includes appropriate stakeholders."
-            },
-            {
-                function: "PROTECT",
-                category: "Information Protection Processes and Procedures (PR.IP)",
-                keyMeasure: true,
-                controlId: "PR.IP-12",
-                controlName: "A vulnerability management plan is developed and implemented",
-                requirement: "PR.IP-12.1: The organization shall develop and implement a vulnerability management plan.",
-                guidance: "• Consider to implement a vulnerability management process that includes identifying, evaluating, treating, and reporting vulnerabilities.\n• Consider to implement a vulnerability scanning program that includes regular scanning of all systems.\n• Consider to implement a patch management process that includes timely application of security patches."
-            },
-            {
-                function: "PROTECT",
-                category: "Protective Technology (PR.PT)",
-                keyMeasure: false,
-                controlId: "PR.PT-1",
-                controlName: "Audit/log records are determined, documented, implemented, and reviewed in accordance with policy",
-                requirement: "PR.PT-1.1: The organization shall generate audit records containing information that establishes what type of event occurred, when the event occurred, where the event occurred, the source of the event, the outcome of the event, and the identity of any individuals or subjects associated with the event.",
-                guidance: "• Consider to implement logging on all systems that includes the type of event, when the event occurred, where the event occurred, the source of the event, the outcome of the event, and the identity of any individuals or subjects associated with the event.\n• Consider to implement a log management system that collects, stores, and analyzes logs from all systems.\n• Consider to review logs regularly for suspicious activity."
-            },
-            // DETECT (DE)
-            {
-                function: "DETECT",
-                category: "Anomalies and Events (DE.AE)",
-                keyMeasure: false,
-                controlId: "DE.AE-2",
-                controlName: "Detected events are analyzed to understand attack targets and methods",
-                requirement: "DE.AE-2.1: The organization shall analyze detected events to understand attack targets and methods.",
-                guidance: "• Consider to implement a process for analyzing detected events to understand attack targets and methods.\n• Consider to use threat intelligence to understand attack targets and methods.\n• Consider to share information about attack targets and methods with appropriate stakeholders."
-            },
-            {
-                function: "DETECT",
-                category: "Security Continuous Monitoring (DE.CM)",
-                keyMeasure: false,
-                controlId: "DE.CM-1",
-                controlName: "The network is monitored to detect potential cybersecurity events",
-                requirement: "DE.CM-1.1: The organization shall monitor its networks to detect potential cybersecurity events.",
-                guidance: "• Consider implementing network monitoring that includes monitoring for unauthorized access, unauthorized changes, and unusual traffic patterns.\n• Consider implementing intrusion detection systems that can detect potential cybersecurity events.\n• Consider implementing a security information and event management (SIEM) system that can collect and analyze security events from multiple sources."
-            },
-            {
-                function: "DETECT",
-                category: "Security Continuous Monitoring (DE.CM)",
-                keyMeasure: false,
-                controlId: "DE.CM-3",
-                controlName: "Personnel activity is monitored to detect potential cybersecurity events",
-                requirement: "DE.CM-3.1: The organization shall monitor personnel activity to detect potential cybersecurity events.",
-                guidance: "• Consider monitoring personnel activity for unauthorized access, unauthorized changes, and unusual behavior.\n• Consider implementing user behavior analytics that can detect unusual behavior.\n• Consider implementing access controls that can prevent unauthorized access."
-            },
+                "function": "PROTECT",
+                "category": "Identity Management, Authentication and Access Control (PR.AC)",
+                "keyMeasure": true,
+                "controlId": "PR.AC-1",
+                "controlName": "Identities and credentials are issued, managed, verified, revoked, and audited for authorized devices, users, and processes.",
+                "requirement": "PR.AC-1.1: Identities and credentials for authorized devices and users shall be managed. (Key measure)\nPR.AC-1.2: Identities and credentials for authorized devices and users shall be managed, where feasible through automated mechanisms.",
+                "guidance": "Identities and credentials for authorized devices and users could be managed through a password policy. A password policy is a set of rules designed to enhance ICT/OT security by encouraging the organization to:\n• Change all default passwords.\n• Ensure that no one works with administrator privileges for daily tasks.\n• Keep a limited and updated list of system administrator accounts.\n• Enforce password rules (e.g. sufficiently long with character variety) and change them periodically or upon suspicion of compromise.\n• Use only individual accounts and never share passwords.\n• Immediately disable unused accounts.\n• Manage rights and privileges by user groups.\nWhere feasible, automated mechanisms can help manage and audit credentials (e.g., strong authentication)."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Identity Management, Authentication and Access Control (PR.AC)",
+                "keyMeasure": false,
+                "controlId": "PR.AC-2",
+                "controlName": "Physical access to assets is managed and protected.",
+                "requirement": "PR.AC-2.1: Physical access to the facility, servers, and network components shall be managed.\nPR.AC-2.2: The management of physical access shall include measures related to access in emergency situations.",
+                "guidance": "Consider strictly managing keys, badges, and alarm codes. Retrieve keys or badges immediately when an employee leaves the organization. Change alarm codes frequently. Avoid giving out permanent codes or keys to external service providers unless access is traceable and restricted by time. Do not leave network ports accessible in public areas.\nImplement visitor logs, camera surveillance, or escort requirements as appropriate. Restrict access to servers and network components (e.g., locked rooms or cabinets)."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Identity Management, Authentication and Access Control (PR.AC)",
+                "keyMeasure": true,
+                "controlId": "PR.AC-3",
+                "controlName": "Remote access is managed.",
+                "requirement": "PR.AC-3.1: The organization’s wireless access points shall be secured.\nPR.AC-3.2: Usage restrictions, connection requirements, and authorizations for remote access to the organization's critical systems shall be identified, documented, and implemented. (Key measure)\nPR.AC-3.3: The organization's networks when accessed remotely shall be secured, including through MFA.",
+                "guidance": "• When using wireless networks, change default admin passwords, disable SSID broadcast if feasible, use WPA2/WPA3 with AES, and separate guest access from the business network.\n• For remote access, use strong (multi-factor) authentication on internet-facing systems, such as email, remote desktop, VPNs. Approve and log remote maintenance sessions.\n• Ensure users are visibly notified if a remote session is active. Align remote login credentials with company authentication policy."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Identity Management, Authentication and Access Control (PR.AC)",
+                "keyMeasure": true,
+                "controlId": "PR.AC-4",
+                "controlName": "Access permissions and authorizations are managed, incorporating the principles of least privilege and separation of duties.",
+                "requirement": "PR.AC-4.1: Access permissions for users to the organization’s systems shall be defined and managed. (Key measure)\nPR.AC-4.2: Employee access to data/information is limited to what is necessary for their job (Least Privilege). (Key measure)\nPR.AC-4.3: Separation of duties shall be enforced.\nPR.AC-4.4: Nobody shall have administrator privileges for daily tasks. (Key measure)\nPR.AC-4.5: Privileged users shall be managed and monitored.",
+                "guidance": "Create and regularly review access lists to determine who needs privileged or non-privileged access to which systems. Maintain separate accounts for administrators (no internet browsing with admin accounts). Immediately disable access for users who have left the organization or changed roles. Use group-based permissions where possible. Enforce the principle of least privilege to ensure employees only have the minimum access rights required. Enforce separation of duties so that no single individual can control all aspects of a critical transaction. Monitor privileged accounts and keep an updated list of system administrators."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Identity Management, Authentication and Access Control (PR.AC)",
+                "keyMeasure": true,
+                "controlId": "PR.AC-5",
+                "controlName": "Network integrity (network segregation, network segmentation…) is protected.",
+                "requirement": "PR.AC-5.1: Firewalls shall be installed and activated on all the organization's networks. (Key measure)\nPR.AC-5.2: Where appropriate, network segmentation and segregation measures shall be in place. (Key measure)\nPR.AC-5.3: The organization shall monitor and control connections and communications at the external boundary and key internal boundaries.",
+                "guidance": "Install and operate a firewall between your internal network and the internet. Use a closed (deny-all) policy and only open required services. Consider intrusion detection/prevention systems. Segment networks according to business function or risk level (e.g., VLANs, DMZ, internal segments). Limit external connections and use a VPN for secure remote communication. Separate guest/public Wi-Fi from internal networks."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Identity Management, Authentication and Access Control (PR.AC)",
+                "keyMeasure": false,
+                "controlId": "PR.AC-6",
+                "controlName": "Identities are proofed and bound to credentials and asserted in interactions.",
+                "requirement": "PR.AC-6.1: Implement documented procedures for verifying the identity of individuals before issuing credentials that provide system access.",
+                "guidance": "Before provisioning credentials or accounts, verify user identity (e.g., official ID, HR records). Formalize the process in writing and ensure it is consistently applied. Consider multi-factor authentication for higher-risk accounts or systems."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Identity Management, Authentication and Access Control (PR.AC)",
+                "keyMeasure": false,
+                "controlId": "PR.AC-7",
+                "controlName": "Identities are proofed, bound to credentials and asserted in interactions.",
+                "requirement": "PR.AC-7.1: Perform a documented risk assessment for critical system transactions and authenticate users/devices commensurate with that risk (e.g. single-factor or multi-factor).",
+                "guidance": "Use a security-by-design approach for new systems. For existing systems, conduct a separate risk assessment to determine appropriate authentication strength (e.g., multi-factor for privileged actions)."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Awareness and Training (PR.AT)",
+                "keyMeasure": false,
+                "controlId": "PR.AT-1",
+                "controlName": "All users are informed and trained.",
+                "requirement": "PR.AT-1.1: Employees shall be trained as appropriate.",
+                "guidance": "Train all users (including managers) when hired and periodically thereafter on the organization’s security policies, secure practices (e.g., recognizing phishing, managing passwords), and incident reporting procedures. Continually update training and reinforce it with awareness campaigns or drills."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Awareness and Training (PR.AT)",
+                "keyMeasure": false,
+                "controlId": "PR.AT-2",
+                "controlName": "Privileged users understand their roles and responsibilities.",
+                "requirement": "PR.AT-2.1: Privileged users shall be qualified before privileges are granted, demonstrating their understanding of roles, responsibilities, and authorities.",
+                "guidance": "Ensure that privileged users receive specialized training tailored to their elevated access. They should understand the scope of their privileges and the need to protect critical systems from misuse or error."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Awareness and Training (PR.AT)",
+                "keyMeasure": false,
+                "controlId": "PR.AT-3",
+                "controlName": "Third-party stakeholders (e.g., suppliers, customers, partners) understand their roles and responsibilities.",
+                "requirement": "PR.AT-3.1: Security requirements for business-critical third-party stakeholders with physical/logical access to systems shall be established and enforced.",
+                "guidance": "Communicate to third parties (e.g., contractors, suppliers) your security policies and expectations. Require them to notify the organization of any personnel changes impacting access, and have them attest that their staff understand the security obligations."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Awareness and Training (PR.AT)",
+                "keyMeasure": false,
+                "controlId": "PR.AT-4",
+                "controlName": "Senior executives understand their roles and responsibilities.",
+                "requirement": "PR.AT-4.1: Senior executives shall demonstrate understanding and accountability for managing cybersecurity risk.",
+                "guidance": "Executives should receive regular briefings on top risks, mitigation activities, and resource requirements. They must ensure the organization's cybersecurity strategy aligns with overall business objectives."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Awareness and Training (PR.AT)",
+                "keyMeasure": false,
+                "controlId": "PR.AT-5",
+                "controlName": "Physical and cybersecurity personnel understand their roles and responsibilities.",
+                "requirement": "PR.AT-5.1: Physical security teams and cybersecurity teams shall be trained and informed about their respective duties, emphasizing collaboration and information sharing.",
+                "guidance": "Encourage close cooperation between physical security staff and cybersecurity staff to handle events holistically. For instance, if a physical breach is detected, the cybersecurity team must be alerted to possible digital compromise, and vice versa."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Data Security (PR.DS)",
+                "keyMeasure": false,
+                "controlId": "PR.DS-1",
+                "controlName": "Data-at-rest is protected.",
+                "requirement": "PR.DS-1.1: Sensitive data-at-rest shall be protected.",
+                "guidance": "Consider using encryption techniques for data storage (servers, workstations, mobile devices, and removable media). Use full-disk encryption (e.g., BitLocker, FileVault) or file-level encryption for sensitive data. When storing sensitive data in the cloud, ensure robust encryption and key management."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Data Security (PR.DS)",
+                "keyMeasure": false,
+                "controlId": "PR.DS-2",
+                "controlName": "Data-in-transit is protected.",
+                "requirement": "PR.DS-2.1: Sensitive data in transit shall be protected.",
+                "guidance": "Use secure transmission protocols (e.g., TLS) for emails, file transfers, or web access involving sensitive data. When sending highly sensitive documents or communications, encrypt them with approved tools. Avoid sending unencrypted emails or attachments containing confidential information."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Data Security (PR.DS)",
+                "keyMeasure": false,
+                "controlId": "PR.DS-3",
+                "controlName": "Assets are formally managed throughout removal, transfers, and disposition.",
+                "requirement": "PR.DS-3.1: Media and devices shall be disposed of safely, ensuring data destruction or sanitization prior to removal.",
+                "guidance": "When retiring computers, servers, or storage media, securely wipe or destroy all data. If reusing devices, properly overwrite or degauss the storage. Consider remote-wiping solutions for mobile devices. Log asset transfers and removals to maintain accountability."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Data Security (PR.DS)",
+                "keyMeasure": false,
+                "controlId": "PR.DS-4",
+                "controlName": "Adequate capacity to ensure availability is maintained.",
+                "requirement": "PR.DS-4.1: Capacity planning shall ensure adequate resources for critical operations.",
+                "guidance": "Monitor resource usage (e.g., storage, CPU, bandwidth) and forecast demand to avoid disruptions. Plan for scalability and consider load-balancing or failover solutions for critical services."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Data Security (PR.DS)",
+                "keyMeasure": true,
+                "controlId": "PR.DS-5",
+                "controlName": "Protections against data leaks are implemented.",
+                "requirement": "PR.DS-5.1: Monitor critical information to detect potential data leakage.",
+                "guidance": "Implement Data Loss Prevention (DLP) solutions to monitor sensitive data movements (email, uploads, printing). Restrict or log mass-transfer of sensitive files. Regularly review alerts and investigate anomalies."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Data Security (PR.DS)",
+                "keyMeasure": false,
+                "controlId": "PR.DS-6",
+                "controlName": "Integrity checking mechanisms are used to verify software, firmware, and information integrity.",
+                "requirement": "PR.DS-6.1: Mechanisms (e.g., checksums, digital signatures) shall be in place to verify integrity.",
+                "guidance": "Use cryptographic checksums or digital signatures for critical software/firmware updates. Maintain a process to validate the authenticity and integrity of patches or files before installation."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Data Security (PR.DS)",
+                "keyMeasure": false,
+                "controlId": "PR.DS-7",
+                "controlName": "The development and testing environment(s) are separate from the production environment.",
+                "requirement": "PR.DS-7.1: Production and non-production environments shall be segregated to reduce risk of unauthorized access or data loss.",
+                "guidance": "Avoid using production data in testing unless anonymized or masked. Enforce access controls so that development staff cannot directly alter live systems. Use separate credentials and networks for test vs. production."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Information Protection Processes and Procedures (PR.IP)",
+                "keyMeasure": false,
+                "controlId": "PR.IP-1",
+                "controlName": "A baseline configuration of information technology/industrial control systems is created and maintained incorporating security principles.",
+                "requirement": "PR.IP-1.1: A secure baseline configuration shall be established and maintained.",
+                "guidance": "Document standard builds for operating systems, applications, and network devices. Include mandatory security settings (e.g., patches, configurations). Regularly review and update baselines to address new threats or system changes."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Information Protection Processes and Procedures (PR.IP)",
+                "keyMeasure": false,
+                "controlId": "PR.IP-2",
+                "controlName": "A System Development Life Cycle to manage systems is implemented.",
+                "requirement": "PR.IP-2.1: The organization shall integrate security into the entire system development life cycle.",
+                "guidance": "Apply security-by-design principles. For each development phase, address relevant security tasks (threat modeling, code reviews, testing). Maintain documentation and approval gates before moving to the next phase."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Information Protection Processes and Procedures (PR.IP)",
+                "keyMeasure": false,
+                "controlId": "PR.IP-3",
+                "controlName": "Configuration change control processes are in place.",
+                "requirement": "PR.IP-3.1: Changes to business-critical systems shall be tracked, reviewed, tested, and approved.",
+                "guidance": "Maintain a change management policy. Document requests, approvals, and implementation steps. Test changes in a non-production environment first to detect potential security or functional issues."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Information Protection Processes and Procedures (PR.IP)",
+                "keyMeasure": false,
+                "controlId": "PR.IP-4",
+                "controlName": "Backups of information are conducted, maintained, and tested.",
+                "requirement": "PR.IP-4.1: Regular backups shall be performed and securely stored.\nPR.IP-4.2: Restore procedures shall be tested periodically.",
+                "guidance": "Back up critical data frequently and store copies offsite or in the cloud with proper encryption. Test your ability to restore from backups to ensure data integrity and continuity of operations."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Information Protection Processes and Procedures (PR.IP)",
+                "keyMeasure": false,
+                "controlId": "PR.IP-5",
+                "controlName": "Policy and regulations regarding the physical operating environment for organizational assets are met.",
+                "requirement": "PR.IP-5.1: The organization shall ensure compliance with relevant policies/regulations for the physical environment of assets (temperature, humidity, secure location).",
+                "guidance": "Implement controls to keep server rooms at recommended temperature/humidity. Secure critical facilities from natural hazards or water leaks. Regularly inspect sites, keep them locked or monitored to prevent tampering."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Information Protection Processes and Procedures (PR.IP)",
+                "keyMeasure": false,
+                "controlId": "PR.IP-6",
+                "controlName": "Data is destroyed according to policy.",
+                "requirement": "PR.IP-6.1: Data destruction or sanitization processes shall follow documented policies.",
+                "guidance": "Define retention periods for different data types. When data exceeds its retention period or is no longer needed, securely wipe or destroy it. Ensure all copies, including backups, are also disposed of properly."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Information Protection Processes and Procedures (PR.IP)",
+                "keyMeasure": false,
+                "controlId": "PR.IP-7",
+                "controlName": "Protection processes are improved.",
+                "requirement": "PR.IP-7.1: The organization shall periodically assess and update its protection processes based on new threats or lessons learned.",
+                "guidance": "Review and revise protective measures after incidents, near-misses, or external threat updates. Conduct periodic gap analyses to identify areas for improvement in policies, configurations, or training."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Information Protection Processes and Procedures (PR.IP)",
+                "keyMeasure": false,
+                "controlId": "PR.IP-8",
+                "controlName": "Effectiveness of protection technologies is shared.",
+                "requirement": "PR.IP-8.1: The organization shall measure and communicate the effectiveness of its protection technologies.",
+                "guidance": "Share metrics (e.g., number of blocked attacks, patch status) with relevant stakeholders, including leadership. If appropriate, exchange best practices or intelligence with industry peers to improve collective defense."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Information Protection Processes and Procedures (PR.IP)",
+                "keyMeasure": false,
+                "controlId": "PR.IP-9",
+                "controlName": "Response plans (Incident Response and Business Continuity) and recovery plans (Incident Recovery and Disaster Recovery) are in place and managed.",
+                "requirement": "PR.IP-9.1: Incident Response, Business Continuity, and Disaster Recovery plans shall be defined and maintained.\nPR.IP-9.2: These plans shall be tested periodically.",
+                "guidance": "Document incident handling procedures, define communication channels, and identify decision-makers. Have backup resources in place (people, facilities, technology) to ensure critical operations continue. Conduct tabletop or live exercises to validate plan effectiveness."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Information Protection Processes and Procedures (PR.IP)",
+                "keyMeasure": false,
+                "controlId": "PR.IP-11",
+                "controlName": "Cybersecurity is included in human resources practices (deprovisioning, personnel screening…).",
+                "requirement": "PR.IP-11.1: HR processes shall integrate cybersecurity aspects (e.g., background checks, exit processes).",
+                "guidance": "Screen employees in sensitive positions according to legal requirements. When an employee leaves or changes roles, immediately revoke access, collect badges/devices, and update relevant systems. Clearly define security responsibilities in job descriptions."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Information Protection Processes and Procedures (PR.IP)",
+                "keyMeasure": false,
+                "controlId": "PR.IP-12",
+                "controlName": "A vulnerability management plan is developed and implemented.",
+                "requirement": "PR.IP-12.1: The organization shall develop, document, and implement a process for identifying and remediating vulnerabilities.",
+                "guidance": "Regularly scan systems for vulnerabilities and track remediation actions. Have a clear timeline for patching critical flaws. Consider an internal or external bug bounty program or responsible disclosure policy."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Maintenance (PR.MA)",
+                "keyMeasure": false,
+                "controlId": "PR.MA-1",
+                "controlName": "Maintenance and repair of organizational assets are performed and logged, with approved and controlled tools.",
+                "requirement": "PR.MA-1.1: Maintenance and repair activities shall be authorized, logged, and use controlled tools.",
+                "guidance": "Restrict maintenance to authorized personnel with the correct privileges. Keep an audit trail of maintenance actions. Ensure that any repair tools or replacement parts come from trusted sources and meet security requirements."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Maintenance (PR.MA)",
+                "keyMeasure": false,
+                "controlId": "PR.MA-2",
+                "controlName": "Remote maintenance of organizational assets is approved, logged, and performed in a manner that prevents unauthorized access.",
+                "requirement": "PR.MA-2.1: Remote maintenance sessions shall be approved, monitored, and logged to prevent misuse.",
+                "guidance": "Use secure protocols and multi-factor authentication for remote maintenance. Provide temporary credentials that expire after the session. Log all actions taken remotely for auditing. Alert system owners when remote sessions are active."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Protective Technology (PR.PT)",
+                "keyMeasure": false,
+                "controlId": "PR.PT-1",
+                "controlName": "Audit/log records are determined, documented, implemented, and reviewed in accordance with policy.",
+                "requirement": "PR.PT-1.1: The organization shall determine which events to log, how logs are stored, and the review frequency.",
+                "guidance": "Create a logging policy specifying which activities to record (e.g., authentication events, configuration changes). Store logs securely, protect them from tampering, and define retention times. Regularly review logs to detect anomalies."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Protective Technology (PR.PT)",
+                "keyMeasure": false,
+                "controlId": "PR.PT-2",
+                "controlName": "Removable media is protected, and its use restricted according to policy.",
+                "requirement": "PR.PT-2.1: The use of removable media shall be restricted and monitored.",
+                "guidance": "Limit removable media usage to essential business cases only. Scan media for malware upon insertion. Encrypt sensitive files stored on USB drives. Keep an inventory of approved devices, and train users on safe handling."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Protective Technology (PR.PT)",
+                "keyMeasure": false,
+                "controlId": "PR.PT-3",
+                "controlName": "The principle of least functionality is incorporated by configuring systems to provide only essential capabilities.",
+                "requirement": "PR.PT-3.1: The organization shall configure business-critical systems to provide only essential capabilities.",
+                "guidance": "Disable or remove unnecessary software, services, and ports. Regularly review configurations to ensure only authorized functionalities are active. Align with the principle of least privilege for both services and applications."
+              },
+              {
+                "function": "PROTECT",
+                "category": "Protective Technology (PR.PT)",
+                "keyMeasure": false,
+                "controlId": "PR.PT-4",
+                "controlName": "Communications and control networks are protected.",
+                "requirement": "PR.PT-4.1: Web and email filtering technologies shall be installed and used.",
+                "guidance": "Use an email gateway capable of filtering spam, phishing, and malware attachments. Configure web content filtering to block known malicious websites or categories. Monitor and regularly update filters to stay effective."
+              },
             // RESPOND (RS)
             {
                 function: "RESPOND",
@@ -1062,50 +1187,41 @@ const cyfunData = {
             },
             // RECOVER (RC)
             {
-                function: "RECOVER",
-                category: "Recovery Planning (RC.RP)",
-                keyMeasure: false,
-                controlId: "RC.RP-1",
-                controlName: "Recovery plan is executed during or after a cybersecurity incident",
-                requirement: "RC.RP-1.1: The organization shall execute its recovery plan during or after a cybersecurity incident.",
-                guidance: "• Consider developing a recovery plan that outlines the steps to restore systems and data after an incident.\n• Consider testing the recovery plan regularly to ensure it is effective.\n• Consider updating the recovery plan based on lessons learned from incidents and exercises."
-            },
-            {
-                function: "RECOVER",
-                category: "Improvements (RC.IM)",
-                keyMeasure: false,
-                controlId: "RC.IM-1",
-                controlName: "Lessons learned from incidents are incorporated into future strategies",
-                requirement: "RC.IM-1.1: The organization shall incorporate lessons learned from incidents into future strategies.",
-                guidance: "• Consider conducting post-incident reviews to identify lessons learned.\n• Consider updating response and recovery strategies based on lessons learned.\n• Consider sharing lessons learned with relevant stakeholders."
-            },
-            {
-                function: "RECOVER",
-                category: "Improvements (RC.IM)",
-                keyMeasure: false,
-                controlId: "RC.IM-2",
-                controlName: "Response and recovery strategies are updated",
-                requirement: "RC.IM-2.1: The organization shall update response and recovery strategies as needed.",
-                guidance: "Ensure that response and recovery strategies are regularly reviewed and updated to reflect new insights and lessons learned."
-            },
-            {
-                function: "RECOVER",
-                category: "Communications (RC.CO)",
-                keyMeasure: false,
-                controlId: "RC.CO-1",
-                controlName: "Public relations during recovery are managed",
-                requirement: "RC.CO-1.1: The organization shall manage public relations during recovery.",
-                guidance: "• Develop a communication plan to manage public relations during recovery.\n• Ensure clear and consistent communication with stakeholders."
-            },
-            {
-                function: "RECOVER",
-                category: "Communications (RC.CO)",
-                keyMeasure: false,
-                controlId: "RC.CO-3",
-                controlName: "Recovery activities are communicated to stakeholders and management teams",
-                requirement: "RC.CO-3.1: The organization shall communicate recovery activities to stakeholders and management teams.",
-                guidance: "• Ensure that recovery activities are clearly communicated to all relevant parties.\n• Consider using multiple communication channels to reach all stakeholders."
-            }
+                "function": "RECOVER",
+                "category": "Recovery Planning (RC.RP)",
+                "keyMeasure": false,
+                "controlId": "RC.RP-1",
+                "controlName": "Recovery plan is executed during or after a cybersecurity incident.",
+                "requirement": "RC.RP-1.1: A documented recovery plan shall be defined, implemented, and maintained to promptly restore systems or assets affected by security incidents.",
+                "guidance": "Include roles, responsibilities, and priorities for restoring operations after an incident; ensure the plan is regularly tested and updated."
+              },
+              {
+                "function": "RECOVER",
+                "category": "Improvements (RC.IM)",
+                "keyMeasure": false,
+                "controlId": "RC.IM-1",
+                "controlName": "Recovery plans incorporate lessons learned.",
+                "requirement": "RC.IM-1.1: The organization shall capture and integrate feedback from real or simulated incidents to improve recovery processes and procedures.",
+                "guidance": "After each incident or exercise, gather relevant teams to discuss successes and failures; update recovery documentation and practices accordingly."
+              },
+              {
+                "function": "RECOVER",
+                "category": "Communications (RC.CO)",
+                "keyMeasure": false,
+                "controlId": "RC.CO-1",
+                "controlName": "Public relations are managed.",
+                "requirement": "RC.CO-1.1: The organization shall manage external communications (e.g., media, public) during the recovery phase.",
+                "guidance": "Define who speaks to the media or public, ensure consistent messages, and coordinate with stakeholders to maintain trust and protect reputation."
+              },
+              {
+                "function": "RECOVER",
+                "category": "Communications (RC.CO)",
+                "keyMeasure": false,
+                "controlId": "RC.CO-3",
+                "controlName": "Recovery activities are communicated to internal and external stakeholders as well as executive and management teams.",
+                "requirement": "RC.CO-3.1: The organization shall keep management, staff, and relevant external parties informed about recovery status and progress.",
+                "guidance": "Communicate timelines, milestones, and resource needs to ensure alignment, maintain stakeholder confidence, and support timely decision-making."
+              }
         ],
         
         // Niveau ESSENTIAL

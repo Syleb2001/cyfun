@@ -786,6 +786,20 @@ function updateUIWithLoadedScores() {
             selectElement.value = implementationScores[controlId];
         }
     });
+    
+    // Mettre à jour l'apparence des boutons de notes
+    Object.keys(controlNotes).forEach(controlId => {
+        const notesBtn = document.querySelector(`.notes-btn[data-control-id="${controlId}"]`);
+        if (notesBtn) {
+            // Mise à jour de l'apparence du bouton en fonction de la présence de notes
+            notesBtn.classList.remove('btn-outline-secondary', 'btn-success');
+            if (controlNotes[controlId] && controlNotes[controlId].trim() !== '') {
+                notesBtn.classList.add('btn-success');
+            } else {
+                notesBtn.classList.add('btn-outline-secondary');
+            }
+        }
+    });
 }
 
 // Ajouter une sauvegarde automatique lors des modifications importantes

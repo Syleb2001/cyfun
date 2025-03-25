@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('saveAuditBtn').addEventListener('click', function() {
         saveAuditToFile(true);
     });
+    document.getElementById('resetAuditBtn').addEventListener('click', resetAudit);
     
     // Ajouter le modal pour les notes
     const notesModalHtml = `
@@ -536,13 +537,11 @@ function loadNotes() {
 function updateNotesButtonColor(controlId) {
     const notesBtn = document.querySelector(`.notes-btn[data-control-id="${controlId}"]`);
     if (notesBtn) {
-        const hasNotes = controlNotes[controlId] && controlNotes[controlId].trim() !== '';
-        
-        // Supprimer les classes existantes
+        // Mise à jour de l'apparence du bouton en fonction de la présence de notes
         notesBtn.classList.remove('btn-outline-secondary', 'btn-success');
         
         // Ajouter la classe appropriée
-        if (hasNotes) {
+        if (controlNotes[controlId] && controlNotes[controlId].trim() !== '') {
             notesBtn.classList.add('btn-success');
         } else {
             notesBtn.classList.add('btn-outline-secondary');
@@ -769,6 +768,46 @@ function loadAuditFromFile() {
     fileInput.click();
 }
 
+// Réinitialiser l'audit
+function resetAudit() {
+    if (confirm("Voulez-vous vraiment réinitialiser l'audit ? Toutes les données seront perdues.")) {
+        // Réinitialiser les données
+        documentationScores = {};
+        implementationScores = {};
+        controlNotes = {};
+        currentAuditData = {};
+        
+        // Réinitialiser les champs du formulaire
+        document.getElementById('organizationName').value = '';
+        document.getElementById('assessmentDate').value = '';
+        const level = 'BASIC';
+        document.getElementById('assessmentLevel').value = level;
+        
+        // Réinitialiser les contrôles et les scores
+        loadControls(level);
+        
+        // Réinitialiser explicitement l'apparence de tous les boutons de notes
+        const notesBtns = document.querySelectorAll('.notes-btn');
+        notesBtns.forEach(btn => {
+            btn.classList.remove('btn-success');
+            btn.classList.add('btn-outline-secondary');
+        });
+        
+        // Réinitialiser le stockage local pour les notes
+        try {
+            localStorage.removeItem('cyfun_notes');
+        } catch (e) {
+            console.error('Erreur lors de la suppression des notes du stockage local:', e);
+        }
+        
+        // Réinitialiser la section des résultats
+        document.getElementById('resultsSection').innerHTML = '';
+        
+        // Afficher un message de confirmation
+        alert("Audit réinitialisé avec succès.");
+    }
+}
+
 // Mettre à jour l'interface utilisateur avec les scores chargés
 function updateUIWithLoadedScores() {
     // Mettre à jour les sélecteurs de maturité pour la documentation
@@ -793,6 +832,8 @@ function updateUIWithLoadedScores() {
         if (notesBtn) {
             // Mise à jour de l'apparence du bouton en fonction de la présence de notes
             notesBtn.classList.remove('btn-outline-secondary', 'btn-success');
+            
+            // Ajouter la classe appropriée
             if (controlNotes[controlId] && controlNotes[controlId].trim() !== '') {
                 notesBtn.classList.add('btn-success');
             } else {

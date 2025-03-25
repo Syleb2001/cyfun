@@ -3,6 +3,9 @@
 // Variables globales pour stocker les scores
 let documentationScores = {};
 let implementationScores = {};
+// Variable globale pour stocker les notes par contrôle
+let controlNotes = {};
+let currentAuditData = {}; // Pour stocker les données d'audit actuelles
 
 // Initialisation de l'application
 document.addEventListener('DOMContentLoaded', function() {
@@ -21,16 +24,122 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Charger les contrôles par défaut (niveau BASIC)
     loadControls('BASIC');
+    
+    // Ajouter les écouteurs d'événements pour les boutons de chargement et de sauvegarde
+    document.getElementById('loadAuditBtn').addEventListener('click', loadAuditFromFile);
+    document.getElementById('saveAuditBtn').addEventListener('click', function() {
+        saveAuditToFile(true);
+    });
+    
+    // Ajouter le modal pour les notes
+    const notesModalHtml = `
+        <div class="modal fade" id="notesModal" tabindex="-1" aria-labelledby="notesModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="notesModalLabel">Notes</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                    </div>
+                    <div class="modal-body" id="notesModalBody">
+                        <!-- Le contenu sera injecté dynamiquement -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Ajouter le modal pour la visualisation radar
+    const radarModalHtml = `
+        <div class="modal fade" id="radarModal" tabindex="-1" aria-labelledby="radarModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="radarModalLabel">Visualisation des fonctions et catégories</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                    </div>
+                    <div class="modal-body" id="radarModalBody">
+                        <div class="row">
+                            <div class="col-md-8 d-flex justify-content-center">
+                                <div style="width: 600px; height: 600px;">
+                                    <canvas id="radarChart"></canvas>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div id="radarLegend" class="mt-3"></div>
+                                <div id="categoryDetails" class="mt-4">
+                                    <h5>Détails de la catégorie</h5>
+                                    <p>Cliquez sur une catégorie dans le graphique pour voir les détails.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.insertAdjacentHTML('beforeend', notesModalHtml);
+    document.body.insertAdjacentHTML('beforeend', radarModalHtml);
+    
+    // Charger les notes sauvegardées
+    loadNotes();
+    
+    // Ajouter le script Chart.js
+    const chartScript = document.createElement('script');
+    chartScript.src = 'https://cdn.jsdelivr.net/npm/chart.js';
+    document.head.appendChild(chartScript);
+    
+    // Attendre que Chart.js soit chargé
+    chartScript.onload = function() {
+        console.log('Chart.js chargé avec succès');
+    };
 });
 
 // Charger l'introduction du framework
 function loadIntroduction() {
     const introSection = document.getElementById('introductionSection');
-    introSection.innerHTML = `
-        <h3>Introduction au CyberFundamentals Framework</h3>
-        <p>${cyfunData.introduction.description}</p>
-        <p>${cyfunData.introduction.directions}</p>
+    
+    // Créer le HTML pour l'introduction
+    const html = `
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2>Introduction au CyberFundamentals Framework</h2>
+                <p>
+                    This workbook is the self-assessment tool for the CyberFundamentals
+                    Framework. The CyberFundamentals
+                    Framework is developed by the Centre for Cybersecurity Belgium (CCB), which operates under the authority of the
+                    Prime Minister of Belgium. The framework includes a set of concrete measures to protect data, significantly reduce
+                    the risk of the most common cyber-attacks, and increase the cyber resilience of organisations.
+                </p>
+                <p>
+                    Each "details" tab contains the controls of the respective cyberfundamentals framework level (BASIC-IMPORTANT-
+                    ESSENTIAL). The way each control is assessed considers 2 angles: How the controle is documented (documentation
+                    maturity) and how that documentation is implemented (implementation maturity). The maturity of each of the
+                    controls is assessed using the explanation in the Maturity Levels tab.
+                </p>
+            </div>
+        </div>
     `;
+    
+    // Insérer le HTML dans la section d'introduction
+    introSection.innerHTML = html;
+    
+    // Définir la date d'aujourd'hui comme date d'évaluation par défaut
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('assessmentDate').value = today;
+    
+    // Configurer la sauvegarde automatique
+    setupAutoSave();
+    
+    // Charger les contrôles pour le niveau par défaut
+    const defaultLevel = document.getElementById('assessmentLevel').value;
+    loadControls(defaultLevel);
 }
 
 // Charger les niveaux de maturité
@@ -134,7 +243,12 @@ function loadControls(level) {
     });
     
     // Générer le HTML pour les contrôles
-    let html = `<h3>Contrôles d'évaluation - Niveau ${level}</h3>`;
+    let html = `
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3>Contrôles d'évaluation - Niveau ${level}</h3>
+            <button id="viewRadarBtn" class="btn btn-primary">Visualiser les fonctions</button>
+        </div>
+    `;
     
     // Créer les onglets pour les fonctions
     html += '<ul class="nav nav-tabs" id="functionTabs" role="tablist">';
@@ -199,6 +313,9 @@ function loadControls(level) {
                         <td>
                             <button class="btn btn-sm btn-info guidance-btn" data-control-id="${controlId}" data-control-name="${(control.controlName || controlId).replace(/'/g, "\\'")}">
                                 Voir les conseils
+                            </button>
+                            <button class="btn btn-sm ${controlNotes[controlId] ? 'btn-success' : 'btn-outline-secondary'} notes-btn mt-1" data-control-id="${controlId}" data-control-name="${(control.controlName || controlId).replace(/'/g, "\\'")}">
+                                Notes
                             </button>
                         </td>
                         <td>
@@ -277,6 +394,20 @@ function setupControlEventListeners() {
         });
     });
     
+    // Écouteurs pour les boutons de notes
+    const notesBtns = document.querySelectorAll('.notes-btn');
+    notesBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const controlId = this.getAttribute('data-control-id');
+            const controlName = this.getAttribute('data-control-name');
+            showNotes(controlId, controlName);
+            
+            // Afficher le modal manuellement
+            const notesModal = new bootstrap.Modal(document.getElementById('notesModal'));
+            notesModal.show();
+        });
+    });
+    
     // Écouteurs pour les sélecteurs de maturité de documentation
     const docSelects = document.querySelectorAll('.documentation-maturity');
     docSelects.forEach(select => {
@@ -293,6 +424,11 @@ function setupControlEventListeners() {
             const controlId = this.getAttribute('data-control-id');
             updateScore(controlId, 'implementation');
         });
+    });
+    
+    // Écouteur pour le bouton de visualisation radar
+    document.getElementById('viewRadarBtn').addEventListener('click', function() {
+        showRadarVisualization();
     });
 }
 
@@ -327,6 +463,98 @@ function showGuidance(controlId, controlName) {
         <p><strong>Conseils:</strong></p>
         <div class="guidance-content">${guidanceContent.replace(/\n/g, '<br>')}</div>
     `;
+}
+
+// Afficher et éditer les notes pour un contrôle spécifique
+function showNotes(controlId, controlName) {
+    console.log(`Affichage des notes pour ${controlId}: ${controlName}`);
+    
+    // Mettre à jour le titre du modal
+    document.getElementById('notesModalLabel').textContent = `Notes pour ${controlName}`;
+    
+    // Récupérer les notes existantes ou initialiser avec une chaîne vide
+    const existingNotes = controlNotes[controlId] || '';
+    
+    // Mettre à jour le contenu du modal
+    document.getElementById('notesModalBody').innerHTML = `
+        <div class="mb-3">
+            <textarea id="notes-${controlId}" class="form-control" rows="6" placeholder="Saisissez vos notes ici...">${existingNotes}</textarea>
+        </div>
+        <button id="save-notes-${controlId}" class="btn btn-primary">Enregistrer</button>
+    `;
+    
+    // Ajouter un écouteur d'événement pour le bouton d'enregistrement
+    setTimeout(() => {
+        document.getElementById(`save-notes-${controlId}`).addEventListener('click', function() {
+            const notes = document.getElementById(`notes-${controlId}`).value;
+            saveNotes(controlId, notes);
+            
+            // Fermer le modal
+            const notesModalElement = document.getElementById('notesModal');
+            const notesModal = bootstrap.Modal.getInstance(notesModalElement);
+            notesModal.hide();
+            
+            // Afficher un message de confirmation
+            alert('Notes enregistrées avec succès!');
+        });
+    }, 100);
+}
+
+// Sauvegarder les notes pour un contrôle
+function saveNotes(controlId, notes) {
+    console.log(`Sauvegarde des notes pour ${controlId}`);
+    controlNotes[controlId] = notes;
+    
+    // Sauvegarder dans le stockage local pour persistance
+    try {
+        localStorage.setItem('cyfun_notes', JSON.stringify(controlNotes));
+    } catch (e) {
+        console.error('Erreur lors de la sauvegarde des notes dans le stockage local:', e);
+    }
+    
+    // Mettre à jour la couleur du bouton Notes
+    updateNotesButtonColor(controlId);
+}
+
+// Charger les notes depuis le stockage local
+function loadNotes() {
+    try {
+        const savedNotes = localStorage.getItem('cyfun_notes');
+        if (savedNotes) {
+            controlNotes = JSON.parse(savedNotes);
+            console.log('Notes chargées depuis le stockage local');
+            
+            // Mettre à jour les couleurs des boutons après le chargement des contrôles
+            setTimeout(updateAllNotesButtonColors, 500);
+        }
+    } catch (e) {
+        console.error('Erreur lors du chargement des notes depuis le stockage local:', e);
+    }
+}
+
+// Mettre à jour la couleur du bouton Notes
+function updateNotesButtonColor(controlId) {
+    const notesBtn = document.querySelector(`.notes-btn[data-control-id="${controlId}"]`);
+    if (notesBtn) {
+        const hasNotes = controlNotes[controlId] && controlNotes[controlId].trim() !== '';
+        
+        // Supprimer les classes existantes
+        notesBtn.classList.remove('btn-outline-secondary', 'btn-success');
+        
+        // Ajouter la classe appropriée
+        if (hasNotes) {
+            notesBtn.classList.add('btn-success');
+        } else {
+            notesBtn.classList.add('btn-outline-secondary');
+        }
+    }
+}
+
+// Mettre à jour la couleur de tous les boutons Notes
+function updateAllNotesButtonColors() {
+    Object.keys(controlNotes).forEach(controlId => {
+        updateNotesButtonColor(controlId);
+    });
 }
 
 // Mettre à jour le score pour un contrôle
@@ -366,13 +594,218 @@ function updateScore(controlId, type) {
     } else {
         implementationScores[controlId] = value;
     }
+    
+    // Sauvegarder automatiquement après la mise à jour d'un score
+    const orgName = document.getElementById('organizationName').value;
+    if (orgName && orgName.trim() !== '') {
+        // Utiliser un délai pour éviter des sauvegardes trop fréquentes
+        clearTimeout(window.autoSaveTimeout);
+        window.autoSaveTimeout = setTimeout(() => saveAuditToFile(false), 2000);
+    }
 }
 
-// Réinitialiser les scores
-function resetScores() {
-    documentationScores = {};
-    implementationScores = {};
-    console.log("Scores réinitialisés");
+// Fonction pour sauvegarder l'audit
+function saveAuditToFile(forceDownload = false) {
+    const organizationName = document.getElementById('organizationName').value;
+    
+    if (!organizationName || organizationName.trim() === '') {
+        console.warn("Nom d'organisation non spécifié, impossible de sauvegarder l'audit");
+        return;
+    }
+    
+    // Récupérer le niveau d'évaluation actuel
+    const level = document.getElementById('assessmentLevel').value;
+    
+    // Créer l'objet de données d'audit
+    const auditData = {
+        metadata: {
+            lastSaved: new Date().toISOString(),
+            version: "1.0"
+        },
+        organization: {
+            name: organizationName,
+            assessmentDate: document.getElementById('assessmentDate').value || new Date().toISOString().split('T')[0]
+        },
+        assessment: {
+            level: level
+        },
+        documentationScores: documentationScores,
+        implementationScores: implementationScores,
+        notes: controlNotes
+    };
+    
+    // Mettre à jour les données d'audit actuelles
+    currentAuditData = auditData;
+    
+    // Convertir en JSON
+    const jsonData = JSON.stringify(auditData, null, 2);
+    
+    // Créer un nom de fichier sécurisé basé sur le nom de l'organisation
+    const safeOrgName = organizationName.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+    const fileName = `${safeOrgName}_audit.json`;
+    
+    // Sauvegarder dans le localStorage
+    try {
+        localStorage.setItem('cyfun_current_audit', jsonData);
+        console.log(`Audit sauvegardé en mémoire pour ${organizationName}`);
+    } catch (e) {
+        console.error('Erreur lors de la sauvegarde de l\'audit dans le stockage local:', e);
+    }
+    
+    // Si forceDownload est true, télécharger le fichier
+    if (forceDownload) {
+        // Créer un Blob avec les données JSON
+        const blob = new Blob([jsonData], { type: 'application/json' });
+        
+        // Utiliser l'API de téléchargement pour sauvegarder le fichier
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = fileName;
+        document.body.appendChild(a);
+        a.click();
+        
+        // Nettoyer
+        setTimeout(() => {
+            document.body.removeChild(a);
+            URL.revokeObjectURL(a.href);
+        }, 0);
+        
+        console.log(`Audit téléchargé dans ${fileName}`);
+        
+        // Afficher un message de confirmation
+        const saveNotification = document.createElement('div');
+        saveNotification.className = 'alert alert-success alert-dismissible fade show';
+        saveNotification.setAttribute('role', 'alert');
+        saveNotification.innerHTML = `
+            <strong>Sauvegarde réussie!</strong> L'audit pour ${organizationName} a été sauvegardé.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        `;
+        
+        // Ajouter la notification en haut de la page
+        const container = document.querySelector('.container');
+        container.insertBefore(saveNotification, container.firstChild);
+        
+        // Supprimer automatiquement après 5 secondes
+        setTimeout(() => {
+            if (saveNotification.parentNode) {
+                saveNotification.parentNode.removeChild(saveNotification);
+            }
+        }, 5000);
+    }
+}
+
+// Charger un audit depuis un fichier JSON
+function loadAuditFromFile() {
+    // Créer un élément input de type fichier
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = '.json';
+    
+    // Ajouter un gestionnaire d'événements pour le changement de fichier
+    fileInput.addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                const auditData = JSON.parse(e.target.result);
+                
+                // Vérifier si les données sont valides
+                if (!auditData.organization || !auditData.assessment) {
+                    throw new Error("Format de fichier d'audit invalide");
+                }
+                
+                // Mettre à jour les données d'audit actuelles
+                currentAuditData = auditData;
+                
+                // Mettre à jour les champs du formulaire
+                document.getElementById('organizationName').value = auditData.organization.name || '';
+                document.getElementById('assessmentDate').value = auditData.organization.assessmentDate || new Date().toISOString().split('T')[0];
+                
+                // Mettre à jour le niveau d'évaluation et charger les contrôles correspondants
+                const level = auditData.assessment.level || 'BASIC';
+                document.getElementById('assessmentLevel').value = level;
+                loadControls(level);
+                
+                // Mettre à jour les scores
+                documentationScores = auditData.documentationScores || {};
+                implementationScores = auditData.implementationScores || {};
+                controlNotes = auditData.notes || {};
+                
+                // Mettre à jour l'interface utilisateur avec les scores chargés
+                updateUIWithLoadedScores();
+                
+                console.log("Audit chargé avec succès");
+                
+                // Afficher un message de confirmation
+                const loadNotification = document.createElement('div');
+                loadNotification.className = 'alert alert-success alert-dismissible fade show';
+                loadNotification.setAttribute('role', 'alert');
+                loadNotification.innerHTML = `
+                    <strong>Chargement réussi!</strong> L'audit pour ${auditData.organization.name} a été chargé.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                `;
+                
+                // Ajouter la notification en haut de la page
+                const container = document.querySelector('.container');
+                container.insertBefore(loadNotification, container.firstChild);
+                
+                // Supprimer automatiquement après 5 secondes
+                setTimeout(() => {
+                    if (loadNotification.parentNode) {
+                        loadNotification.parentNode.removeChild(loadNotification);
+                    }
+                }, 5000);
+            } catch (error) {
+                console.error("Erreur lors du chargement de l'audit:", error);
+                alert("Erreur lors du chargement de l'audit. Le fichier pourrait être corrompu ou dans un format incorrect.");
+            }
+        };
+        reader.readAsText(file);
+    });
+    
+    // Déclencher le clic sur l'élément input
+    fileInput.click();
+}
+
+// Mettre à jour l'interface utilisateur avec les scores chargés
+function updateUIWithLoadedScores() {
+    // Mettre à jour les sélecteurs de maturité pour la documentation
+    Object.keys(documentationScores).forEach(controlId => {
+        const selectElement = document.getElementById(`doc-${controlId}`);
+        if (selectElement) {
+            selectElement.value = documentationScores[controlId];
+        }
+    });
+    
+    // Mettre à jour les sélecteurs de maturité pour l'implémentation
+    Object.keys(implementationScores).forEach(controlId => {
+        const selectElement = document.getElementById(`impl-${controlId}`);
+        if (selectElement) {
+            selectElement.value = implementationScores[controlId];
+        }
+    });
+}
+
+// Ajouter une sauvegarde automatique lors des modifications importantes
+function setupAutoSave() {
+    // Sauvegarde lors du changement de nom d'organisation
+    document.getElementById('organizationName').addEventListener('change', function() {
+        if (this.value && this.value.trim() !== '') {
+            saveAuditToFile(false);
+        }
+    });
+    
+    // Sauvegarde lors du changement de niveau d'évaluation
+    document.getElementById('assessmentLevel').addEventListener('change', function() {
+        // La sauvegarde sera déclenchée après le chargement des contrôles
+        const orgName = document.getElementById('organizationName').value;
+        if (orgName && orgName.trim() !== '') {
+            // Attendre que les contrôles soient chargés avant de sauvegarder
+            setTimeout(() => saveAuditToFile(false), 500);
+        }
+    });
 }
 
 // Calculer les résultats
@@ -406,25 +839,69 @@ function calculateResults() {
     const categoryScores = {};
     const categories = cyfunData.categories;
     
+    console.log("Catégories disponibles:", categories);
+    console.log("Scores de documentation complets:", documentationScores);
+    console.log("Scores d'implémentation complets:", implementationScores);
+    
+    // Vérifier si nous avons bien des scores
+    const hasScores = Object.keys(documentationScores).length > 0 && Object.keys(implementationScores).length > 0;
+    if (!hasScores) {
+        console.error("Aucun score n'a été trouvé. Assurez-vous d'avoir évalué les contrôles.");
+        alert("Aucun score n'a été trouvé. Assurez-vous d'avoir évalué les contrôles.");
+        return;
+    }
+    
+    // Traiter chaque catégorie
     categories.forEach(category => {
         const categoryId = category.id;
-        const categoryControls = cyfunData.formulas.getControlsByCategoryId(categoryId);
+        console.log(`Traitement de la catégorie ${categoryId} (${category.name})`);
         
-        if (categoryControls.length > 0) {
-            const docScore = cyfunData.formulas.calculateCategoryScore(categoryId, documentationScores, implementationScores, 'documentation');
-            const implScore = cyfunData.formulas.calculateCategoryScore(categoryId, documentationScores, implementationScores, 'implementation');
+        // Obtenir les contrôles pour cette catégorie
+        const categoryControls = cyfunData.formulas.getControlsByCategoryId(categoryId);
+        console.log(`Catégorie ${categoryId} (${category.name}):`, categoryControls);
+        
+        // Calculer les scores uniquement si des contrôles ont été trouvés
+        if (categoryControls && categoryControls.length > 0) {
+            console.log(`${categoryControls.length} contrôles trouvés pour ${categoryId}`);
             
-            if (!isNaN(docScore) && !isNaN(implScore)) {
+            // Calculer directement les scores sans passer par la fonction existante
+            let docTotal = 0;
+            let implTotal = 0;
+            let count = 0;
+            
+            categoryControls.forEach(control => {
+                const controlId = control.controlId;
+                if (documentationScores[controlId] && implementationScores[controlId]) {
+                    docTotal += documentationScores[controlId];
+                    implTotal += implementationScores[controlId];
+                    count++;
+                    console.log(`Ajout du contrôle ${controlId} aux scores: Doc=${documentationScores[controlId]}, Impl=${implementationScores[controlId]}`);
+                }
+            });
+            
+            if (count > 0) {
+                const docScore = docTotal / count;
+                const implScore = implTotal / count;
+                const avgScore = (docScore + implScore) / 2;
+                
+                console.log(`Scores calculés pour ${categoryId}: Doc=${docScore.toFixed(2)}, Impl=${implScore.toFixed(2)}, Avg=${avgScore.toFixed(2)}`);
+                
                 categoryScores[categoryId] = {
                     documentation: docScore,
                     implementation: implScore,
-                    average: (docScore + implScore) / 2,
+                    average: avgScore,
                     name: category.name,
                     description: category.description
                 };
+            } else {
+                console.warn(`Aucun score n'a pu être calculé pour la catégorie ${categoryId}`);
             }
+        } else {
+            console.warn(`Aucun contrôle trouvé pour la catégorie ${categoryId}`);
         }
     });
+    
+    console.log("Scores par catégorie:", categoryScores);
     
     // Calculer le score global
     const overallScore = cyfunData.formulas.calculateOverallScore(documentationScores, implementationScores);
@@ -549,7 +1026,9 @@ function generateRoadmap(categoryScores, documentationScores, implementationScor
 function displayResults(categoryScores, overallScore, complianceStatus, notes) {
     const resultsSection = document.getElementById('resultsSection');
     
-    // Créer le contenu HTML pour les résultats
+    console.log("Fonction displayResults appelée avec:", { categoryScores, overallScore, complianceStatus, notes });
+    
+    // Créer le HTML pour les résultats
     let html = `
         <div class="alert ${complianceStatus.status === 'Conforme' ? 'alert-success' : 'alert-warning'} mb-4">
             <h4 class="alert-heading">${complianceStatus.status} au niveau ${notes.assessmentLevel}</h4>
@@ -588,25 +1067,40 @@ function displayResults(categoryScores, overallScore, complianceStatus, notes) {
     `;
     
     // Ajouter les scores par catégorie
-    Object.keys(categoryScores).forEach(categoryId => {
-        const category = categoryScores[categoryId];
-        const threshold = cyfunData.complianceThresholds[notes.assessmentLevel].category;
-        const isCompliant = category.average >= threshold;
-        
+    console.log("Nombre de catégories à afficher:", Object.keys(categoryScores).length);
+    
+    // Débogage - afficher toutes les catégories disponibles
+    console.log("categoryScores complet:", categoryScores);
+    
+    if (Object.keys(categoryScores).length === 0) {
         html += `
             <tr>
-                <td>${category.name}</td>
-                <td>${category.documentation.toFixed(2)}</td>
-                <td>${category.implementation.toFixed(2)}</td>
-                <td>${category.average.toFixed(2)}</td>
-                <td>
-                    <span class="badge ${isCompliant ? 'bg-success' : 'bg-danger'}">
-                        ${isCompliant ? 'Conforme' : 'Non conforme'}
-                    </span>
-                </td>
+                <td colspan="5" class="text-center">Aucune donnée disponible</td>
             </tr>
         `;
-    });
+    } else {
+        Object.keys(categoryScores).forEach(categoryId => {
+            const category = categoryScores[categoryId];
+            console.log(`Affichage de la catégorie ${categoryId}:`, category);
+            
+            const threshold = cyfunData.complianceThresholds[notes.assessmentLevel].category;
+            const isCompliant = category.average >= threshold;
+            
+            html += `
+                <tr>
+                    <td>${category.name} (${categoryId})</td>
+                    <td>${category.documentation.toFixed(2)}</td>
+                    <td>${category.implementation.toFixed(2)}</td>
+                    <td>${category.average.toFixed(2)}</td>
+                    <td>
+                        <span class="badge ${isCompliant ? 'bg-success' : 'bg-danger'}">
+                            ${isCompliant ? 'Conforme' : 'Non conforme'}
+                        </span>
+                    </td>
+                </tr>
+            `;
+        });
+    }
     
     html += `
                         </tbody>
@@ -968,11 +1462,12 @@ function exportPDF(categoryScores, overallScore, complianceStatus, notes) {
             doc.setFontSize(14);
             doc.setFont('helvetica', 'bold');
             doc.text('Contrôles clés à améliorer', 14, yPos);
+            yPos += 10;
             
             // Ajouter chaque contrôle clé
             notes.roadmap.priorityControls.forEach((control, index) => {
                 // Vérifier s'il reste assez d'espace sur la page, sinon ajouter une nouvelle page
-                if (yPos > 220) {
+                if (yPos > 270) {
                     doc.addPage();
                     yPos = 20;
                 }
@@ -1115,12 +1610,10 @@ function exportPDF(categoryScores, overallScore, complianceStatus, notes) {
 
 // Exporter les résultats
 function exportResults(categoryScores, overallScore, complianceStatus, notes) {
-    // Créer l'objet de données pour l'exportation
     const exportData = {
         metadata: {
-            version: "1.0",
             exportDate: new Date().toISOString(),
-            tool: "CyFun Self-Assessment Tool"
+            version: "1.0"
         },
         organization: {
             name: notes.organizationName,
@@ -1129,46 +1622,25 @@ function exportResults(categoryScores, overallScore, complianceStatus, notes) {
         assessment: {
             level: notes.assessmentLevel,
             overallScore: overallScore,
-            complianceStatus: complianceStatus.status,
-            complianceMessage: complianceStatus.description
+            complianceStatus: complianceStatus
         },
-        categoryScores: {},
-        controlScores: {
-            documentation: documentationScores,
-            implementation: implementationScores
-        }
+        categoryScores: categoryScores,
+        documentationScores: documentationScores,
+        implementationScores: implementationScores,
+        notes: controlNotes, // Inclure les notes dans l'exportation
+        roadmap: notes.roadmap
     };
-    
-    // Ajouter les scores par catégorie
-    Object.keys(categoryScores).forEach(categoryId => {
-        const category = categoryScores[categoryId];
-        exportData.categoryScores[categoryId] = {
-            name: category.name,
-            documentation: category.documentation,
-            implementation: category.implementation,
-            average: category.average
-        };
-    });
-    
-    // Ajouter la feuille de route si elle existe
-    if (notes.roadmap) {
-        exportData.roadmap = {
-            improvementAreas: notes.roadmap.improvementAreas,
-            priorityControls: notes.roadmap.priorityControls,
-            generalRecommendations: notes.roadmap.generalRecommendations
-        };
-    }
     
     // Convertir en JSON
     const jsonData = JSON.stringify(exportData, null, 2);
     
-    // Créer un blob et un lien de téléchargement
+    // Créer un Blob et un lien de téléchargement
     const blob = new Blob([jsonData], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     
     const a = document.createElement('a');
     a.href = url;
-    a.download = `cyfun_assessment_${notes.assessmentLevel.toLowerCase()}_${new Date().toISOString().split('T')[0]}.json`;
+    a.download = `cyfun_assessment_${notes.organizationName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.json`;
     document.body.appendChild(a);
     a.click();
     
@@ -1179,36 +1651,309 @@ function exportResults(categoryScores, overallScore, complianceStatus, notes) {
     }, 0);
 }
 
-// Ajouter une feuille de style CSS personnalisée pour l'application
-function addCustomStyles() {
-    const styleElement = document.createElement('style');
-    styleElement.textContent = `
-        .guidance-content {
-            white-space: pre-line;
-            margin-top: 10px;
-            padding: 10px;
-            background-color: #f8f9fa;
-            border-radius: 5px;
+// Afficher la visualisation radar des fonctions et catégories
+function showRadarVisualization() {
+    console.log('Affichage de la visualisation radar');
+    
+    // Récupérer les données pour le graphique
+    const level = document.getElementById('assessmentLevel').value;
+    const controls = cyfunData.controls[level];
+    
+    // Regrouper les contrôles par fonction et catégorie
+    const functionGroups = {
+        "ID": { name: "IDENTIFY", categories: {}, color: 'rgba(54, 162, 235, 0.7)' },
+        "PR": { name: "PROTECT", categories: {}, color: 'rgba(75, 192, 192, 0.7)' },
+        "DE": { name: "DETECT", categories: {}, color: 'rgba(255, 206, 86, 0.7)' },
+        "RS": { name: "RESPOND", categories: {}, color: 'rgba(255, 99, 132, 0.7)' },
+        "RC": { name: "RECOVER", categories: {}, color: 'rgba(153, 102, 255, 0.7)' }
+    };
+    
+    // Compter les contrôles par catégorie et fonction
+    controls.forEach(control => {
+        let functionId;
+        if (control.function === "IDENTIFY") functionId = "ID";
+        else if (control.function === "PROTECT") functionId = "PR";
+        else if (control.function === "DETECT") functionId = "DE";
+        else if (control.function === "RESPOND") functionId = "RS";
+        else if (control.function === "RECOVER") functionId = "RC";
+        else {
+            console.error("Fonction inconnue:", control.function);
+            return;
         }
         
-        .key-measure {
-            font-weight: bold;
-            color: #dc3545;
+        const category = control.category || 'Non catégorisé';
+        
+        if (!functionGroups[functionId].categories[category]) {
+            functionGroups[functionId].categories[category] = {
+                count: 0,
+                controls: []
+            };
         }
         
-        .maturity-level-info {
-            margin-bottom: 20px;
+        functionGroups[functionId].categories[category].count++;
+        functionGroups[functionId].categories[category].controls.push(control);
+    });
+    
+    // Préparer les données pour le graphique radar
+    const datasets = [];
+    const allCategories = new Set();
+    
+    // Collecter toutes les catégories uniques
+    Object.keys(functionGroups).forEach(functionId => {
+        Object.keys(functionGroups[functionId].categories).forEach(category => {
+            allCategories.add(category);
+        });
+    });
+    
+    // Convertir en tableau et trier
+    const labels = Array.from(allCategories).sort();
+    
+    // Limiter le nombre de catégories si nécessaire pour éviter la surcharge
+    const maxCategories = 12;
+    let displayLabels = labels;
+    if (labels.length > maxCategories) {
+        // Trier par nombre total de contrôles et prendre les plus importantes
+        const categoryCounts = {};
+        labels.forEach(category => {
+            let total = 0;
+            Object.keys(functionGroups).forEach(functionId => {
+                if (functionGroups[functionId].categories[category]) {
+                    total += functionGroups[functionId].categories[category].count;
+                }
+            });
+            categoryCounts[category] = total;
+        });
+        
+        displayLabels = labels
+            .sort((a, b) => categoryCounts[b] - categoryCounts[a])
+            .slice(0, maxCategories);
+    }
+    
+    // Créer un dataset pour chaque fonction
+    Object.keys(functionGroups).forEach(functionId => {
+        const group = functionGroups[functionId];
+        const data = displayLabels.map(category => {
+            return group.categories[category] ? group.categories[category].count : 0;
+        });
+        
+        datasets.push({
+            label: group.name,
+            data: data,
+            backgroundColor: group.color,
+            borderColor: group.color.replace('0.7', '1'),
+            borderWidth: 2,
+            pointBackgroundColor: group.color.replace('0.7', '1'),
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: group.color.replace('0.7', '1'),
+            pointRadius: 4
+        });
+    });
+    
+    // Afficher le modal
+    const radarModal = new bootstrap.Modal(document.getElementById('radarModal'));
+    radarModal.show();
+    
+    // Créer le graphique radar
+    setTimeout(() => {
+        // Détruire le graphique existant s'il y en a un
+        if (window.radarChartInstance) {
+            window.radarChartInstance.destroy();
         }
         
-        .category-header {
-            background-color: #f8f9fa;
-            padding: 10px;
-            margin-bottom: 15px;
-            border-radius: 5px;
-        }
-    `;
-    document.head.appendChild(styleElement);
+        const ctx = document.getElementById('radarChart').getContext('2d');
+        
+        window.radarChartInstance = new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: displayLabels,
+                datasets: datasets
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            font: {
+                                size: 12
+                            }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.dataset.label}: ${context.raw} contrôle(s)`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Créer la légende interactive
+        createInteractiveLegend(functionGroups, displayLabels);
+    }, 300);
 }
 
-// Ajouter les styles personnalisés
-addCustomStyles();
+// Afficher les détails d'une catégorie
+function showCategoryDetails(functionId, category, functionGroups) {
+    const categoryDetailsElement = document.getElementById('categoryDetails');
+    const functionName = functionGroups[functionId].name;
+    const categoryData = functionGroups[functionId].categories[category];
+    
+    if (!categoryData) {
+        categoryDetailsElement.innerHTML = `
+            <h5>Détails de la catégorie</h5>
+            <p>Aucun contrôle trouvé pour ${category} dans ${functionName}.</p>
+        `;
+        return;
+    }
+    
+    let html = `
+        <h5>${category} (${functionName})</h5>
+        <p><strong>Nombre de contrôles:</strong> ${categoryData.count}</p>
+        <div class="list-group">
+    `;
+    
+    categoryData.controls.forEach(control => {
+        html += `
+            <div class="list-group-item">
+                <h6>${control.controlName || control.controlId}</h6>
+                <p class="mb-1"><small>${control.requirement || 'Aucune exigence spécifiée'}</small></p>
+            </div>
+        `;
+    });
+    
+    html += '</div>';
+    categoryDetailsElement.innerHTML = html;
+}
+
+// Créer une légende interactive pour le graphique radar
+function createInteractiveLegend(functionGroups, categories) {
+    const legendElement = document.getElementById('radarLegend');
+    let html = '<h5>Fonctions</h5><div class="list-group">';
+    
+    Object.keys(functionGroups).forEach(functionId => {
+        const group = functionGroups[functionId];
+        const totalControls = Object.values(group.categories).reduce((sum, cat) => sum + cat.count, 0);
+        
+        html += `
+            <div class="list-group-item d-flex justify-content-between align-items-center" 
+                 style="cursor: pointer; border-left: 5px solid ${group.color};"
+                 onclick="highlightFunction('${functionId}')">
+                ${group.name}
+                <span class="badge bg-primary rounded-pill">${totalControls}</span>
+            </div>
+        `;
+    });
+    
+    html += '</div>';
+    
+    html += '<h5 class="mt-3">Catégories</h5><div class="list-group">';
+    
+    categories.forEach(category => {
+        let totalInCategory = 0;
+        Object.keys(functionGroups).forEach(functionId => {
+            if (functionGroups[functionId].categories[category]) {
+                totalInCategory += functionGroups[functionId].categories[category].count;
+            }
+        });
+        
+        html += `
+            <div class="list-group-item d-flex justify-content-between align-items-center" 
+                 style="cursor: pointer;"
+                 onclick="highlightCategory('${category}')">
+                ${category}
+                <span class="badge bg-secondary rounded-pill">${totalInCategory}</span>
+            </div>
+        `;
+    });
+    
+    html += '</div>';
+    
+    legendElement.innerHTML = html;
+    
+    // Ajouter les fonctions de mise en évidence au contexte global
+    window.highlightFunction = function(functionId) {
+        const chart = window.radarChartInstance;
+        if (!chart) return;
+        
+        const datasetIndex = Object.keys(functionGroups).indexOf(functionId);
+        
+        // Réinitialiser l'opacité pour tous les datasets
+        chart.data.datasets.forEach((dataset, index) => {
+            dataset.backgroundColor = dataset.backgroundColor.replace(', 0.7)', ', 0.2)');
+            dataset.borderColor = dataset.borderColor.replace(', 1)', ', 0.2)');
+        });
+        
+        // Mettre en évidence le dataset sélectionné
+        chart.data.datasets[datasetIndex].backgroundColor = chart.data.datasets[datasetIndex].backgroundColor.replace(', 0.2)', ', 0.7)');
+        chart.data.datasets[datasetIndex].borderColor = chart.data.datasets[datasetIndex].borderColor.replace(', 0.2)', ', 1)');
+        
+        chart.update();
+        
+        // Afficher les détails de la fonction
+        const categoryDetailsElement = document.getElementById('categoryDetails');
+        const functionName = functionGroups[functionId].name;
+        const totalControls = Object.values(functionGroups[functionId].categories).reduce((sum, cat) => sum + cat.count, 0);
+        
+        let html = `
+            <h5>${functionName}</h5>
+            <p><strong>Nombre total de contrôles:</strong> ${totalControls}</p>
+            <h6>Catégories:</h6>
+            <ul>
+        `;
+        
+        Object.keys(functionGroups[functionId].categories).forEach(category => {
+            const count = functionGroups[functionId].categories[category].count;
+            html += `<li>${category}: ${count} contrôle(s)</li>`;
+        });
+        
+        html += '</ul>';
+        categoryDetailsElement.innerHTML = html;
+    };
+    
+    window.highlightCategory = function(categoryName) {
+        const chart = window.radarChartInstance;
+        if (!chart) return;
+        
+        const categoryIndex = chart.data.labels.indexOf(categoryName);
+        
+        // Afficher les détails de la catégorie
+        const categoryDetailsElement = document.getElementById('categoryDetails');
+        
+        let html = `
+            <h5>${categoryName}</h5>
+            <div class="list-group">
+        `;
+        
+        Object.keys(functionGroups).forEach(functionId => {
+            const group = functionGroups[functionId];
+            if (group.categories[categoryName]) {
+                const categoryData = group.categories[categoryName];
+                
+                html += `
+                    <div class="list-group-item" style="border-left: 5px solid ${group.color};">
+                        <h6>${group.name} (${categoryData.count} contrôle(s))</h6>
+                        <div class="ms-3">
+                `;
+                
+                categoryData.controls.forEach(control => {
+                    html += `
+                        <div class="mb-2">
+                            <strong>${control.controlName || control.controlId}</strong>
+                            <p class="mb-1 small">${control.requirement || 'Aucune exigence spécifiée'}</p>
+                        </div>
+                    `;
+                });
+                
+                html += '</div></div>';
+            }
+        });
+        
+        html += '</div>';
+        categoryDetailsElement.innerHTML = html;
+    };
+}

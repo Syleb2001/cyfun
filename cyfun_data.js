@@ -228,7 +228,7 @@ const cyfunData = {
                 "controlId": "PR.AC-5",
                 "controlName": "Network integrity (network segregation, network segmentation…) is protected.",
                 "requirement": "PR.AC-5.1: Firewalls shall be installed and activated on all the organization's networks. (Key measure)\nPR.AC-5.2: Where appropriate, network integrity of critical systems shall be protected by network segmentation and segregation. (Key measure)",
-                "guidance": "Deploy firewalls at network boundaries and endpoints; change admin credentials; keep them updated; consider intrusion detection/prevention and separate critical systems into segments to limit lateral movement."
+                "guidance": "Deploy firewalls at network boundaries and on devices (servers, desktops); consider minimizing the number of external access points to reduce exposure."
               },
               {
                 "function": "PROTECT",
@@ -1323,7 +1323,8 @@ const cyfunData = {
                 category: "Access Control (PR.AC)",
                 keyMeasure: false,
                 controlId: "PR.AC-6",
-                controlName: "Identities are proofed and bound to credentials and asserted in interactions",
+                controlName: "Identities are proofed and bound to credentials and asserted in interactions"
+                ,
                 requirement: "PR.AC-6.1: The organization shall proof identities and bind them to credentials.",
                 guidance: "• Consider to implement a process for verifying the identity of individuals before issuing credentials.\n• Consider to bind credentials to verified identities.\n• Consider to assert identities in interactions through authentication mechanisms."
             },
@@ -1332,7 +1333,8 @@ const cyfunData = {
                 category: "Awareness and Training (PR.AT)",
                 keyMeasure: true,
                 controlId: "PR.AT-1",
-                controlName: "All users are informed and trained",
+                controlName: "All users are informed and trained"
+                ,
                 requirement: "PR.AT-1.1: The organization shall provide cybersecurity awareness training to all users.",
                 guidance: "• Consider to provide cybersecurity awareness training to all users, including employees, contractors, and third-party stakeholders.\n• Consider to tailor the training to the specific roles and responsibilities of the users.\n• Consider to provide the training at least annually and when significant changes occur."
             },
@@ -1341,7 +1343,8 @@ const cyfunData = {
                 category: "Data Security (PR.DS)",
                 keyMeasure: false,
                 controlId: "PR.DS-4",
-                controlName: "Adequate capacity to ensure availability is maintained",
+                controlName: "Adequate capacity to ensure availability is maintained"
+                ,
                 requirement: "PR.DS-4.1: The organization shall maintain adequate capacity to ensure availability.",
                 guidance: "• Consider to monitor system capacity and performance regularly.\n• Consider to implement capacity planning processes to ensure that adequate capacity is maintained.\n• Consider to implement redundancy and failover mechanisms to ensure availability."
             },
@@ -1350,7 +1353,8 @@ const cyfunData = {
                 category: "Data Security (PR.DS)",
                 keyMeasure: false,
                 controlId: "PR.DS-5",
-                controlName: "Protections against data leaks are implemented",
+                controlName: "Protections against data leaks are implemented"
+                ,
                 requirement: "PR.DS-5.1: The organization shall implement protections against data leaks.",
                 guidance: "• Consider to implement data loss prevention (DLP) solutions that can detect and prevent data leaks.\n• Consider to implement access controls that limit access to sensitive data.\n• Consider to implement encryption for sensitive data in transit and at rest."
             },
@@ -1359,7 +1363,8 @@ const cyfunData = {
                 category: "Information Protection Processes and Procedures (PR.IP)",
                 keyMeasure: true,
                 controlId: "PR.IP-1",
-                controlName: "A baseline configuration of information technology/industrial control systems is created and maintained incorporating security principles (e.g. concept of least functionality)",
+                controlName: "A baseline configuration of information technology/industrial control systems is created and maintained incorporating security principles (e.g. concept of least functionality)"
+                ,
                 requirement: "PR.IP-1.1: The organization shall create and maintain a baseline configuration of information technology/industrial control systems.",
                 guidance: "• Consider to create and maintain baseline configurations for all systems.\n• Consider to incorporate security principles, such as least functionality, in the baseline configurations.\n• Consider to review and update the baseline configurations regularly and when changes occur."
             },
@@ -1368,7 +1373,8 @@ const cyfunData = {
                 category: "Information Protection Processes and Procedures (PR.IP)",
                 keyMeasure: true,
                 controlId: "PR.IP-2",
-                controlName: "A System Development Life Cycle to manage systems is implemented",
+                controlName: "A System Development Life Cycle to manage systems is implemented"
+                ,
                 requirement: "PR.IP-2.1: The organization shall implement a System Development Life Cycle to manage systems.",
                 guidance: "• Consider to implement a System Development Life Cycle (SDLC) that includes security considerations at each phase.\n• Consider to include security testing in the SDLC.\n• Consider to include security reviews in the SDLC."
             },
@@ -1377,7 +1383,8 @@ const cyfunData = {
                 category: "Protective Technology (PR.PT)",
                 keyMeasure: false,
                 controlId: "PR.PT-2",
-                controlName: "Removable media is protected and its use restricted according to policy",
+                controlName: "Removable media is protected and its use restricted according to policy"
+                ,
                 requirement: "PR.PT-2.1: The organization shall protect removable media and restrict its use according to policy.",
                 guidance: "• Consider to implement policies and procedures for the use of removable media.\n• Consider to implement technical controls that restrict the use of removable media.\n• Consider to implement encryption for sensitive data stored on removable media."
             },
@@ -1387,7 +1394,8 @@ const cyfunData = {
                 category: "Anomalies and Events (DE.AE)",
                 keyMeasure: false,
                 controlId: "DE.AE-1",
-                controlName: "A baseline of network operations and expected data flows for users and systems is established and managed",
+                controlName: "A baseline of network operations and expected data flows for users and systems is established and managed"
+                ,
                 requirement: "DE.AE-1.1: The organization shall establish and manage a baseline of network operations and expected data flows for users and systems.",
                 guidance: "• Consider to establish baselines for network operations and data flows.\n• Consider to monitor network operations and data flows for deviations from the baselines.\n• Consider to investigate and respond to deviations from the baselines."
             },
@@ -1396,7 +1404,8 @@ const cyfunData = {
                 category: "Anomalies and Events (DE.AE)",
                 keyMeasure: false,
                 controlId: "DE.AE-3",
-                controlName: "Event data are collected and correlated from multiple sources and sensors",
+                controlName: "Event data are collected and correlated from multiple sources and sensors"
+                ,
                 requirement: "DE.AE-3.1: The organization shall collect and correlate event data from multiple sources and sensors.",
                 guidance: "• Consider to implement a security information and event management (SIEM) system that can collect and correlate event data from multiple sources.\n• Consider to implement sensors and monitoring tools that can collect event data.\n• Consider to analyze correlated event data for patterns and anomalies."
             },
@@ -1405,7 +1414,8 @@ const cyfunData = {
                 category: "Security Continuous Monitoring (DE.CM)",
                 keyMeasure: false,
                 controlId: "DE.CM-2",
-                controlName: "The physical environment is monitored to detect potential cybersecurity events",
+                controlName: "The physical environment is monitored to detect potential cybersecurity events"
+                ,
                 requirement: "DE.CM-2.1: The organization shall monitor the physical environment to detect potential cybersecurity events.",
                 guidance: "• Consider to implement physical security controls, such as surveillance cameras and access logs.\n• Consider to monitor physical security controls for unauthorized access and suspicious activity.\n• Consider to investigate and respond to potential physical security incidents."
             },
@@ -1414,7 +1424,8 @@ const cyfunData = {
                 category: "Detection Processes (DE.DP)",
                 keyMeasure: false,
                 controlId: "DE.DP-1",
-                controlName: "Roles and responsibilities for detection are well defined to ensure accountability",
+                controlName: "Roles and responsibilities for detection are well defined to ensure accountability"
+                ,
                 requirement: "DE.DP-1.1: The organization shall define roles and responsibilities for detection to ensure accountability.",
                 guidance: "• Consider to define roles and responsibilities for detection activities, such as monitoring, analysis, and response.\n• Consider to assign these roles and responsibilities to specific individuals or teams.\n• Consider to ensure that these individuals or teams have the necessary skills and resources."
             },
@@ -1424,7 +1435,8 @@ const cyfunData = {
                 category: "Communications (RS.CO)",
                 keyMeasure: false,
                 controlId: "RS.CO-1",
-                controlName: "Personnel know their roles and order of operations when a response is needed",
+                controlName: "Personnel know their roles and order of operations when a response is needed"
+                ,
                 requirement: "RS.CO-1.1: The organization shall ensure that personnel know their roles, objectives, restoration priorities, task sequences (order of operations) and assignment responsibilities for event response.",
                 guidance: "Consider the use the CCB Incident Management Guide to guide you through this exercise and consider bringing in outside experts if needed. Test your plan regularly and adjust it after each incident."
             },
@@ -1433,7 +1445,8 @@ const cyfunData = {
                 category: "Communications (RS.CO)",
                 keyMeasure: false,
                 controlId: "RS.CO-2",
-                controlName: "Incidents are reported consistent with established criteria",
+                controlName: "Incidents are reported consistent with established criteria"
+                ,
                 requirement: "RS.CO-2.1: The organization shall implement reporting on information/cybersecurity incidents on its critical systems in an organization-defined time frame to organization-defined personnel or roles.",
                 guidance: "All users should have a single point of contact to report any incident and be encouraged to do so."
             },
@@ -1442,7 +1455,8 @@ const cyfunData = {
                 category: "Analysis (RS.AN)",
                 keyMeasure: false,
                 controlId: "RS.AN-2",
-                controlName: "The impact of the incident is understood",
+                controlName: "The impact of the incident is understood"
+                ,
                 requirement: "RS.AN-2.1: Thorough investigation and result analysis shall be the base for understanding the full implication of the information/cybersecurity incident.",
                 guidance: "• Result analysis can involve the outcome of determining the correlation between the information of the detected event and the outcome of risk assessments. In this way, insight is gained into the impact of the event across the organization.\n• Consider including detection of unauthorized changes to its critical systems in its incident response capabilities."
             },
@@ -1451,7 +1465,8 @@ const cyfunData = {
                 category: "Mitigation (RS.MI)",
                 keyMeasure: false,
                 controlId: "RS.MI-1",
-                controlName: "Incidents are contained",
+                controlName: "Incidents are contained"
+                ,
                 requirement: "RS.MI-1.1: The organization shall contain incidents to minimize their impact.",
                 guidance: "• Consider to implement processes for containing incidents, such as isolating affected systems, blocking malicious traffic, and revoking compromised credentials.\n• Consider to document containment actions for each incident.\n• Consider to test containment procedures regularly to ensure their effectiveness."
             },
@@ -1461,7 +1476,8 @@ const cyfunData = {
                 category: "Recovery Planning (RC.RP)",
                 keyMeasure: false,
                 controlId: "RC.RP-1",
-                controlName: "Recovery plan is executed during or after a cybersecurity incident",
+                controlName: "Recovery plan is executed during or after a cybersecurity incident"
+                ,
                 requirement: "RC.RP-1.2: The organization shall develop and implement a recovery plan.",
                 guidance: "• Consider developing a recovery plan that outlines the steps to restore systems and data after an incident.\n• Consider testing the recovery plan regularly to ensure it is effective.\n• Consider updating the recovery plan based on lessons learned from incidents and tests."
             },
@@ -1470,7 +1486,8 @@ const cyfunData = {
                 category: "Improvements (RC.IM)",
                 keyMeasure: false,
                 controlId: "RC.IM-1",
-                controlName: "Recovery plans incorporate lessons learned",
+                controlName: "Recovery plans incorporate lessons learned"
+                ,
                 requirement: "RC.IM-1.1: The organization shall incorporate lessons learned into recovery plans.",
                 guidance: "• Consider conducting post-incident reviews to identify lessons learned.\n• Consider incorporating these lessons learned into recovery plans.\n• Consider sharing lessons learned with appropriate stakeholders."
             },
@@ -1479,7 +1496,8 @@ const cyfunData = {
                 category: "Communications (RC.CO)",
                 keyMeasure: false,
                 controlId: "RC.CO-1",
-                controlName: "Public relations are managed",
+                controlName: "Public relations are managed"
+                ,
                 requirement: "RC.CO-1.1: The organization shall manage public relations during and after an incident.",
                 guidance: "• Consider developing a communication plan for managing public relations during and after an incident.\n• Consider designating a spokesperson who will communicate with the public.\n• Consider preparing templates for public communications."
             }
@@ -1603,27 +1621,52 @@ const cyfunData = {
     // Formules pour les calculs
     formulas: {
         // Calcul du score moyen pour une catégorie
-        calculateCategoryScore: function(categoryId, documentationScores, implementationScores) {
-            let docTotal = 0;
-            let implTotal = 0;
+        calculateCategoryScore: function(categoryId, documentationScores, implementationScores, type) {
+            let totalScore = 0;
             let count = 0;
             
             // Trouver tous les contrôles de cette catégorie
             const controls = this.getControlsByCategoryId(categoryId);
             
-            controls.forEach(control => {
-                const controlId = control.controlId;
-                if (documentationScores[controlId] && implementationScores[controlId]) {
-                    docTotal += documentationScores[controlId];
-                    implTotal += implementationScores[controlId];
-                    count++;
-                }
-            });
+            console.log(`Calcul du score pour ${categoryId} (type=${type}), ${controls.length} contrôles trouvés`);
             
-            if (count === 0) return { documentation: 0, implementation: 0, average: 0 };
+            // Si type est spécifié, on ne calcule que ce type de score
+            if (type === 'documentation' || type === 'implementation') {
+                controls.forEach(control => {
+                    const controlId = control.controlId;
+                    if (type === 'documentation' && documentationScores[controlId]) {
+                        totalScore += documentationScores[controlId];
+                        count++;
+                    } else if (type === 'implementation' && implementationScores[controlId]) {
+                        totalScore += implementationScores[controlId];
+                        count++;
+                    }
+                });
+            } else {
+                controls.forEach(control => {
+                    const controlId = control.controlId;
+                    if (documentationScores[controlId] && implementationScores[controlId]) {
+                        totalScore += (documentationScores[controlId] + implementationScores[controlId]) / 2;
+                        count++;
+                    }
+                });
+            }
             
-            const docAvg = docTotal / count;
-            const implAvg = implTotal / count;
+            if (count === 0) {
+                console.warn(`Aucun contrôle trouvé pour la catégorie ${categoryId}`);
+                return type ? 0 : { documentation: 0, implementation: 0, average: 0 };
+            }
+            
+            const average = totalScore / count;
+            
+            // Si un type spécifique est demandé, on retourne juste la valeur
+            if (type) {
+                return average;
+            }
+            
+            // Sinon on calcule tout
+            const docAvg = this.calculateCategoryScore(categoryId, documentationScores, implementationScores, 'documentation');
+            const implAvg = this.calculateCategoryScore(categoryId, documentationScores, implementationScores, 'implementation');
             const totalAvg = (docAvg + implAvg) / 2;
             
             return {
@@ -1638,7 +1681,33 @@ const cyfunData = {
             const level = document.getElementById('assessmentLevel').value;
             const allControls = cyfunData.controls[level];
             
-            return allControls.filter(control => control.category.includes(categoryId));
+            console.log(`Recherche des contrôles pour la catégorie: ${categoryId}`);
+            
+            // Simplification: On utilise une comparaison plus stricte
+            return allControls.filter(control => {
+                // Plusieurs méthodes d'extraction pour assurer la correspondance
+                let extractedCategoryId;
+                
+                // Méthode 1: Extraction depuis les parenthèses
+                const match = control.category.match(/\(([^)]+)\)/);
+                if (match && match[1]) {
+                    extractedCategoryId = match[1];
+                } 
+                // Méthode 2: Si pas de correspondance, vérifier si la catégorie contient l'ID directement
+                else if (control.category.includes(categoryId)) {
+                    extractedCategoryId = categoryId;
+                } 
+                // Méthode 3: Dernier recours - utiliser la catégorie complète
+                else {
+                    extractedCategoryId = control.category;
+                }
+                
+                // Afficher pour débogage
+                console.log(`Contrôle: ${control.controlId}, Catégorie: ${control.category}, ID extrait: ${extractedCategoryId}, Comparaison avec: ${categoryId}`);
+                
+                // Retourner true si l'ID extrait correspond à l'ID recherché
+                return extractedCategoryId === categoryId || extractedCategoryId.includes(categoryId) || categoryId.includes(extractedCategoryId);
+            });
         },
         
         // Calcul du score global

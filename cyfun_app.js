@@ -100,6 +100,9 @@ document.addEventListener('DOMContentLoaded', function() {
     chartScript.onload = function() {
         console.log('Chart.js chargé avec succès');
     };
+    
+    // Configurer le modal des paramètres
+    setupSettingsModal();
 });
 
 // Charger l'introduction du framework
@@ -181,6 +184,13 @@ function setupEventListeners() {
     
     // Note: Le bouton d'exportation des résultats (exportJSON) est créé dynamiquement
     // dans la fonction displayResults, donc son écouteur d'événement est ajouté là-bas
+}
+
+// Fonction pour réinitialiser les scores pour tous les contrôles
+function resetScores() {
+    documentationScores = {};
+    implementationScores = {};
+    console.log("Scores réinitialisés suite au changement de niveau d'évaluation");
 }
 
 // Charger les contrôles pour un niveau spécifique
@@ -364,6 +374,9 @@ function loadControls(level) {
                         <!-- Le contenu sera injecté dynamiquement -->
                     </div>
                     <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="aiExplainButton">
+                            <i class="fas fa-robot me-2"></i>Explication IA
+                        </button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
                     </div>
                 </div>
@@ -463,7 +476,264 @@ function showGuidance(controlId, controlName) {
         <p><strong>Exigence:</strong> ${targetControl.requirement || ''}</p>
         <p><strong>Conseils:</strong></p>
         <div class="guidance-content">${guidanceContent.replace(/\n/g, '<br>')}</div>
+        <div id="ai-explanation-container" class="mt-4" style="display: none;">
+            <hr>
+            <h5><i class="fas fa-robot me-2"></i>Explication IA</h5>
+            <div id="ai-explanation-content" class="p-3 border rounded bg-light">
+                <div id="ai-loading" class="text-center">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Chargement...</span>
+                    </div>
+                    <p>Génération de l'explication en cours...</p>
+                </div>
+                <div id="ai-content" style="display: none;"></div>
+            </div>
+        </div>
     `;
+    
+    // Stocker temporairement les informations du contrôle pour l'explication IA
+    window.currentControl = {
+        id: controlId,
+        name: controlName,
+        requirement: targetControl.requirement || '',
+        guidance: targetControl.guidance || 'Aucun conseil disponible pour ce contrôle.'
+    };
+    
+    // Ajouter l'écouteur d'événement au bouton d'explication IA
+    document.getElementById('aiExplainButton').onclick = function() {
+        getAIExplanation(window.currentControl);
+    };
+}
+
+// Fonction pour générer une explication IA des conseils
+function getAIExplanation(control) {
+    const aiContainer = document.getElementById('ai-explanation-container');
+    const aiLoading = document.getElementById('ai-loading');
+    const aiContent = document.getElementById('ai-content');
+    
+    // Afficher le conteneur d'explication et l'indicateur de chargement
+    aiContainer.style.display = 'block';
+    aiLoading.style.display = 'block';
+    aiContent.style.display = 'none';
+    
+    // Préparation du prompt pour l'API OpenAI
+    const promptMessage = `
+Contrôle: ${control.name} (${control.id})
+Exigence: ${control.requirement}
+Conseils: ${control.guidance}
+
+Fournir une explication technique BRÈVE et CONCISE (max 300 mots) incluant:
+1. Importance du contrôle (2-3 phrases)
+2. Technologies recommandées (liste de 3-4 maximum)
+3. Métriques clés et bonnes pratiques (liste de 3-4 maximum)
+
+IMPORTANT: Réponse technique, synthétique, sans développements inutiles.`;
+
+    // Vérifier si une clé API est stockée
+    let apiKey = localStorage.getItem('openai_api_key');
+    
+    if (!apiKey) {
+        // Demander la clé API si elle n'est pas stockée
+        apiKey = window.prompt("Veuillez entrer votre clé API OpenAI pour générer des explications IA:", "");
+        
+        if (apiKey && apiKey.trim() !== "") {
+            // Demander confirmation pour stocker la clé (sécurité)
+            const storeKey = confirm("Souhaitez-vous que votre navigateur mémorise cette clé API pour les prochaines utilisations? (Assurez-vous que vous êtes sur un appareil sécurisé)");
+            
+            if (storeKey) {
+                localStorage.setItem('openai_api_key', apiKey);
+            }
+        } else {
+            // Si l'utilisateur n'a pas fourni de clé API, utiliser la réponse simulée
+            aiLoading.style.display = 'none';
+            aiContent.style.display = 'block';
+            aiContent.innerHTML = generateSimulatedAIResponse(control);
+            return;
+        }
+    }
+    
+    // Configuration de la requête API
+    const requestData = {
+        model: "gpt-4o",
+        messages: [
+            {
+                role: "developer",
+                content: "Vous êtes un expert en cybersécurité qui explique les concepts de sécurité de manière technique et détaillée pour des professionnels."
+            },
+            {
+                role: "user",
+                content: promptMessage
+            }
+        ],
+        temperature: 0.7,
+        max_tokens: 400
+    };
+    
+    // Appel à l'API OpenAI
+    fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`
+        },
+        body: JSON.stringify(requestData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Erreur API: ${response.status} - ${response.statusText}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        // Mise en forme de la réponse
+        const aiResponse = data.choices[0].message.content;
+        
+        // Conversion du texte en HTML avec formatage Markdown basique
+        let formattedResponse = aiResponse
+            .replace(/\n\n/g, '</p><p>')
+            .replace(/\n/g, '<br>')
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+            .replace(/\*(.*?)\*/g, '<em>$1</em>')
+            .replace(/^# (.*?)$/gm, '<h5>$1</h5>')
+            .replace(/^## (.*?)$/gm, '<h6>$1</h6>')
+            .replace(/^\d\. (.*?)$/gm, '<ol><li>$1</li></ol>')
+            .replace(/^- (.*?)$/gm, '<ul><li>$1</li></ul>');
+        
+        // Nettoyer les listes pour éviter les listes imbriquées incorrectes
+        formattedResponse = formattedResponse
+            .replace(/<\/ol><ol>/g, '')
+            .replace(/<\/ul><ul>/g, '');
+        
+        // Encapsuler dans un paragraphe si nécessaire
+        if (!formattedResponse.startsWith('<p>')) {
+            formattedResponse = '<p>' + formattedResponse;
+        }
+        if (!formattedResponse.endsWith('</p>')) {
+            formattedResponse += '</p>';
+        }
+        
+        // Afficher la réponse formatée
+        aiLoading.style.display = 'none';
+        aiContent.style.display = 'block';
+        aiContent.innerHTML = formattedResponse;
+    })
+    .catch(error => {
+        console.error('Erreur lors de l\'appel API:', error);
+        
+        // Afficher le message d'erreur
+        aiLoading.style.display = 'none';
+        aiContent.style.display = 'block';
+        
+        // Si c'est une erreur d'authentification, proposer de réinitialiser la clé API
+        if (error.message.includes('401')) {
+            aiContent.innerHTML = `
+                <div class="alert alert-danger">
+                    <p><strong>Erreur d'authentification:</strong> Votre clé API semble invalide ou a expiré.</p>
+                    <button class="btn btn-outline-danger btn-sm mt-2" onclick="resetAPIKey()">Réinitialiser la clé API</button>
+                </div>
+                <div class="mt-3">
+                    <p>En attendant, voici une explication générée localement :</p>
+                    ${generateSimulatedAIResponse(control)}
+                </div>
+            `;
+        }
+        // Si c'est une erreur de quota dépassé (429 - Too Many Requests)
+        else if (error.message.includes('429')) {
+            aiContent.innerHTML = `
+                <div class="alert alert-warning">
+                    <p><strong>Quota API dépassé (429 - Too Many Requests):</strong> Vous avez atteint la limite de requêtes pour votre compte OpenAI.</p>
+                    <p>Causes possibles :</p>
+                    <ul>
+                        <li>Votre compte gratuit a atteint sa limite mensuelle</li>
+                        <li>Trop de requêtes ont été effectuées en peu de temps</li>
+                        <li>Vous n'avez pas configuré de mode de paiement dans votre compte OpenAI</li>
+                    </ul>
+                </div>
+                <div class="mt-3">
+                    <p>En attendant, voici une explication générée localement :</p>
+                    ${generateSimulatedAIResponse(control)}
+                </div>
+            `;
+        }
+        else {
+            // Pour les autres erreurs, afficher un message générique
+            aiContent.innerHTML = `
+                <div class="alert alert-warning">
+                    <p><strong>Erreur lors de la communication avec l'API:</strong> ${error.message}</p>
+                </div>
+                <div class="mt-3">
+                    <p>En attendant, voici une explication générée localement :</p>
+                    ${generateSimulatedAIResponse(control)}
+                </div>
+            `;
+        }
+    });
+}
+
+// Fonction pour réinitialiser la clé API
+function resetAPIKey() {
+    localStorage.removeItem('openai_api_key');
+    alert("La clé API a été supprimée. Vous devrez entrer une nouvelle clé lors de la prochaine demande d'explication IA.");
+}
+
+// Fonction qui génère une explication simulée (utilisée comme fallback en cas d'erreur API)
+function generateSimulatedAIResponse(control) {
+    // Créer une explication générique basée sur le type de contrôle
+    let explanation = `<h6>Explication simplifiée de "${control.name}"</h6>`;
+    
+    // Extraire les mots-clés du contrôle pour personnaliser la réponse
+    const keywords = [
+        { term: "inventaire", explanation: "un registre complet de tous les équipements" },
+        { term: "asset", explanation: "les ressources matérielles et logicielles" },
+        { term: "authentification", explanation: "la vérification de l'identité des utilisateurs" },
+        { term: "authorisation", explanation: "les permissions d'accès" },
+        { term: "mise à jour", explanation: "l'installation des correctifs de sécurité" },
+        { term: "sauvegarde", explanation: "les copies de secours des données" },
+        { term: "mot de passe", explanation: "les identifiants d'accès" },
+        { term: "chiffrement", explanation: "la protection des données par cryptage" },
+        { term: "contrôle d'accès", explanation: "la gestion des permissions" },
+        { term: "vulnérabilité", explanation: "les failles de sécurité" }
+    ];
+    
+    // Déterminer les mots-clés présents dans le contrôle
+    const relevantKeywords = keywords.filter(kw => 
+        control.name.toLowerCase().includes(kw.term) || 
+        control.requirement.toLowerCase().includes(kw.term) || 
+        control.guidance.toLowerCase().includes(kw.term)
+    );
+    
+    // Créer un contenu personnalisé basé sur les mots-clés trouvés
+    explanation += `<p>Ce contrôle concerne essentiellement `;
+    
+    if (relevantKeywords.length > 0) {
+        explanation += relevantKeywords.map(kw => kw.explanation).join(", ") + ".</p>";
+    } else {
+        explanation += `la mise en place de bonnes pratiques de sécurité dans votre organisation.</p>`;
+    }
+    
+    explanation += `
+    <p><strong>Pourquoi c'est important :</strong><br>
+    Ce contrôle aide à protéger votre organisation contre les cybermenaces en assurant que vos systèmes sont correctement gérés et sécurisés. 
+    Sans cela, votre organisation pourrait être vulnérable à des attaques ou des violations de données.</p>
+    
+    <h6>Points-clés à retenir :</h6>
+    <ul>
+        <li>Documentez et suivez vos procédures de manière cohérente</li>
+        <li>Assurez-vous que toute l'équipe comprend l'importance de ce contrôle</li>
+        <li>Révisez régulièrement les mesures en place pour garantir leur efficacité</li>
+    </ul>
+    
+    <h6>Exemples concrets de mise en œuvre :</h6>
+    <ol>
+        <li>Créez un document central listant tous les éléments concernés</li>
+        <li>Désignez un responsable chargé de la supervision de ce contrôle</li>
+        <li>Mettez en place un calendrier de révision périodique (trimestriel ou semestriel)</li>
+        <li>Utilisez des outils automatisés quand c'est possible pour faciliter le suivi</li>
+    </ol>
+    
+    <p><small>Note: Pour une implémentation optimale, adaptez ces recommandations au contexte spécifique de votre organisation.</small></p>`;
+    
+    return explanation;
 }
 
 // Afficher et éditer les notes pour un contrôle spécifique
@@ -1268,11 +1538,14 @@ function displayResults(categoryScores, overallScore, complianceStatus, notes) {
     html += `
         <div class="d-grid gap-2">
             <div class="row">
-                <div class="col-md-6 mb-2">
+                <div class="col-md-4 mb-2">
                     <button class="btn btn-primary w-100" id="exportJSON">Exporter les résultats en JSON</button>
                 </div>
-                <div class="col-md-6 mb-2">
+                <div class="col-md-4 mb-2">
                     <button class="btn btn-danger w-100" id="exportPDF">Exporter en PDF professionnel</button>
+                </div>
+                <div class="col-md-4 mb-2">
+                    <button class="btn btn-success w-100" id="visualizeScores">Visualiser les scores</button>
                 </div>
             </div>
         </div>
@@ -1281,20 +1554,19 @@ function displayResults(categoryScores, overallScore, complianceStatus, notes) {
     // Insérer le HTML dans la section des résultats
     resultsSection.innerHTML = html;
     
-    // Ajouter l'écouteur d'événement pour le bouton d'exportation JSON
+    // Ajouter les écouteurs d'événements pour les boutons d'exportation
     document.getElementById('exportJSON').addEventListener('click', function() {
         exportResults(categoryScores, overallScore, complianceStatus, notes);
     });
     
-    // Ajouter l'écouteur d'événement pour le bouton d'exportation PDF
     document.getElementById('exportPDF').addEventListener('click', function() {
         exportPDF(categoryScores, overallScore, complianceStatus, notes);
     });
     
-    // Ouvrir automatiquement la section des résultats
-    const resultsCollapse = document.getElementById('collapseD');
-    const bsCollapse = new bootstrap.Collapse(resultsCollapse, { toggle: false });
-    bsCollapse.show();
+    // Ajouter l'écouteur d'événement pour le bouton de visualisation
+    document.getElementById('visualizeScores').addEventListener('click', function() {
+        showRadarVisualization(categoryScores);
+    });
 }
 
 // Exporter les résultats en PDF
@@ -1707,8 +1979,18 @@ function exportResults(categoryScores, overallScore, complianceStatus, notes) {
 }
 
 // Afficher la visualisation radar des fonctions et catégories
-function showRadarVisualization() {
-    console.log('Affichage de la visualisation radar');
+function showRadarVisualization(categoryScores) {
+    console.log('Affichage de la visualisation radar des scores');
+    
+    // Si categoryScores est fourni, nous l'utiliserons pour afficher les scores réels
+    // Sinon, nous utiliserons la méthode existante basée sur les contrôles
+    if (categoryScores) {
+        showScoreRadarChart(categoryScores);
+        return;
+    }
+    
+    // Code existant pour l'ancienne visualisation (conservé pour compatibilité)
+    console.log('Utilisation de la visualisation basée sur les contrôles');
     
     // Récupérer les données pour le graphique
     const level = document.getElementById('assessmentLevel').value;
@@ -1716,14 +1998,34 @@ function showRadarVisualization() {
     
     // Regrouper les contrôles par fonction et catégorie
     const functionGroups = {
-        "ID": { name: "IDENTIFY", categories: {}, color: 'rgba(54, 162, 235, 0.7)' },
-        "PR": { name: "PROTECT", categories: {}, color: 'rgba(75, 192, 192, 0.7)' },
-        "DE": { name: "DETECT", categories: {}, color: 'rgba(255, 206, 86, 0.7)' },
-        "RS": { name: "RESPOND", categories: {}, color: 'rgba(255, 99, 132, 0.7)' },
-        "RC": { name: "RECOVER", categories: {}, color: 'rgba(153, 102, 255, 0.7)' }
+        "ID": {
+            name: "IDENTIFY",
+            description: "Développer une compréhension organisationnelle pour gérer les risques de cybersécurité des systèmes, des personnes, des actifs, des données et des capacités.",
+            controls: []
+        },
+        "PR": {
+            name: "PROTECT",
+            description: "Développer et mettre en œuvre des mesures de protection appropriées pour assurer la prestation des services critiques.",
+            controls: []
+        },
+        "DE": {
+            name: "DETECT",
+            description: "Développer et mettre en œuvre des activités appropriées pour identifier l'occurrence d'un événement de cybersécurité.",
+            controls: []
+        },
+        "RS": {
+            name: "RESPOND",
+            description: "Développer et mettre en œuvre des activités appropriées pour prendre des mesures concernant un incident de cybersécurité détecté.",
+            controls: []
+        },
+        "RC": {
+            name: "RECOVER",
+            description: "Développer et mettre en œuvre des activités appropriées pour maintenir les plans de résilience et restaurer les capacités ou services qui ont été altérés en raison d'un incident de cybersécurité.",
+            controls: []
+        }
     };
     
-    // Compter les contrôles par catégorie et fonction
+    // Regrouper les contrôles par fonction
     controls.forEach(control => {
         let functionId;
         if (control.function === "IDENTIFY") functionId = "ID";
@@ -1736,17 +2038,9 @@ function showRadarVisualization() {
             return;
         }
         
-        const category = control.category || 'Non catégorisé';
-        
-        if (!functionGroups[functionId].categories[category]) {
-            functionGroups[functionId].categories[category] = {
-                count: 0,
-                controls: []
-            };
+        if (functionGroups[functionId]) {
+            functionGroups[functionId].controls.push(control);
         }
-        
-        functionGroups[functionId].categories[category].count++;
-        functionGroups[functionId].categories[category].controls.push(control);
     });
     
     // Préparer les données pour le graphique radar
@@ -1876,7 +2170,7 @@ function showCategoryDetails(functionId, category, functionGroups) {
         html += `
             <div class="list-group-item">
                 <h6>${control.controlName || control.controlId}</h6>
-                <p class="mb-1"><small>${control.requirement || 'Aucune exigence spécifiée'}</small></p>
+                <p class="mb-1 small">${control.requirement || 'Aucune exigence spécifiée'}</p>
             </div>
         `;
     });
@@ -2011,4 +2305,309 @@ function createInteractiveLegend(functionGroups, categories) {
         html += '</div>';
         categoryDetailsElement.innerHTML = html;
     };
+}
+
+// Fonction pour afficher un graphique radar des scores par catégorie
+function showScoreRadarChart(categoryScores) {
+    // Afficher le modal
+    const radarModal = new bootstrap.Modal(document.getElementById('radarModal'));
+    radarModal.show();
+    
+    // Préparer les données pour le graphique radar
+    const categories = Object.keys(categoryScores);
+    const categoryNames = categories.map(catId => categoryScores[catId].name || catId);
+    
+    // Créer les datasets pour le graphique
+    const datasets = [
+        {
+            label: 'Documentation',
+            data: categories.map(catId => categoryScores[catId].documentation),
+            backgroundColor: 'rgba(54, 162, 235, 0.3)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 2,
+            pointBackgroundColor: 'rgba(54, 162, 235, 1)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgba(54, 162, 235, 1)',
+            pointRadius: 4
+        },
+        {
+            label: 'Implémentation',
+            data: categories.map(catId => categoryScores[catId].implementation),
+            backgroundColor: 'rgba(75, 192, 192, 0.3)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 2,
+            pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgba(75, 192, 192, 1)',
+            pointRadius: 4
+        },
+        {
+            label: 'Score moyen',
+            data: categories.map(catId => categoryScores[catId].average),
+            backgroundColor: 'rgba(255, 159, 64, 0.3)',
+            borderColor: 'rgba(255, 159, 64, 1)',
+            borderWidth: 2,
+            pointBackgroundColor: 'rgba(255, 159, 64, 1)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgba(255, 159, 64, 1)',
+            pointRadius: 5,
+            pointStyle: 'star'
+        }
+    ];
+    
+    // Détruire le graphique existant s'il y en a un
+    if (window.radarChartInstance) {
+        window.radarChartInstance.destroy();
+    }
+    
+    setTimeout(() => {
+        // Détruire le graphique existant s'il y en a un
+        if (window.radarChartInstance) {
+            window.radarChartInstance.destroy();
+        }
+        
+        const ctx = document.getElementById('radarChart').getContext('2d');
+        
+        window.radarChartInstance = new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: categoryNames,
+                datasets: datasets
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                scales: {
+                    r: {
+                        angleLines: {
+                            display: true,
+                            color: 'rgba(0, 0, 0, 0.1)'
+                        },
+                        ticks: {
+                            beginAtZero: true,
+                            max: 5,
+                            stepSize: 1
+                        },
+                        pointLabels: {
+                            font: {
+                                size: 12
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            font: {
+                                size: 14
+                            },
+                            padding: 20
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.dataset.label}: ${context.raw.toFixed(2)}/5`;
+                            }
+                        },
+                        padding: 12,
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)'
+                    }
+                },
+                elements: {
+                    line: {
+                        tension: 0.2 // Rend les lignes légèrement courbes pour un meilleur rendu
+                    }
+                }
+            }
+        });
+        
+        // Créer la légende interactive et l'affichage des détails
+        createScoreLegend(categoryScores);
+    }, 300);
+}
+
+// Créer une légende interactive pour le graphique radar des scores
+function createScoreLegend(categoryScores) {
+    const legendElement = document.getElementById('radarLegend');
+    let html = '<h5 class="mb-3">Détails des scores</h5>';
+    
+    const level = document.getElementById('assessmentLevel').value;
+    const threshold = cyfunData.complianceThresholds[level].category;
+    
+    html += '<div class="list-group">';
+    
+    Object.keys(categoryScores).forEach(catId => {
+        const category = categoryScores[catId];
+        const isCompliant = category.average >= threshold;
+        const complianceBadge = isCompliant ? 
+            '<span class="badge bg-success">Conforme</span>' : 
+            '<span class="badge bg-danger">Non conforme</span>';
+        
+        html += `
+            <div class="list-group-item" style="cursor: pointer;" 
+                 onclick="showCategoryScoreDetails('${catId}')">
+                <div class="d-flex w-100 justify-content-between">
+                    <h6>${category.name || catId}</h6>
+                    ${complianceBadge}
+                </div>
+                <div class="progress mt-2" style="height: 10px;">
+                    <div class="progress-bar bg-info" role="progressbar" style="width: ${category.documentation/5*100}%;" 
+                         aria-valuenow="${category.documentation}" aria-valuemin="0" aria-valuemax="5" 
+                         title="Documentation: ${category.documentation.toFixed(2)}"></div>
+                </div>
+                <div class="progress mt-1" style="height: 10px;">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: ${category.implementation/5*100}%;" 
+                         aria-valuenow="${category.implementation}" aria-valuemin="0" aria-valuemax="5" 
+                         title="Implémentation: ${category.implementation.toFixed(2)}"></div>
+                </div>
+                <div class="d-flex justify-content-between mt-1">
+                    <small>Score: ${category.average.toFixed(2)}/5</small>
+                    <small>Seuil: ${threshold}</small>
+                </div>
+            </div>
+        `;
+    });
+    
+    html += '</div>';
+    legendElement.innerHTML = html;
+    
+    // Initialiser les tooltips Bootstrap
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[title]'));
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+}
+
+// Afficher les détails d'une catégorie spécifique
+function showCategoryScoreDetails(categoryId) {
+    const categoryDetailsElement = document.getElementById('categoryDetails');
+    const level = document.getElementById('assessmentLevel').value;
+    const controls = cyfunData.controls[level].filter(c => c.category === categoryId);
+    
+    let html = `
+        <div class="card">
+            <div class="card-header bg-light">
+                <h6 class="mb-0">Contrôles de la catégorie ${categoryId}</h6>
+            </div>
+            <div class="card-body p-0">
+                <ul class="list-group list-group-flush">
+    `;
+    
+    if (controls.length > 0) {
+        controls.forEach(control => {
+            const docScore = documentationScores[control.controlId] || 0;
+            const impScore = implementationScores[control.controlId] || 0;
+            
+            html += `
+                <li class="list-group-item">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <small>${control.controlId}</small>
+                        <span class="badge bg-primary">${control.function}</span>
+                    </div>
+                    <p class="mb-1 small">${control.controlName}</p>
+                    <div class="d-flex justify-content-between">
+                        <small>Doc: ${docScore}/5</small>
+                        <small>Impl: ${impScore}/5</small>
+                    </div>
+                </li>
+            `;
+        });
+    } else {
+        html += `<li class="list-group-item">Aucun contrôle trouvé pour cette catégorie.</li>`;
+    }
+    
+    html += `
+                </ul>
+            </div>
+        </div>
+    `;
+    
+    categoryDetailsElement.innerHTML = html;
+}
+
+// Configurer le modal des paramètres
+function setupSettingsModal() {
+    // Charger la clé API existante depuis le localStorage
+    const apiKey = localStorage.getItem('openai_api_key') || '';
+    document.getElementById('openaiApiKey').value = apiKey;
+    
+    // Gérer l'affichage/masquage de la clé API
+    document.getElementById('toggleApiKey').addEventListener('click', function() {
+        const apiKeyInput = document.getElementById('openaiApiKey');
+        const eyeIcon = this.querySelector('i');
+        
+        if (apiKeyInput.type === 'password') {
+            apiKeyInput.type = 'text';
+            eyeIcon.classList.remove('fa-eye');
+            eyeIcon.classList.add('fa-eye-slash');
+        } else {
+            apiKeyInput.type = 'password';
+            eyeIcon.classList.remove('fa-eye-slash');
+            eyeIcon.classList.add('fa-eye');
+        }
+    });
+    
+    // Enregistrer les paramètres
+    document.getElementById('saveSettingsBtn').addEventListener('click', function() {
+        const apiKey = document.getElementById('openaiApiKey').value.trim();
+        
+        // Enregistrer la clé API si elle a été fournie
+        if (apiKey) {
+            localStorage.setItem('openai_api_key', apiKey);
+            
+            // Afficher une notification de succès dans le modal
+            const successAlert = document.createElement('div');
+            successAlert.className = 'alert alert-success mt-3';
+            successAlert.innerHTML = '<i class="fas fa-check-circle me-2"></i>Clé API enregistrée avec succès!';
+            
+            const apiSettings = document.getElementById('api-settings');
+            
+            // Supprimer toute notification précédente
+            const existingAlert = apiSettings.querySelector('.alert');
+            if (existingAlert) {
+                existingAlert.remove();
+            }
+            
+            // Ajouter la nouvelle notification
+            apiSettings.appendChild(successAlert);
+            
+            // Supprimer la notification après 3 secondes
+            setTimeout(() => {
+                if (successAlert.parentNode) {
+                    successAlert.parentNode.removeChild(successAlert);
+                }
+            }, 3000);
+        } else {
+            // Si la clé est vide, supprimer la clé existante
+            localStorage.removeItem('openai_api_key');
+            
+            // Afficher une notification d'avertissement
+            const warningAlert = document.createElement('div');
+            warningAlert.className = 'alert alert-warning mt-3';
+            warningAlert.innerHTML = '<i class="fas fa-exclamation-triangle me-2"></i>La clé API a été supprimée.';
+            
+            const apiSettings = document.getElementById('api-settings');
+            
+            // Supprimer toute notification précédente
+            const existingAlert = apiSettings.querySelector('.alert');
+            if (existingAlert) {
+                existingAlert.remove();
+            }
+            
+            // Ajouter la nouvelle notification
+            apiSettings.appendChild(warningAlert);
+            
+            // Supprimer la notification après 3 secondes
+            setTimeout(() => {
+                if (warningAlert.parentNode) {
+                    warningAlert.parentNode.removeChild(warningAlert);
+                }
+            }, 3000);
+        }
+    });
 }

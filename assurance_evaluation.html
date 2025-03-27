@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Évaluation du niveau d'assurance CyFun</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="text-center my-4">Évaluation du niveau d'assurance CyFun</h1>
+            <div class="alert alert-info">
+                <p>Cet outil vous aide à déterminer le niveau d'assurance CyFun approprié pour votre organisation en fonction d'une évaluation des risques.</p>
+            </div>
+            <nav class="nav nav-pills nav-justified mb-4">
+                <a class="nav-link" href="index.html">Évaluation NIS2</a>
+                <a class="nav-link" href="cyfun_assessment.html">Auto-évaluation CyFun</a>
+                <a class="nav-link active" href="assurance_evaluation.html">Niveau d'assurance CyFun</a>
+            </nav>
+        </header>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="alert alert-info mb-3">
+                    <p>Cette section vous aide à déterminer le niveau d'assurance CyFun approprié pour votre organisation en fonction d'une évaluation des risques.</p>
+                </div>
+                
+                <div class="mb-3">
+                    <h4>1. Acteurs menaçants</h4>
+                    <p>Sélectionnez les types d'acteurs menaçants susceptibles de cibler votre organisation:</p>
+                    
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="scriptKiddies">
+                        <label class="form-check-label" for="scriptKiddies">Script kiddies / Hackers amateurs</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="hacktivists">
+                        <label class="form-check-label" for="hacktivists">Hacktivistes</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="criminals">
+                        <label class="form-check-label" for="criminals">Criminels organisés</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="insiders">
+                        <label class="form-check-label" for="insiders">Menaces internes</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="stateActors">
+                        <label class="form-check-label" for="stateActors">Acteurs étatiques/APT</label>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <h4>2. Évaluation des risques par catégorie d'attaque</h4>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Catégorie d'attaque</th>
+                                <th>Impact</th>
+                                <th>Probabilité</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Sabotage/Perturbation (DDOS, etc.)</td>
+                                <td>
+                                    <select class="form-select" id="sabotageThreatImpact">
+                                        <option value="1" selected>Faible</option>
+                                        <option value="2">Moyen</option>
+                                        <option value="3">Élevé</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-select" id="sabotageThreatProbability">
+                                        <option value="1" selected>Faible</option>
+                                        <option value="2">Moyen</option>
+                                        <option value="3">Élevé</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Espionnage/Vol de données</td>
+                                <td>
+                                    <select class="form-select" id="espionageThreatImpact">
+                                        <option value="1" selected>Faible</option>
+                                        <option value="2">Moyen</option>
+                                        <option value="3">Élevé</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-select" id="espionageThreatProbability">
+                                        <option value="1" selected>Faible</option>
+                                        <option value="2">Moyen</option>
+                                        <option value="3">Élevé</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Fraude/Crime financier</td>
+                                <td>
+                                    <select class="form-select" id="fraudThreatImpact">
+                                        <option value="1" selected>Faible</option>
+                                        <option value="2">Moyen</option>
+                                        <option value="3">Élevé</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-select" id="fraudThreatProbability">
+                                        <option value="1" selected>Faible</option>
+                                        <option value="2">Moyen</option>
+                                        <option value="3">Élevé</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Désinformation (influence politique)</td>
+                                <td>
+                                    <select class="form-select" id="disinfoThreatImpact">
+                                        <option value="1" selected>Faible</option>
+                                        <option value="2">Moyen</option>
+                                        <option value="3">Élevé</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-select" id="disinfoThreatProbability">
+                                        <option value="1" selected>Faible</option>
+                                        <option value="2">Moyen</option>
+                                        <option value="3">Élevé</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="d-grid">
+                    <button class="btn btn-primary" id="calculateAssuranceLevel">Calculer le niveau d'assurance</button>
+                </div>
+                
+                <div id="assuranceLevelResult" class="mt-4" style="display: none;">
+                    <div class="alert alert-success">
+                        <h4>Niveau d'assurance recommandé: <span id="recommendedAssuranceLevel"></span></h4>
+                        <p id="assuranceLevelDescription"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-4 text-center">
+            <button class="btn btn-outline-primary" id="resetAssuranceBtn">Réinitialiser l'évaluation</button>
+        </div>
+
+        <footer class="mt-5 mb-3 text-center text-muted">
+            <p>CyFun Assurance Level Evaluation &copy; 2023</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assurance_data.js"></script>
+    <script src="assurance_evaluation.js"></script>
+</body>
+</html>

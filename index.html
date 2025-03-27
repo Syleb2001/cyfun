@@ -17,6 +17,7 @@
             <nav class="nav nav-pills nav-justified mb-4">
                 <a class="nav-link active" href="index.html">Évaluation NIS2</a>
                 <a class="nav-link" href="cyfun_assessment.html">Auto-évaluation CyFun</a>
+                <a class="nav-link" href="assurance_evaluation.html">Niveau d'assurance CyFun</a>
             </nav>
         </header>
 
@@ -201,6 +202,29 @@
                                 </div>
                             </div>
                             
+                            <div class="d-grid gap-2 mb-3">
+                                <button class="btn btn-outline-primary" id="getAIExplanationBtn">
+                                    <i class="fas fa-robot me-2"></i>Explication approfondie avec IA
+                                </button>
+                            </div>
+                            
+                            <div id="aiExplanationContainer" style="display: none;" class="mb-3">
+                                <div class="card">
+                                    <div class="card-header bg-primary text-white">
+                                        Analyse détaillée par Intelligence Artificielle
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="aiLoading" class="text-center">
+                                            <div class="spinner-border text-primary" role="status">
+                                                <span class="visually-hidden">Chargement...</span>
+                                            </div>
+                                            <p>L'IA génère une explication détaillée...</p>
+                                        </div>
+                                        <div id="aiContent"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
                             <div class="alert alert-warning">
                                 <p><strong>Avertissement:</strong> Les résultats sont purement indicatifs et sans préjudice d'une analyse approfondie par les autorités compétentes. Aucune conséquence, ni aucun droit légal ne peut être dérivé des résultats de cet outil.</p>
                             </div>
@@ -210,178 +234,9 @@
             </div>
             
             <!-- Section F: Évaluation du niveau d'assurance -->
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingF">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseF" aria-expanded="false" aria-controls="collapseF">
-                        F. Évaluation du niveau d'assurance CyFun
-                    </button>
-                </h2>
-                <div id="collapseF" class="accordion-collapse collapse" aria-labelledby="headingF">
-                    <div class="accordion-body">
-                        <div class="alert alert-info mb-3">
-                            <p>Cette section vous aide à déterminer le niveau d'assurance CyFun approprié pour votre organisation en fonction d'une évaluation des risques.</p>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <h5>Taille de l'organisation</h5>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="orgSize" id="orgSizeSmall" value="1">
-                                <label class="form-check-label" for="orgSizeSmall">Petite (S)</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="orgSize" id="orgSizeMedium" value="2">
-                                <label class="form-check-label" for="orgSizeMedium">Moyenne (M)</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="orgSize" id="orgSizeLarge" value="3">
-                                <label class="form-check-label" for="orgSizeLarge">Grande (L)</label>
-                            </div>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <h5>Évaluation des risques par catégorie d'attaque</h5>
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Catégorie d'attaque</th>
-                                        <th>Impact</th>
-                                        <th>Probabilité</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Sabotage/Perturbation (DDOS, etc.)</td>
-                                        <td>
-                                            <select class="form-select" id="sabotageThreatImpact">
-                                                <option value="1">Faible</option>
-                                                <option value="2">Moyen</option>
-                                                <option value="3" selected>Élevé</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <select class="form-select" id="sabotageThreatProb">
-                                                <option value="1" selected>Faible</option>
-                                                <option value="2">Moyen</option>
-                                                <option value="3">Élevé</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Vol d'information (espionnage, etc.)</td>
-                                        <td>
-                                            <select class="form-select" id="theftThreatImpact">
-                                                <option value="1">Faible</option>
-                                                <option value="2">Moyen</option>
-                                                <option value="3" selected>Élevé</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <select class="form-select" id="theftThreatProb">
-                                                <option value="1" selected>Faible</option>
-                                                <option value="2">Moyen</option>
-                                                <option value="3">Élevé</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Crime (attaques par rançon)</td>
-                                        <td>
-                                            <select class="form-select" id="crimeThreatImpact">
-                                                <option value="1">Faible</option>
-                                                <option value="2">Moyen</option>
-                                                <option value="3" selected>Élevé</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <select class="form-select" id="crimeThreatProb">
-                                                <option value="1" selected>Faible</option>
-                                                <option value="2">Moyen</option>
-                                                <option value="3">Élevé</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Hacktivisme (subversion, défiguration, etc.)</td>
-                                        <td>
-                                            <select class="form-select" id="hacktivismThreatImpact">
-                                                <option value="1">Faible</option>
-                                                <option value="2" selected>Moyen</option>
-                                                <option value="3">Élevé</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <select class="form-select" id="hacktivismThreatProb">
-                                                <option value="1" selected>Faible</option>
-                                                <option value="2">Moyen</option>
-                                                <option value="3">Élevé</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Désinformation (influence politique)</td>
-                                        <td>
-                                            <select class="form-select" id="disinfoThreatImpact">
-                                                <option value="1" selected>Faible</option>
-                                                <option value="2">Moyen</option>
-                                                <option value="3">Élevé</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <select class="form-select" id="disinfoThreatProb">
-                                                <option value="1" selected>Faible</option>
-                                                <option value="2">Moyen</option>
-                                                <option value="3">Élevé</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <h5>Types d'acteurs menaçants</h5>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="threatActorCompetitors" checked>
-                                <label class="form-check-label" for="threatActorCompetitors">Concurrents</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="threatActorHacktivists" checked>
-                                <label class="form-check-label" for="threatActorHacktivists">Idéologues/Hacktivistes</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="threatActorTerrorists" checked>
-                                <label class="form-check-label" for="threatActorTerrorists">Terroristes</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="threatActorCriminals" checked>
-                                <label class="form-check-label" for="threatActorCriminals">Cybercriminels</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="threatActorNationState" checked>
-                                <label class="form-check-label" for="threatActorNationState">Acteurs étatiques</label>
-                            </div>
-                        </div>
-                        
-                        <div class="mt-4">
-                            <button class="btn btn-primary" id="calculateAssuranceBtn">Calculer le niveau d'assurance</button>
-                        </div>
-                        
-                        <div id="assuranceResultContainer" class="mt-4" style="display: none;">
-                            <div class="alert alert-primary">
-                                <h4>Niveau d'assurance CyFun recommandé:</h4>
-                                <p id="assuranceLevel" class="display-6 text-center"></p>
-                            </div>
-                            
-                            <div class="card mb-3">
-                                <div class="card-header">Explication</div>
-                                <div class="card-body">
-                                    <p id="assuranceExplanation"></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!-- Cette section a été déplacée vers assurance_evaluation.html -->
+            
+            <!-- Section F a été supprimée -->
         </div>
         
         <div class="mt-4 text-center">
